@@ -102,24 +102,24 @@
 <li><strong>卷积神经网络每层的卷积核权重是由数据驱动学习得来</strong>，不是人工设计的，人工只能胜任简单卷积核的设计，像边缘，但在边缘响应图之上设计出能描述复杂模式的卷积核则十分困难。<a id="more"></a></li>
 <li><strong>数据驱动卷积神经网络逐层学到由简单到复杂的特征（模式），复杂模式是由简单模式组合而成</strong>，比如Layer4的狗脸是由Layer3的几何图形组合而成，Layer3的几何图形是由Layer2的纹理组合而成，Layer2的纹理是由Layer1的边缘组合而成，从特征图上看的话，Layer4特征图上一个点代表Layer3某种几何图形或表面的组合，Layer3特征图上一个点代表Layer2某种纹理的组合，Layer2特征图上一个点代表Layer1某种边缘的组合。</li>
 <li><strong>这种组合是一种相对灵活的方式在进行</strong>，不同的边缘→不同纹理→不同几何图形和表面→不同的狗脸、不同的物体……，前面层模式的组合可以多种多样，使后面层可以描述的模式也可以多种多样，所以<strong>具有很强的表达能力</strong>，不是“死板”的模板，而是“灵活”的模板，泛化能力更强。</li>
-<li><strong>卷积神经网络真正使用时，还需要配合池化、激活函数等，以获得更强的表达能力，但模式蕴含在卷积核中，如果没有非线性激活函数，网络仍能学到模式，但表达能力会下降</strong>，由论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.02228">《Systematic evaluation of CNN advances on the ImageNet》</a>，在ImageNet上，使用调整后的caffenet，不使用非线性激活函数相比使用ReLU的性能会下降约8个百分点，如下图所示。通过池化和激活函数的配合，可以看到复现出的每层学到的特征是非常单纯的，狗、人、物体是清晰的，少有其他其他元素的干扰，可见网络学到了待检测对象区别于其他对象的模式。<br><img src="MachineLearning.assets\5868203-3096f0d1792c238f.png" alt=""><br><img src="MachineLearning.assets\5868203-2443f3d28a8d4a89.png" alt=""><br><strong>卷积后大小 $m<em>后 = m</em>原 - k_核 + 1 $</strong></li>
+<li><strong>卷积神经网络真正使用时，还需要配合池化、激活函数等，以获得更强的表达能力，但模式蕴含在卷积核中，如果没有非线性激活函数，网络仍能学到模式，但表达能力会下降</strong>，由论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.02228">《Systematic evaluation of CNN advances on the ImageNet》</a>，在ImageNet上，使用调整后的caffenet，不使用非线性激活函数相比使用ReLU的性能会下降约8个百分点，如下图所示。通过池化和激活函数的配合，可以看到复现出的每层学到的特征是非常单纯的，狗、人、物体是清晰的，少有其他其他元素的干扰，可见网络学到了待检测对象区别于其他对象的模式。<br><img src="/images/5868203-3096f0d1792c238f.png" alt=""><br><img src="/images/5868203-2443f3d28a8d4a89.png" alt=""><br><strong>卷积后大小 $m<em>后 = m</em>原 - k_核 + 1 $</strong></li>
 </ol>
 </blockquote>
 </li>
 </ul>
 <h4 id="池化-下采样"><a href="#池化-下采样" class="headerlink" title="池化(下采样)"></a>池化(下采样)</h4><blockquote>
-<p>&emsp;在每一次卷积的时候, 神经层可能会无意地丢失一些信息. 这时, 池化 (pooling) 就可以很好地解决这一问题. 也就是说在卷集的时候, 我们不压缩长宽, 尽量地保留更多信息, 压缩的工作就交给池化了,这样的一项附加工作能够很有效的提高准确性.<br> &emsp; 池化（Pooling）是卷积神经网络中另一个重要的概念，它实际上是一种形式的降采样。有多种不同形式的非线性池化函数，而其中“最大池化（Max pooling）”是最为常见的。它是将输入的图像划分为若干个矩形区域，对每个子区域输出最大值。直觉上，这种机制能够有效地原因在于，在发现一个特征之后，它的精确位置远不及它和其他特征的相对位置的关系重要。池化层会不断地减小数据的空间大小，因此参数的数量和计算量也会下降，这在一定程度上也控制了过拟合。通常来说，CNN的卷积层之间都会周期性地插入池化层。<br> &emsp;池化层通常会分别作用于每个输入的特征并减小其大小。当前最常用形式的池化层是每隔2个元素从图像划分出2*2的区块，然后对每个区块中的4个数取最大值。这将会减少75%的数据量。<br><img src="MachineLearning.assets\5868203-f098eac8d06a40e6.png" alt=""></p>
+<p>&emsp;在每一次卷积的时候, 神经层可能会无意地丢失一些信息. 这时, 池化 (pooling) 就可以很好地解决这一问题. 也就是说在卷集的时候, 我们不压缩长宽, 尽量地保留更多信息, 压缩的工作就交给池化了,这样的一项附加工作能够很有效的提高准确性.<br> &emsp; 池化（Pooling）是卷积神经网络中另一个重要的概念，它实际上是一种形式的降采样。有多种不同形式的非线性池化函数，而其中“最大池化（Max pooling）”是最为常见的。它是将输入的图像划分为若干个矩形区域，对每个子区域输出最大值。直觉上，这种机制能够有效地原因在于，在发现一个特征之后，它的精确位置远不及它和其他特征的相对位置的关系重要。池化层会不断地减小数据的空间大小，因此参数的数量和计算量也会下降，这在一定程度上也控制了过拟合。通常来说，CNN的卷积层之间都会周期性地插入池化层。<br> &emsp;池化层通常会分别作用于每个输入的特征并减小其大小。当前最常用形式的池化层是每隔2个元素从图像划分出2*2的区块，然后对每个区块中的4个数取最大值。这将会减少75%的数据量。<br><img src="/images/5868203-f098eac8d06a40e6.png" alt=""></p>
 </blockquote>
 <hr>
 <hr>
 <h1 id="二、卷积神经网络-Convolutional-Neural-Networks（CNN）"><a href="#二、卷积神经网络-Convolutional-Neural-Networks（CNN）" class="headerlink" title="二、卷积神经网络 Convolutional Neural Networks（CNN）"></a>二、卷积神经网络 Convolutional Neural Networks（CNN）</h1><p>&emsp;卷积也就是说神经网络不再是对每个像素的输入信息做处理了,而是图片上每一小块像素区域进行处理, 这种做法加强了图片信息的连续性. 使得神经网络能看到图形, 而非一个点. 这种做法同时也加深了神经网络对图片的理解. 具体来说, 卷积神经网络有一个批量过滤器, 持续不断的在图片上滚动收集图片里的信息,每一次收集的时候都只是收集一小块像素区域, 然后把收集来的信息进行整理, 这时候整理出来的信息有了一些实际上的呈现, 比如这时的神经网络能看到一些边缘的图片信息, 然后在以同样的步骤, 用类似的批量过滤器扫过产生的这些边缘信息, 神经网络从这些边缘信息里面总结出更高层的信息结构,比如说总结的边缘能够画出眼睛,鼻子等等. 再经过一次过滤, 脸部的信息也从这些眼睛鼻子的信息中被总结出来. 最后我们再把这些信息套入几层普通的全连接神经层进行分类, 这样就能得到输入的图片能被分为哪一类的结果了.<br>&emsp;一张图片,有长, 宽, 高 三个参数. 这里的高指的是计算机用于产生颜色使用的信息. 如果是黑白照片的话, 高的单位就只有1, 如果是彩色照片, 就可能有红绿蓝三种颜色的信息, 这时的高度为3. 我们以彩色照片为例子. 过滤器就是影像中不断移动的东西, 他不断在图片收集小批小批的像素块, 收集完所有信息后, 输出的值, 我们可以理解成是一个高度更高,长和宽更小的”图片”. 这个图片里就能包含一些边缘信息. 然后以同样的步骤再进行多次卷积, 将图片的长宽再压缩, 高度再增加, 就有了对输入图片更深的理解. 将压缩,增高的信息嵌套在普通的分类神经层上,我们就能对这种图片进行分类了.</p>
 <blockquote>
 <p>包含卷积层的神经网络、擅长处理图像<br>常见网络：LeNet、AlexNet、VGG16、GoogleNet、ResNet</p>
-<h1 id="三、循环神经网络-Recurrent-Neural-Networks（RNN）"><a href="#三、循环神经网络-Recurrent-Neural-Networks（RNN）" class="headerlink" title="三、循环神经网络  Recurrent Neural Networks（RNN）"></a>三、循环神经网络  Recurrent Neural Networks（RNN）</h1><h5 id="序列数据"><a href="#序列数据" class="headerlink" title="序列数据"></a>序列数据</h5><p><img src="MachineLearning.assets\5868203-4afe0e186f08981f.png" alt=""></p>
+<h1 id="三、循环神经网络-Recurrent-Neural-Networks（RNN）"><a href="#三、循环神经网络-Recurrent-Neural-Networks（RNN）" class="headerlink" title="三、循环神经网络  Recurrent Neural Networks（RNN）"></a>三、循环神经网络  Recurrent Neural Networks（RNN）</h1><h5 id="序列数据"><a href="#序列数据" class="headerlink" title="序列数据"></a>序列数据</h5><p><img src="/images/5868203-4afe0e186f08981f.png" alt=""></p>
 </blockquote>
 <p>我们想象现在有一组序列数据 data 0,1,2,3. 在当预测 result0 的时候,我们基于的是 data0, 同样在预测其他数据的时候, 我们也都只单单基于单个的数据. 每次使用的神经网络都是同一个 NN. 不过这些数据是有关联 顺序的 , 就像在厨房做菜, 酱料 A要比酱料 B 早放, 不然就串味了. 所以普通的神经网络结构并不能让 NN 了解这些数据之间的关联.</p>
-<h5 id="处理序列数据的神经网络"><a href="#处理序列数据的神经网络" class="headerlink" title="处理序列数据的神经网络"></a>处理序列数据的神经网络</h5><p><img src="MachineLearning.assets\5868203-a2f15d6677d03b05.png" alt=""><br>那我们如何让数据间的关联也被 NN 加以分析呢? 想想我们人类是怎么分析各种事物的关联吧, 最基本的方式,就是记住之前发生的事情. 那我们让神经网络也具备这种记住之前发生的事的能力. 再分析 Data0 的时候, 我们把分析结果存入记忆. 然后当分析 data1的时候, NN会产生新的记忆, 但是新记忆和老记忆是没有联系的. 我们就简单的把老记忆调用过来, 一起分析. 如果继续分析更多的有序数据 , RNN就会把之前的记忆都累积起来, 一起分析.</p>
-<p><img src="MachineLearning.assets\5868203-d6bbcb852373c907.png" alt=""></p>
+<h5 id="处理序列数据的神经网络"><a href="#处理序列数据的神经网络" class="headerlink" title="处理序列数据的神经网络"></a>处理序列数据的神经网络</h5><p><img src="/images/5868203-a2f15d6677d03b05.png" alt=""><br>那我们如何让数据间的关联也被 NN 加以分析呢? 想想我们人类是怎么分析各种事物的关联吧, 最基本的方式,就是记住之前发生的事情. 那我们让神经网络也具备这种记住之前发生的事的能力. 再分析 Data0 的时候, 我们把分析结果存入记忆. 然后当分析 data1的时候, NN会产生新的记忆, 但是新记忆和老记忆是没有联系的. 我们就简单的把老记忆调用过来, 一起分析. 如果继续分析更多的有序数据 , RNN就会把之前的记忆都累积起来, 一起分析.</p>
+<p><img src="/images/5868203-d6bbcb852373c907.png" alt=""></p>
 <p>再重复一遍刚才的流程, 不过这次是以加入一些数学方面的东西. 每次 RNN 运算完之后都会产生一个对于当前状态的描述 , state. 我们用简写 S( t) 代替, 然后这个 RNN开始分析 x(t+1) , 他会根据 x(t+1)产生s(t+1), 不过此时 y(t+1) 是由 s(t) 和 s(t+1) 共同创造的. 所以我们通常看到的 RNN 也可以表达成这种样子.</p>
 <blockquote>
 <p>为处理时序数据而设计的，例如一段文字或者语音<br>常见网络：长短期记忆（long short-term memory，LSTM）</p>
@@ -127,15 +127,15 @@
 <hr>
 </blockquote>
 <h3 id="典型的循环神经网络LeNet"><a href="#典型的循环神经网络LeNet" class="headerlink" title="典型的循环神经网络LeNet"></a>典型的循环神经网络LeNet</h3><blockquote>
-<p>LeNet网络最早由纽约大学的Yann LeCun等人于1998年提出，也称LeNet5，它是卷积神经网络的鼻祖，被誉为卷积神经网络的”Hello World”。<br><img src="MachineLearning.assets\5868203-0b78b17e4f1bb64d.png" alt=""><br><img src="MachineLearning.assets\5868203-ed9a1ff5d825ce77.png" alt=""></p>
+<p>LeNet网络最早由纽约大学的Yann LeCun等人于1998年提出，也称LeNet5，它是卷积神经网络的鼻祖，被誉为卷积神经网络的”Hello World”。<br><img src="/images/5868203-0b78b17e4f1bb64d.png" alt=""><br><img src="/images/5868203-ed9a1ff5d825ce77.png" alt=""></p>
 </blockquote>
-<h6 id="第一个卷积层"><a href="#第一个卷积层" class="headerlink" title="第一个卷积层"></a>第一个卷积层</h6><p><img src="MachineLearning.assets\5868203-a2c501fd05dd19a2.png" alt=""></p>
-<h6 id="第一个池化层"><a href="#第一个池化层" class="headerlink" title="第一个池化层"></a>第一个池化层</h6><p><img src="MachineLearning.assets\5868203-bd3f297134726d84.png" alt=""></p>
-<h6 id="第二个卷积层"><a href="#第二个卷积层" class="headerlink" title="第二个卷积层"></a>第二个卷积层</h6><p><img src="MachineLearning.assets\5868203-f0aaff0224464d8e.png" alt=""></p>
-<h6 id="第二个池化层"><a href="#第二个池化层" class="headerlink" title="第二个池化层"></a>第二个池化层</h6><p><img src="MachineLearning.assets\5868203-08db0f2576bd9d1b.png" alt=""></p>
-<h6 id="全连接卷积层"><a href="#全连接卷积层" class="headerlink" title="全连接卷积层"></a>全连接卷积层</h6><p><img src="MachineLearning.assets\5868203-ddfd914105bc7be6.png" alt=""></p>
-<h6 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h6><p><img src="MachineLearning.assets\5868203-c0e57d2891aea926.png" alt=""></p>
-<h5 id="全连接层（输出层）"><a href="#全连接层（输出层）" class="headerlink" title="全连接层（输出层）"></a>全连接层（输出层）</h5><p><img src="MachineLearning.assets\5868203-1017a57f6e185f0c.png" alt=""></p>
+<h6 id="第一个卷积层"><a href="#第一个卷积层" class="headerlink" title="第一个卷积层"></a>第一个卷积层</h6><p><img src="/images/5868203-a2c501fd05dd19a2.png" alt=""></p>
+<h6 id="第一个池化层"><a href="#第一个池化层" class="headerlink" title="第一个池化层"></a>第一个池化层</h6><p><img src="/images/5868203-bd3f297134726d84.png" alt=""></p>
+<h6 id="第二个卷积层"><a href="#第二个卷积层" class="headerlink" title="第二个卷积层"></a>第二个卷积层</h6><p><img src="/images/5868203-f0aaff0224464d8e.png" alt=""></p>
+<h6 id="第二个池化层"><a href="#第二个池化层" class="headerlink" title="第二个池化层"></a>第二个池化层</h6><p><img src="/images/5868203-08db0f2576bd9d1b.png" alt=""></p>
+<h6 id="全连接卷积层"><a href="#全连接卷积层" class="headerlink" title="全连接卷积层"></a>全连接卷积层</h6><p><img src="/images/5868203-ddfd914105bc7be6.png" alt=""></p>
+<h6 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h6><p><img src="/images/5868203-c0e57d2891aea926.png" alt=""></p>
+<h5 id="全连接层（输出层）"><a href="#全连接层（输出层）" class="headerlink" title="全连接层（输出层）"></a>全连接层（输出层）</h5><p><img src="/images/5868203-1017a57f6e185f0c.png" alt=""></p>
 <h2 id="—"><a href="#—" class="headerlink" title="—-"></a>—-</h2><h1 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h1><ul>
 <li>关键字</li>
 </ul>

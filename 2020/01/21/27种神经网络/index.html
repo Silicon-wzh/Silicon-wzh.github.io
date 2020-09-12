@@ -95,92 +95,92 @@
       
 
       
-      <h1 id="1-Perceptron-感知机"><a href="#1-Perceptron-感知机" class="headerlink" title="1.Perceptron 感知机"></a>1.Perceptron 感知机</h1><p><img src="27种神经网络.assets\5868203-5c57b7e9a386d09b.png" alt=""></p>
+      <h1 id="1-Perceptron-感知机"><a href="#1-Perceptron-感知机" class="headerlink" title="1.Perceptron 感知机"></a>1.Perceptron 感知机</h1><p><img src="/images/5868203-5c57b7e9a386d09b.png" alt=""></p>
 <p>Perceptron 感知机，我们知道的最简单和最古老的神经元模型。接收一些输入，把它们加总，通过激活函数并传递到输出层。这没什么神奇的地方。<br><a id="more"></a></p>
-<h1 id="2-前馈神经网络（FF）"><a href="#2-前馈神经网络（FF）" class="headerlink" title="2.前馈神经网络（FF）"></a>2.前馈神经网络（FF）</h1><p><img src="27种神经网络.assets\5868203-6308253eeecad4a8.JPEG" alt=""></p>
+<h1 id="2-前馈神经网络（FF）"><a href="#2-前馈神经网络（FF）" class="headerlink" title="2.前馈神经网络（FF）"></a>2.前馈神经网络（FF）</h1><p><img src="/images/5868203-6308253eeecad4a8.JPEG" alt=""></p>
 <p>前馈神经网络（FF），这也是一个很古老的方法——这种方法起源于50年代。它的工作原理通常遵循以下规则：</p>
 <p>1.所有节点都完全连接</p>
 <p>2.激活从输入层流向输出，无回环</p>
 <p>3.输入和输出之间有一层（隐含层）</p>
 <p>在大多数情况下，这种类型的网络使用反向传播方法进行训练。</p>
-<h1 id="3-RBF-神经网络"><a href="#3-RBF-神经网络" class="headerlink" title="3.RBF 神经网络"></a>3.RBF 神经网络</h1><p><img src="27种神经网络.assets\5868203-f2ad6853fc2c7118.JPEG" alt=""></p>
+<h1 id="3-RBF-神经网络"><a href="#3-RBF-神经网络" class="headerlink" title="3.RBF 神经网络"></a>3.RBF 神经网络</h1><p><img src="/images/5868203-f2ad6853fc2c7118.JPEG" alt=""></p>
 <p>RBF 神经网络实际上是激活函数是径向基函数而非逻辑函数的FF前馈神经网络（FF）。两者之间有什么区别呢？</p>
 <p>逻辑函数将某个任意值映射到[0 ,… 1]范围内来，回答“是或否”问题。适用于分类决策系统，但不适用于连续变量。</p>
 <p>相反，径向基函数能显示“我们距离目标有多远”。 这完美适用于函数逼近和机器控制（例如作为PID控制器的替代）。</p>
 <p>简而言之，这些只是具有不同激活函数和应用方向的前馈网络。</p>
-<h1 id="4-DFF深度前馈神经网络"><a href="#4-DFF深度前馈神经网络" class="headerlink" title="4.DFF深度前馈神经网络"></a>4.DFF深度前馈神经网络</h1><p><img src="27种神经网络.assets\5868203-f7b4a36ae0855eb6.JPEG" alt=""></p>
+<h1 id="4-DFF深度前馈神经网络"><a href="#4-DFF深度前馈神经网络" class="headerlink" title="4.DFF深度前馈神经网络"></a>4.DFF深度前馈神经网络</h1><p><img src="/images/5868203-f7b4a36ae0855eb6.JPEG" alt=""></p>
 <p>DFF深度前馈神经网络在90年代初期开启了深度学习的潘多拉盒子。这些依然是前馈神经网络，但有不止一个隐含层。那么，它到底有什么特殊性？</p>
 <p>在训练传统的前馈神经网络时，我们只向上一层传递了少量的误差信息。由于堆叠更多的层次导致训练时间的指数增长，使得深度前馈神经网络非常不实用。直到00年代初，我们开发了一系列有效的训练深度前馈神经网络的方法; 现在它们构成了现代机器学习系统的核心，能实现前馈神经网络的功能，但效果远高于此。</p>
-<h1 id="5-RNN递归神经网络"><a href="#5-RNN递归神经网络" class="headerlink" title="5.RNN递归神经网络"></a>5.RNN递归神经网络</h1><p><img src="27种神经网络.assets\5868203-3922e3667c8a04ca.JPEG" alt=""></p>
+<h1 id="5-RNN递归神经网络"><a href="#5-RNN递归神经网络" class="headerlink" title="5.RNN递归神经网络"></a>5.RNN递归神经网络</h1><p><img src="/images/5868203-3922e3667c8a04ca.JPEG" alt=""></p>
 <p>RNN递归神经网络引入不同类型的神经元——递归神经元。这种类型的第一个网络被称为约旦网络（Jordan Network），在网络中每个隐含神经元会收到它自己的在固定延迟（一次或多次迭代）后的输出。除此之外，它与普通的模糊神经网络非常相似。</p>
 <p>当然，它有许多变化 — 如传递状态到输入节点，可变延迟等，但主要思想保持不变。这种类型的神经网络主要被使用在上下文很重要的时候——即过去的迭代结果和样本产生的决策会对当前产生影响。最常见的上下文的例子是文本——一个单词只能在前面的单词或句子的上下文中进行分析。</p>
-<h1 id="6-LSTM长短时记忆网络"><a href="#6-LSTM长短时记忆网络" class="headerlink" title="6.LSTM长短时记忆网络"></a>6.LSTM长短时记忆网络</h1><p><img src="27种神经网络.assets\5868203-64a2a05c180151fe.JPEG" alt=""></p>
+<h1 id="6-LSTM长短时记忆网络"><a href="#6-LSTM长短时记忆网络" class="headerlink" title="6.LSTM长短时记忆网络"></a>6.LSTM长短时记忆网络</h1><p><img src="/images/5868203-64a2a05c180151fe.JPEG" alt=""></p>
 <p>LSTM长短时记忆网络引入了一个存储单元，一个特殊的单元，当数据有时间间隔（或滞后）时可以处理数据。递归神经网络可以通过“记住”前十个词来处理文本，LSTM长短时记忆网络可以通过“记住”许多帧之前发生的事情处理视频帧。 LSTM网络也广泛用于写作和语音识别。</p>
 <p>存储单元实际上由一些元素组成，称为门，它们是递归性的，并控制信息如何被记住和遗忘。下图很好的解释了LSTM的结构:</p>
-<p><img src="27种神经网络.assets\5868203-f215fe6221e9e0da.JPEG" alt=""></p>
+<p><img src="/images/5868203-f215fe6221e9e0da.JPEG" alt=""></p>
 <p>上图的（x）是门，他们拥有自己的权重，有时也有激活函数。在每个样本上，他们决定是否传递数据，擦除记忆等等 - 你可以在这里(<a target="_blank" rel="noopener" href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/)阅读更详细的解释。">http://colah.github.io/posts/2015-08-Understanding-LSTMs/)阅读更详细的解释。</a> 输入门(Input Gate)决定上一个样本有多少的信息将保存在内存中; 输出门调节传输到下一层的数据量，遗忘门(Forget Gate)控制存储记忆的损失率。</p>
 <p>然而，这是LSTM单元的一个非常简单的实现，还有许多其他架构存在。</p>
-<h1 id="7-GRU"><a href="#7-GRU" class="headerlink" title="7.GRU"></a>7.GRU</h1><p><img src="27种神经网络.assets\5868203-c40bab9183c7d63e.JPEG" alt=""></p>
+<h1 id="7-GRU"><a href="#7-GRU" class="headerlink" title="7.GRU"></a>7.GRU</h1><p><img src="/images/5868203-c40bab9183c7d63e.JPEG" alt=""></p>
 <p>GRU是具有不同门的LSTM。</p>
 <p>听起来很简单，但缺少输出门可以更容易基于具体输入重复多次相同的输出，目前此模型在声音（音乐）和语音合成中使用得最多。</p>
 <p>实际上的组合虽然有点不同：但是所有的LSTM门都被组合成所谓的更新门(Update Gate)，并且复位门(Reset Gate)与输入密切相关。</p>
 <p>它们比LSTM消耗资源少，但几乎有相同的效果。</p>
-<h1 id="8-Autoencoders自动编码器"><a href="#8-Autoencoders自动编码器" class="headerlink" title="8.Autoencoders自动编码器"></a>8.Autoencoders自动编码器</h1><p><img src="27种神经网络.assets\5868203-1addc5d7a9ef2b3a.JPEG" alt=""></p>
+<h1 id="8-Autoencoders自动编码器"><a href="#8-Autoencoders自动编码器" class="headerlink" title="8.Autoencoders自动编码器"></a>8.Autoencoders自动编码器</h1><p><img src="/images/5868203-1addc5d7a9ef2b3a.JPEG" alt=""></p>
 <p>Autoencoders自动编码器用于分类，聚类和特征压缩。</p>
 <p>当您训练前馈(FF)神经网络进行分类时，您主要必须在Y类别中提供X个示例，并且期望Y个输出单元格中的一个被激活。 这被称为“监督学习”。</p>
 <p>另一方面，自动编码器可以在没有监督的情况下进行训练。它们的结构 - 当隐藏单元数量小于输入单元数量（并且输出单元数量等于输入单元数）时，并且当自动编码器被训练时输出尽可能接近输入的方式，强制自动编码器泛化数据并搜索常见模式。</p>
-<h1 id="9-变分自编码器"><a href="#9-变分自编码器" class="headerlink" title="9.变分自编码器"></a>9.变分自编码器</h1><p><img src="27种神经网络.assets\5868203-399acd8b3ee60cec.JPEG" alt=""></p>
+<h1 id="9-变分自编码器"><a href="#9-变分自编码器" class="headerlink" title="9.变分自编码器"></a>9.变分自编码器</h1><p><img src="/images/5868203-399acd8b3ee60cec.JPEG" alt=""></p>
 <p>变分自编码器，与一般自编码器相比，它压缩的是概率，而不是特征。</p>
 <p>尽管如此简单的改变，但是一般自编码器只能回答当“我们如何归纳数据？”的问题时，变分自编码器回答了“两件事情之间的联系有多强大？我们应该在两件事情之间分配误差还是它们完全独立的？”的问题。</p>
 <p>在这里(<a target="_blank" rel="noopener" href="https://github.com/kvfrans/variational-autoencoder)可以看到一些更深入的解释（含代码示例）。">https://github.com/kvfrans/variational-autoencoder)可以看到一些更深入的解释（含代码示例）。</a></p>
-<h1 id="10-降噪自动编码器（DAE）"><a href="#10-降噪自动编码器（DAE）" class="headerlink" title="10.降噪自动编码器（DAE）"></a>10.降噪自动编码器（DAE）</h1><p><img src="27种神经网络.assets\5868203-3e1fa7024c748b17.JPEG" alt=""></p>
+<h1 id="10-降噪自动编码器（DAE）"><a href="#10-降噪自动编码器（DAE）" class="headerlink" title="10.降噪自动编码器（DAE）"></a>10.降噪自动编码器（DAE）</h1><p><img src="/images/5868203-3e1fa7024c748b17.JPEG" alt=""></p>
 <p>虽然自动编码器很酷，但它们有时找不到最鲁棒的特征，而只是适应输入数据（实际上是过拟合的一个例子）。</p>
 <p>降噪自动编码器（DAE）在输入单元上增加了一些噪声 - 通过随机位来改变数据，随机切换输入中的位，等等。通过这样做，一个强制降噪自动编码器从一个有点嘈杂的输入重构输出，使其更加通用，强制选择更常见的特征。</p>
-<h1 id="11-稀疏自编码器（SAE）"><a href="#11-稀疏自编码器（SAE）" class="headerlink" title="11.稀疏自编码器（SAE）"></a>11.稀疏自编码器（SAE）</h1><p><img src="27种神经网络.assets\5868203-29af055d8db82f21.JPEG" alt=""></p>
+<h1 id="11-稀疏自编码器（SAE）"><a href="#11-稀疏自编码器（SAE）" class="headerlink" title="11.稀疏自编码器（SAE）"></a>11.稀疏自编码器（SAE）</h1><p><img src="/images/5868203-29af055d8db82f21.JPEG" alt=""></p>
 <p>稀疏自编码器（SAE）是另外一个有时候可以抽离出数据中一些隐藏分组样试的自动编码的形式。结构和AE是一样的，但隐藏单元的数量大于输入或输出单元的数量。</p>
-<h1 id="12-马尔可夫链（Markov-Chain-MC）"><a href="#12-马尔可夫链（Markov-Chain-MC）" class="headerlink" title="12.马尔可夫链（Markov Chain, MC）"></a>12.马尔可夫链（Markov Chain, MC）</h1><p><img src="27种神经网络.assets\5868203-00e22f14f3909a50.JPEG" alt=""></p>
+<h1 id="12-马尔可夫链（Markov-Chain-MC）"><a href="#12-马尔可夫链（Markov-Chain-MC）" class="headerlink" title="12.马尔可夫链（Markov Chain, MC）"></a>12.马尔可夫链（Markov Chain, MC）</h1><p><img src="/images/5868203-00e22f14f3909a50.JPEG" alt=""></p>
 <p>马尔可夫链（Markov Chain, MC）是一个比较老的图表概念了，它的每一个端点都存在一种可能性。过去，我们用它来搭建像“在单词hello之后有0.0053％的概率会出现dear，有0.03551%的概率出现you”这样的文本结构。</p>
 <p>这些马尔科夫链并不是典型的神经网络，它可以被用作基于概率的分类（像贝叶斯过滤），用于聚类（对某些类别而言），也被用作有限状态机。</p>
-<h1 id="13-霍普菲尔网络（HN）"><a href="#13-霍普菲尔网络（HN）" class="headerlink" title="13.霍普菲尔网络（HN）"></a>13.霍普菲尔网络（HN）</h1><p><img src="27种神经网络.assets\5868203-574728f8e783c9a8.JPEG" alt=""></p>
+<h1 id="13-霍普菲尔网络（HN）"><a href="#13-霍普菲尔网络（HN）" class="headerlink" title="13.霍普菲尔网络（HN）"></a>13.霍普菲尔网络（HN）</h1><p><img src="/images/5868203-574728f8e783c9a8.JPEG" alt=""></p>
 <p>霍普菲尔网络（HN）对一套有限的样本进行训练，所以它们用相同的样本对已知样本作出反应。</p>
 <p>在训练前，每一个样本都作为输入样本，在训练之中作为隐藏样本，使用过之后被用作输出样本。</p>
 <p>在HN试着重构受训样本的时候，他们可以用于给输入值降噪和修复输入。如果给出一半图片或数列用来学习，它们可以反馈全部样本。</p>
-<h1 id="14-波尔滋曼机（BM）"><a href="#14-波尔滋曼机（BM）" class="headerlink" title="14.波尔滋曼机（BM）"></a>14.波尔滋曼机（BM）</h1><p><img src="27种神经网络.assets\5868203-ae3bafb5efa65639.JPEG" alt=""></p>
+<h1 id="14-波尔滋曼机（BM）"><a href="#14-波尔滋曼机（BM）" class="headerlink" title="14.波尔滋曼机（BM）"></a>14.波尔滋曼机（BM）</h1><p><img src="/images/5868203-ae3bafb5efa65639.JPEG" alt=""></p>
 <p>波尔滋曼机（BM）和HN非常相像，有些单元被标记为输入同时也是隐藏单元。在隐藏单元更新其状态时，输入单元就变成了输出单元。（在训练时，BM和HN一个一个的更新单元，而非并行）。</p>
 <p>这是第一个成功保留模拟退火方法的网络拓扑。</p>
 <p>多层叠的波尔滋曼机可以用于所谓的深度信念网络（等一下会介绍），深度信念网络可以用作特征检测和抽取。</p>
-<h1 id="15-限制型波尔滋曼机（RBM）"><a href="#15-限制型波尔滋曼机（RBM）" class="headerlink" title="15.限制型波尔滋曼机（RBM）"></a>15.限制型波尔滋曼机（RBM）</h1><p><img src="27种神经网络.assets\5868203-f12f67256f64e004.JPEG" alt=""></p>
+<h1 id="15-限制型波尔滋曼机（RBM）"><a href="#15-限制型波尔滋曼机（RBM）" class="headerlink" title="15.限制型波尔滋曼机（RBM）"></a>15.限制型波尔滋曼机（RBM）</h1><p><img src="/images/5868203-f12f67256f64e004.JPEG" alt=""></p>
 <p>在结构上，限制型波尔滋曼机（RBM）和BM很相似，但由于受限RBM被允许像FF一样用反向传播来训练（唯一的不同的是在反向传播经过数据之前RBM会经过一次输入层）。</p>
-<h1 id="16-深度信念网络（DBN）"><a href="#16-深度信念网络（DBN）" class="headerlink" title="16.深度信念网络（DBN）"></a>16.深度信念网络（DBN）</h1><p><img src="27种神经网络.assets\5868203-aa3480614306a48e.JPEG" alt=""></p>
+<h1 id="16-深度信念网络（DBN）"><a href="#16-深度信念网络（DBN）" class="headerlink" title="16.深度信念网络（DBN）"></a>16.深度信念网络（DBN）</h1><p><img src="/images/5868203-aa3480614306a48e.JPEG" alt=""></p>
 <p>像之前提到的那样，深度信念网络（DBN）实际上是许多波尔滋曼机（被VAE包围）。他们能被连在一起（在一个神经网络训练另一个的时候），并且可以用已经学习过的样式来生成数据。</p>
-<h1 id="17-深度卷积网络（DCN）"><a href="#17-深度卷积网络（DCN）" class="headerlink" title="17.深度卷积网络（DCN）"></a>17.深度卷积网络（DCN）</h1><p><img src="27种神经网络.assets\5868203-58af52a98b1487be.JPEG" alt=""></p>
+<h1 id="17-深度卷积网络（DCN）"><a href="#17-深度卷积网络（DCN）" class="headerlink" title="17.深度卷积网络（DCN）"></a>17.深度卷积网络（DCN）</h1><p><img src="/images/5868203-58af52a98b1487be.JPEG" alt=""></p>
 <p>当今，深度卷积网络（DCN）是人工神经网络之星。它具有卷积单元（或者池化层）和内核，每一种都用以不同目的。</p>
 <p>卷积核事实上用来处理输入的数据，池化层是用来简化它们（大多数情况是用非线性方程，比如max），来减少不必要的特征。</p>
 <p>他们通常被用来做图像识别，它们在图片的一小部分上运行（大约20x20像素）。输入窗口一个像素一个像素的沿着图像滑动。然后数据流向卷积层，卷积层形成一个漏斗（压缩被识别的特征）。从图像识别来讲，第一层识别梯度，第二层识别线，第三层识别形状，以此类推，直到特定的物体那一级。DFF通常被接在卷积层的末端方便未来的数据处理。</p>
-<h1 id="18-去卷积网络（DN）"><a href="#18-去卷积网络（DN）" class="headerlink" title="18.去卷积网络（DN）"></a>18.去卷积网络（DN）</h1><p><img src="27种神经网络.assets\5868203-a10a20f1d548609f.JPEG" alt=""></p>
+<h1 id="18-去卷积网络（DN）"><a href="#18-去卷积网络（DN）" class="headerlink" title="18.去卷积网络（DN）"></a>18.去卷积网络（DN）</h1><p><img src="/images/5868203-a10a20f1d548609f.JPEG" alt=""></p>
 <p>去卷积网络（DN）是将DCN颠倒过来。DN能在获取猫的图片之后生成像（狗：0，蜥蜴：0，马：0，猫：1）一样的向量。DNC能在得到这个向量之后，能画出一只猫。</p>
-<h1 id="19-深度卷积反转图像网络（DCIGN）"><a href="#19-深度卷积反转图像网络（DCIGN）" class="headerlink" title="19.深度卷积反转图像网络（DCIGN）"></a>19.深度卷积反转图像网络（DCIGN）</h1><p><img src="27种神经网络.assets\5868203-7dcc3d35ce4447cd.JPEG" alt=""></p>
+<h1 id="19-深度卷积反转图像网络（DCIGN）"><a href="#19-深度卷积反转图像网络（DCIGN）" class="headerlink" title="19.深度卷积反转图像网络（DCIGN）"></a>19.深度卷积反转图像网络（DCIGN）</h1><p><img src="/images/5868203-7dcc3d35ce4447cd.JPEG" alt=""></p>
 <p>深度卷积反转图像网络（DCIGN），长得像DCN和DN粘在一起，但也不完全是这样。</p>
 <p>事实上，它是一个自动编码器，DCN和DN并不是作为两个分开的网络，而是承载网路输入和输出的间隔区。大多数这种神经网络可以被用作图像处理，并且可以处理他们以前没有被训练过的图像。由于其抽象化的水平很高，这些网络可以用于将某个事物从一张图片中移除，重画，或者像大名鼎鼎的CycleGAN一样将一匹马换成一个斑马。</p>
-<h1 id="20-生成对抗网络（GAN）"><a href="#20-生成对抗网络（GAN）" class="headerlink" title="20.生成对抗网络（GAN）"></a>20.生成对抗网络（GAN）</h1><p><img src="27种神经网络.assets\5868203-04b194e6db477b97.JPEG" alt=""></p>
+<h1 id="20-生成对抗网络（GAN）"><a href="#20-生成对抗网络（GAN）" class="headerlink" title="20.生成对抗网络（GAN）"></a>20.生成对抗网络（GAN）</h1><p><img src="/images/5868203-04b194e6db477b97.JPEG" alt=""></p>
 <p>生成对抗网络（GAN）代表了有生成器和分辨器组成的双网络大家族。它们一直在相互伤害——生成器试着生成一些数据，而分辨器接收样本数据后试着分辨出哪些是样本，哪些是生成的。只要你能够保持两种神经网络训练之间的平衡，在不断的进化中，这种神经网络可以生成实际图像。</p>
-<h1 id="21-液体状态机（LSM）"><a href="#21-液体状态机（LSM）" class="headerlink" title="21.液体状态机（LSM）"></a>21.液体状态机（LSM）</h1><p><img src="27种神经网络.assets\5868203-8a52cb53d67c3ab4.JPEG" alt=""></p>
+<h1 id="21-液体状态机（LSM）"><a href="#21-液体状态机（LSM）" class="headerlink" title="21.液体状态机（LSM）"></a>21.液体状态机（LSM）</h1><p><img src="/images/5868203-8a52cb53d67c3ab4.JPEG" alt=""></p>
 <p>液体状态机（LSM）是一种稀疏的，激活函数被阈值代替了的（并不是全部相连的）神经网络。只有达到阈值的时候，单元格从连续的样本和释放出来的输出中积累价值信息，并再次将内部的副本设为零。</p>
 <p>这种想法来自于人脑，这些神经网络被广泛的应用于计算机视觉，语音识别系统，但目前还没有重大突破。</p>
-<h1 id="22-极端学习机（ELM）"><a href="#22-极端学习机（ELM）" class="headerlink" title="22.极端学习机（ELM）"></a>22.极端学习机（ELM）</h1><p><img src="27种神经网络.assets\5868203-db9a0310f117782b.JPEG" alt=""></p>
+<h1 id="22-极端学习机（ELM）"><a href="#22-极端学习机（ELM）" class="headerlink" title="22.极端学习机（ELM）"></a>22.极端学习机（ELM）</h1><p><img src="/images/5868203-db9a0310f117782b.JPEG" alt=""></p>
 <p>极端学习机（ELM）是通过产生稀疏的随机连接的隐藏层来减少FF网络背后的复杂性。它们需要用到更少计算机的能量，实际的效率很大程度上取决于任务和数据。</p>
-<h1 id="23-回声状态网络（ESN）"><a href="#23-回声状态网络（ESN）" class="headerlink" title="23.回声状态网络（ESN）"></a>23.回声状态网络（ESN）</h1><p><img src="27种神经网络.assets\5868203-7db5a50527f4f396.JPEG" alt=""></p>
+<h1 id="23-回声状态网络（ESN）"><a href="#23-回声状态网络（ESN）" class="headerlink" title="23.回声状态网络（ESN）"></a>23.回声状态网络（ESN）</h1><p><img src="/images/5868203-7db5a50527f4f396.JPEG" alt=""></p>
 <p>回声状态网络（ESN）是重复网络的细分种类。数据会经过输入端，如果被监测到进行了多次迭代（请允许重复网路的特征乱入一下），只有在隐藏层之间的权重会在此之后更新。</p>
 <p>据我所知，除了多个理论基准之外，我不知道这种类型的有什么实际应用。欢迎留下你的不同意见～</p>
-<h1 id="24-深度残差网络（DRN）"><a href="#24-深度残差网络（DRN）" class="headerlink" title="24.深度残差网络（DRN）"></a>24.深度残差网络（DRN）</h1><p><img src="27种神经网络.assets\5868203-bd8a3890052fd235.JPEG" alt=""></p>
+<h1 id="24-深度残差网络（DRN）"><a href="#24-深度残差网络（DRN）" class="headerlink" title="24.深度残差网络（DRN）"></a>24.深度残差网络（DRN）</h1><p><img src="/images/5868203-bd8a3890052fd235.JPEG" alt=""></p>
 <p>深度残差网络（DRN）是有些输入值的部分会传递到下一层。这一特点可以让它可以做到很深的层级（达到300层），但事实上它们是一种没有明确延时的RNN。</p>
-<h1 id="25-Kohonen神经网络（KN）"><a href="#25-Kohonen神经网络（KN）" class="headerlink" title="25.Kohonen神经网络（KN）"></a>25.Kohonen神经网络（KN）</h1><p><img src="27种神经网络.assets\5868203-908592131da0769f.JPEG" alt=""></p>
+<h1 id="25-Kohonen神经网络（KN）"><a href="#25-Kohonen神经网络（KN）" class="headerlink" title="25.Kohonen神经网络（KN）"></a>25.Kohonen神经网络（KN）</h1><p><img src="/images/5868203-908592131da0769f.JPEG" alt=""></p>
 <p>Kohonen神经网络（KN）引入了“单元格距离”的特征。大多数情况下用于分类，这种网络试着调整它们的单元格使其对某种特定的输入作出最可能的反应。当一些单元格更新了， 离他们最近的单元格也会更新。</p>
 <p>像SVM一样，这些网络总被认为不是“真正”的神经网络。</p>
-<h1 id="26-支持向量机（SVM）"><a href="#26-支持向量机（SVM）" class="headerlink" title="26.支持向量机（SVM）"></a>26.支持向量机（SVM）</h1><p><img src="27种神经网络.assets\5868203-e0e626ffab7676e4.JPEG" alt=""></p>
+<h1 id="26-支持向量机（SVM）"><a href="#26-支持向量机（SVM）" class="headerlink" title="26.支持向量机（SVM）"></a>26.支持向量机（SVM）</h1><p><img src="/images/5868203-e0e626ffab7676e4.JPEG" alt=""></p>
 <p>支持向量机（SVM）用于二元分类工作，无论这个网络处理多少维度或输入，结果都会是“是”或“否”。</p>
 <p>SVM不是所有情况下都被叫做神经网络。</p>
-<h1 id="27-神经图灵机（NTM）"><a href="#27-神经图灵机（NTM）" class="headerlink" title="27.神经图灵机（NTM）"></a>27.神经图灵机（NTM）</h1><p><img src="27种神经网络.assets\5868203-868221b50cd0a3f5.JPEG" alt=""></p>
+<h1 id="27-神经图灵机（NTM）"><a href="#27-神经图灵机（NTM）" class="headerlink" title="27.神经图灵机（NTM）"></a>27.神经图灵机（NTM）</h1><p><img src="/images/5868203-868221b50cd0a3f5.JPEG" alt=""></p>
 <p>神经网络像是黑箱——我们可以训练它们，得到结果，增强它们，但实际的决定路径大多数我们都是不可见的。</p>
 <p>神经图灵机（NTM）就是在尝试解决这个问题——它是一个提取出记忆单元之后的FF。一些作者也说它是一个抽象版的LSTM。</p>
 <p>记忆是被内容编址的，这个网络可以基于现状读取记忆，编写记忆，也代表了图灵完备神经网络。</p>
