@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    4-Vector |  Hexo
+    02-Input&amp;Output |  Hexo
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -31,7 +31,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-4-Vector" class="article article-type-post" itemscope
+  <article id="post-2-Input-and-Output" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -39,7 +39,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  4-Vector
+  02-Input&amp;Output
 </h1>
   
 
@@ -48,8 +48,8 @@
 
     
     <div class="article-meta">
-      <a href="/2018/06/25/4-Vector/" class="article-date">
-  <time datetime="2018-06-25T04:18:14.000Z" itemprop="datePublished">2018-06-25</time>
+      <a href="/2018/06/24/2-Input-and-Output/" class="article-date">
+  <time datetime="2018-06-24T07:21:34.000Z" itemprop="datePublished">2018-06-24</time>
 </a>
       
       
@@ -59,7 +59,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">696字</span>
+            <span class="post-count">643字</span>
         </span>
     </span>
 
@@ -68,7 +68,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3分钟</span>
+            <span class="post-count">2分钟</span>
         </span>
     </span>
 </div>
@@ -95,13 +95,26 @@
       
 
       
-      <p>vector是定义在C++标准模板库，它是一个多功能、能够操作多种数据结构和算法的模板类(关于模板类我们后面会介绍，如何创建自己的模板类)。vector是一个容器，能够像容器一样存放各种类型的对象。vector是一个能够存放任意类型的动态数组，能够增加和删除元素，可以完全替代C语言风格的动态数组，由于vector能够自动的管理内存，我们不需要考虑内存的增长和释放、具有很好的安全性。<br><a id="more"></a></p>
-<h3 id="1-包含头文件-使用命名空间"><a href="#1-包含头文件-使用命名空间" class="headerlink" title="1.包含头文件 ,使用命名空间"></a>1.包含头文件 ,使用命名空间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;vector&gt;</span><br><span class="line">using namespace std；</span><br></pre></td></tr></table></figure>
-<h3 id="2-定义和声明vector对象"><a href="#2-定义和声明vector对象" class="headerlink" title="2.定义和声明vector对象"></a>2.定义和声明vector对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;T&gt; v1;  &#x2F;&#x2F;T是一种数据类型，系统定义的或者你自己定义的类，但是不能是引用，T类型的，但是没有元素</span><br><span class="line">vector&lt;T&gt; v2(v1);   &#x2F;&#x2F;v1与v2必须是同类型，等同于赋值运算符，两个变量的元素一样</span><br><span class="line">vector&lt;T&gt; v2 &#x3D; v1; &#x2F;&#x2F;同上</span><br><span class="line">vector&lt;T&gt; v3(n, value) &#x2F;&#x2F;n个重复元素 ，每个元素值都是value</span><br><span class="line">vector&lt;T&gt; v4(n)   &#x2F;&#x2F;n个对象，对象的值根据类型不同而不同，自动初始化，如果是int类型，就被初始化为0；如果是字符串，就被初始化为空的字符串</span><br></pre></td></tr></table></figure>
-<h3 id="3-向vector添加元素和删除元素"><a href="#3-向vector添加元素和删除元素" class="headerlink" title="3.向vector添加元素和删除元素"></a>3.向vector添加元素和删除元素</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push_back(value); &#x2F;&#x2F;在最后面添加一个元素</span><br><span class="line">pop_back(value); &#x2F;&#x2F;将最后面的元素删除，不会返回元素的值</span><br></pre></td></tr></table></figure>
-<h3 id="4-对vector中的元素进行访问"><a href="#4-对vector中的元素进行访问" class="headerlink" title="4.对vector中的元素进行访问"></a>4.对vector中的元素进行访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">V1[n]; &#x2F;&#x2F;下标访问法，0~n~size-1</span><br><span class="line">V1.at[n];  &#x2F;&#x2F;下标访问法，0~n~size-1,使用at访问更加安全一些，因为at访问的时候将在运行期间检查非法的索引，这种检查的代价是运行时间更长</span><br><span class="line">front(); &#x2F;&#x2F;返回最前面的一个元素</span><br><span class="line">back(); &#x2F;&#x2F;返回最后面的一个元素</span><br></pre></td></tr></table></figure>
-<h3 id="5-其他vector操作"><a href="#5-其他vector操作" class="headerlink" title="5.其他vector操作"></a>5.其他vector操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Size()  &#x2F;&#x2F; 返回数组的长度</span><br><span class="line">empty() &#x2F;&#x2F; 判断数组是否为空</span><br><span class="line">&#x3D;&#x3D;  &#x2F;&#x2F;判断相等</span><br><span class="line">比较运算符：&gt;&#x3D;  &lt;&#x3D;</span><br></pre></td></tr></table></figure>
-<h3 id="6-Vector的实例"><a href="#6-Vector的实例" class="headerlink" title="6.Vector的实例"></a>6.Vector的实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;string&gt; </span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main() &#123;</span><br><span class="line">	string str;</span><br><span class="line">	vector&lt;string&gt; v;</span><br><span class="line">	while (getline(cin, str)) &#123;</span><br><span class="line">		if (str &#x3D;&#x3D; &quot;q&quot;)</span><br><span class="line">		&#123;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		v.push_back(str);</span><br><span class="line">	&#125;</span><br><span class="line">	int nChars &#x3D; 0;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; v.size(); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		string s &#x3D; v[i];</span><br><span class="line">		nChars +&#x3D; s.size();</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; &quot;TotalLines:&quot; &lt;&lt; v.size() &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;TotalChars:&quot; &lt;&lt; nChars &lt;&lt; endl;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; v.size(); i++)</span><br><span class="line">	&#123;</span><br><span class="line">		string s &#x3D; v[i];</span><br><span class="line">		cout &lt;&lt; i &lt;&lt; &quot;\t&quot; &lt;&lt;s&lt;&lt;&#39;\t&#39;&lt;&lt; s.size() &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <h3 id="1-cout"><a href="#1-cout" class="headerlink" title="1.cout"></a>1.cout</h3><p>cout标准输出流，是Console Output的缩写，表示向应用程序控制台输出。</p>
+<p>格式为：</p>
+<blockquote>
+<p>cout&lt;&lt;数据1&lt;&lt;数据2&lt;&lt;……&lt;&lt;数据n;<br>　　1.&lt;&lt;是输出操作符，用于向cout输出流中插入数据。<br>　　2.被输出的数据可以是常量、变量或是一个表达式、函数调用。<br><a id="more"></a><br>*命名空间的声明<br>方法1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;using namespace std;</span><br></pre></td></tr></table></figure><br>方法2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;using std::endl;</span><br><span class="line">&gt;using std::cout;</span><br><span class="line">&gt;using std::cin;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>endl的作用是换行符，它还有另外一种作用，是刷新流缓冲区。我们在使用cin或者是cout时，系统会在内存中开辟一片缓冲区，来存储我们的输入和应用程序的输出。执行cout的时候，系统会先把数据插入到流缓冲区中，直到缓冲区满了或者是遇到了endl，才将缓冲区的数据输入到屏幕上。缓冲区是系统用来暂存数据的一个地方。还有一个操作符也可以刷新缓冲区。如：<br><code>cout&lt;&lt;flush;</code></p>
+<h3 id="2-常用控制符"><a href="#2-常用控制符" class="headerlink" title="2.常用控制符"></a>2.常用控制符</h3><blockquote>
+<ol>
+<li>dec<br>转换为十进制数输入／输出</li>
+<li>hex<br>转换为十六进制数输入／输出</li>
+<li>oct<br>转换为八进制数输入／输出</li>
+<li>setw (int)<br>设置输出的宽度</li>
+<li>setfill (char)<br>设置填充字符：你可以选择你想要在数据之外的宽度显示的字符。</li>
+<li>setprecision (int)<br>设置浮点数输出的有效数字位数。</li>
+</ol>
+</blockquote>
+<h3 id="3-cin"><a href="#3-cin" class="headerlink" title="3. cin"></a>3. cin</h3><p>  在C++中，数据的控制台应用程序输出是采用cin来完成的。&gt;&gt;为流输入符，流输入符后面是变量名，多个变量可以使用流输入符连接起来。cin是系统预定义的标准输入流对象，默认是键盘。当程序在运行的过程中，遇到cin，程序会暂停执行，等待用户的输入。当用户输入完成之后，cin会从流中取得数据。如果输入多个数据，下次读入数据就会优先读取上次未读取的数据。<br>格式如下： </p>
+<blockquote>
+<p>cin&gt;&gt;变量名1&gt;&gt;变量名2&gt;&gt;……&gt;&gt;变量名n;<br>1.cin是系统预定义的一个标准输入设备,默认是键盘；<br>2.使用cin一次可以输入多个变量，用空格、制表符或回车作为输入的两个变量之间的分隔，这三个被称为空白字符。如果你输入的是一个字符串，空白字符是不会输入到字符串里面的。</p>
+</blockquote>
 
       
       <!-- reward -->
@@ -160,7 +173,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2018/06/25/4-Vector/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2018/06/24/2-Input-and-Output/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -178,19 +191,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2018/07/05/JavaScript%E5%9F%BA%E7%A1%80/" class="article-nav-link">
+      <a href="/2018/06/24/3-String/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            JavaScript基础
+            3-String
           
         </div>
       </a>
     
     
-      <a href="/2018/06/24/3-String/" class="article-nav-link">
+      <a href="/2018/06/24/1-Changes/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">3-String</div>
+        <div class="article-nav-title">1-Changes</div>
       </a>
     
   </nav>
