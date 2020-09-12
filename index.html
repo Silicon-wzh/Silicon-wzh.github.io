@@ -455,96 +455,10 @@
       
 
       
-      <a id="more"></a>
-<ul>
-<li><code>request url</code> 表示我们打开这个网页的地址<br><code>request method</code>请求方法：<blockquote>
-<ul>
-<li><code>GET</code> 请求获取<code>Request-URI</code>所标识的资源</li>
-<li><code>POST</code> 在<code>Request-URI</code>所标识的资源后附加新的数据</li>
-<li><code>HEAD</code> 请求获取由<code>Request-URI</code>所标识的资源的响应消息报头</li>
-<li><code>PUT</code> 请求服务器存储一个资源，并用<code>Request-URI</code>作为其标识</li>
-<li><code>DELETE</code> 请求服务器删除<code>Request-URI</code>所标识的资源</li>
-<li><code>TRACE</code> 请求服务器回送收到的请求信息，主要用于测试或诊断</li>
-<li><code>CONNECT</code> 保留将来使用</li>
-<li><code>OPTIONS</code> 请求查询服务器的性能，或者查询与资源相关的选项和需求</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<h5 id="应用举例："><a href="#应用举例：" class="headerlink" title="应用举例："></a>应用举例：</h5><p>GET 方法：在浏览器的地址栏中输入网址的方式访问网页时，浏览器采用GET方法向服务器获取资源，<br>eg:<code>GET /form.html HTTP/1.1 (CRLF)</code><br>POST 方法：要求被请求服务器接受附在请求后面的数据，常用于提交表单。<br>eg：<code>POST /reg.jsp HTTP/ (CRLF)Accept:image/gif,image/x-xbit,......</code><br>HOST:<a href="http://link.zhihu.com/?target=http%3A//www.guet.edu.cn">桂林电子科技大学</a> (CRLF)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;Content-Length:22 (CRLF)</span><br><span class="line">&gt;Connection:Keep-Alive (CRLF)</span><br><span class="line">&gt;Cache-Control:no-cache (CRLF)</span><br><span class="line">&gt;(CRLF) &#x2F;&#x2F;该CRLF表示消息报头已经结束，在此之前为消息报头</span><br><span class="line">&gt;user&#x3D;jeffrey&amp;pwd&#x3D;1234 &#x2F;&#x2F;此行以下为提交的数据</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><code>HEAD</code>方法与<code>GET</code>方法几乎是一样的，对于<code>HEAD</code>请求的回应部分来说，它的HTTP头部中包含的信息与通过<code>GET</code>请求所得到的信息是相同的。利用这个方法，不必传输整个资源内容，就可以得到Request-URI所标识的资源的信息。该方法常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</li>
-</ul>
-</blockquote>
-<h2 id="status-code"><a href="#status-code" class="headerlink" title="status code"></a>status code</h2><p>表示服务器返回的状态码<br>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">取值</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1xx：</td>
-<td style="text-align:center">指示信息—表示请求已接收，继续处理</td>
-</tr>
-<tr>
-<td style="text-align:center">2xx：</td>
-<td style="text-align:center">成功—表示请求已被成功接收、理解、接受</td>
-</tr>
-<tr>
-<td style="text-align:center">3xx：</td>
-<td style="text-align:center">重定向—要完成请求必须进行更进一步的操作</td>
-</tr>
-<tr>
-<td style="text-align:center">4xx：</td>
-<td style="text-align:center">客户端错误—请求有语法错误或请求无法实现</td>
-</tr>
-<tr>
-<td style="text-align:center">5xx：</td>
-<td style="text-align:center">服务器端错误—服务器未能实现合法的请求常见状态代码、状态描述、说明</td>
-</tr>
-<tr>
-<td style="text-align:center">200 OK</td>
-<td style="text-align:center">//客户端请求成功</td>
-</tr>
-<tr>
-<td style="text-align:center">400 Bad Request</td>
-<td style="text-align:center">//客户端请求有语法错误，不能被服务器所理解</td>
-</tr>
-<tr>
-<td style="text-align:center">401 Unauthorized</td>
-<td style="text-align:center">//请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 </td>
-</tr>
-<tr>
-<td style="text-align:center">403 Forbidden</td>
-<td style="text-align:center">//服务器收到请求，但是拒绝提供服务</td>
-</tr>
-<tr>
-<td style="text-align:center">404 Not Found</td>
-<td style="text-align:center">//请求资源不存在，eg：输入了错误的URL500 Internal Server Error //服务器发生不可预期的错误</td>
-</tr>
-<tr>
-<td style="text-align:center">503 Server Unavailable</td>
-<td style="text-align:center">//服务器当前不能处理客户端的请求，一段时间后可能恢复正常</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="Request-Headers（请求时候用的消息报头）"><a href="#Request-Headers（请求时候用的消息报头）" class="headerlink" title="Request Headers（请求时候用的消息报头）"></a>Request Headers（请求时候用的消息报头）</h2><ul>
-<li>Accept<br>Accept请求报头域用于指定客户端接受哪些类型的信息。<br>eg：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Accept：image&#x2F;gif，表明客户端希望接受GIF图象格式的资源；</span><br><span class="line">Accept：text&#x2F;html，表明客户端希望接受html文本。</span><br></pre></td></tr></table></figure></li>
-<li>Accept-Encoding<br>Accept-Encoding请求报头域类似于Accept，但是它是用于指定可接受的内容编码。<br>eg：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Encoding:gzip.deflate.如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。</span><br></pre></td></tr></table></figure></li>
-<li>Accept-Language<br>Accept-Language请求报头域类似于Accept，但是它是用于指定一种自然语言。<br>eg：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Language:zh-cn.如果请求消息中没有设置这个报头域，服务器假定客户端对各种语言都可以接受</span><br></pre></td></tr></table></figure></li>
-<li>Cache-Control<br>是用来控制网页的缓存，详细可以<a href="http://link.zhihu.com/?target=http%3A//baike.baidu.com/link%3Furl%3DOiJmCPnBNa2iTR8oSQlLircjkN0f_jSkaDI3uv88SYwx9JOl3q8PrlRJMoq87hE4ZSyUfe8n3byeogqZcztpEEkUjaLBJwpuXm_AcLw740_">Cache-control_百度百科</a></li>
-<li>Cookie<br>有时也用其复数形式 <a href="http://link.zhihu.com/?target=http%3A//baike.baidu.com/subview/1311/6319629.htm">Cookies</a>，指某些网站为了辨别用户身份、进行 session 跟踪而储存在用户本地终端上的数据（通常经过加密）。定义于 RFC2109 和 2965 中的都已废弃，最新取代的规范是 RFC6265[1] 。（可以叫做浏览器缓存）</li>
-<li>HOST<br>表示你请求网址的请求域</li>
-<li>User-Agent<br>表示当前浏览器的名称及版本</li>
-<li>Referer<br>告诉服务器你是从哪个页面链接过来的</li>
-</ul>
-
+      <h3 id="HTTP-协议常识"><a href="#HTTP-协议常识" class="headerlink" title="HTTP 协议常识"></a>HTTP 协议常识</h3>
+      
+      <a class="article-more-link" href="/2018/08/21/HTTP%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%AF%86/">阅读更多...</a>
+      
       
       <!-- reward -->
       
