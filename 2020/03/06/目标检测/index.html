@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>目标检测学习笔记 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目标检测学习笔记 1.概述&amp;emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测学习笔记">
+<meta property="og:url" content="http://example.com/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="目标检测学习笔记 1.概述&amp;emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/pasted-8.png">
+<meta property="og:image" content="http://example.com/images/pasted-4.png">
+<meta property="og:image" content="http://example.com/images/pasted-9.png">
+<meta property="og:image" content="http://example.com/images/pasted-10.png">
+<meta property="og:image" content="http://example.com/images/pasted-11.png">
+<meta property="og:image" content="http://example.com/images/pasted-12.png">
+<meta property="og:image" content="http://example.com/images/pasted-13.png">
+<meta property="og:image" content="http://example.com/images/pasted-14.png">
+<meta property="og:image" content="http://example.com/images/pasted-15.png">
+<meta property="og:image" content="http://example.com/images/pasted-16.png">
+<meta property="og:image" content="http://example.com/images/pasted-17.png">
+<meta property="og:image" content="http://example.com/images/pasted-18.png">
+<meta property="og:image" content="http://example.com/images/pasted-19.png">
+<meta property="og:image" content="http://example.com/images/pasted-20.png">
+<meta property="og:image" content="http://example.com/images/pasted-21.png">
+<meta property="og:image" content="http://example.com/images/pasted-23.png">
+<meta property="og:image" content="http://example.com/images/pasted-24.png">
+<meta property="og:image" content="http://example.com/images/pasted-25.png">
+<meta property="og:image" content="http://example.com/images/pasted-26.png">
+<meta property="og:image" content="http://example.com/images/pasted-27.png">
+<meta property="og:image" content="http://example.com/images/pasted-28.png">
+<meta property="og:image" content="http://example.com/images/pasted-30.png">
+<meta property="article:published_time" content="2020-03-06T13:30:00.000Z">
+<meta property="article:modified_time" content="2020-06-01T14:38:40.215Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/pasted-8.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-目标检测" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="article-date">
+  <time datetime="2020-03-06T13:30:00.000Z" itemprop="datePublished">2020-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      目标检测学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="目标检测学习笔记"><a href="#目标检测学习笔记" class="headerlink" title="目标检测学习笔记"></a>目标检测学习笔记</h1><p><img src="/images/pasted-8.png" alt="Obeject Dectecion"></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>&emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的方法。</p>
+<p><strong>目标检测的基本思路：同时解决定位（localization） + 识别（Recognition）</strong></p>
+<a id="more"></a>
+
+<h2 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h2><p>&emsp;目标检测目前有 one-stage 和 two-stage 两种，two-stage 指的是检测算法需要分两步完成，首先需要获取候选区域，然后进行分类与回归，比如基于Region Proposal的R-CNN系（R-CNN，Fast R-CNN, Faster R-CNN等）；与之相对的是 one-stage 检测，其仅仅使用一个卷积神经网络CNN直接预测不同目标的类别与位置，可以理解为一步到位，不需要单独寻找候选区域，典型的有 SSD/YOLO 。第一类方法是准确度高一些，但是速度慢，但是第二类算法是速度快，但是准确性要低一些。这可以在下图中看到。</p>
+<p><img src="/images/pasted-4.png" alt="Performance of Different Structure"></p>
+<h2 id="3-R-CNN"><a href="#3-R-CNN" class="headerlink" title="3. R-CNN"></a>3. R-CNN</h2><p>&emsp;该技术结合了两种主要方法：将高容量卷积神经网络应用于自下而上的候选区域，以便对物体进行局部化和分割，并监督辅助任务的预训练。接下来是特定领域的微调，从而产生高性能提升。论文的作者将算法命名为R-CNN（具有CNN特征的区域），因为它将候选区域与卷积神经网络相结合。<br>&emsp;目标检测有两个主要任务：物体分类和定位，为了完成这两个任务，R-CNN借鉴了滑动窗口思想， 采用对区域进行识别的方案，具体是：</p>
+<ol>
+<li>输入一张图片，通过指定算法从图片中提取 2000 个类别独立的候选区域（可能目标区域）</li>
+<li>对于每个候选区域利用卷积神经网络来获取一个特征向量</li>
+<li>对于每个区域相应的特征向量，利用支持向量机SVM 进行分类，并通过一个bounding box regression调整目标包围框的大小</li>
+</ol>
+<p><img src="/images/pasted-9.png"></p>
+<p>&emsp;模型接收图像并提取约2000个自下而上的候选区域，然后，它使用大型CNN计算每个候选区域的特征，此后，它使用特定类的线性支持向量机（SVM）对每个区域进行分类，该模型在PASCAL VOC 2010上实现了53.7％的平均精度。</p>
+<p>&emsp;模型中的物体检测系统有三个模块：第一个负责生成与类别无关的候选区域，这些候选区域定义了模型检测器可用的候选检测器集；第二个模块是一个大型卷积神经网络，负责从每个区域提取固定长度的特征向量；第三个模块由一类支持向量机组成。</p>
+<p>&emsp;模型内部使用选择性搜索来生成区域类别，选择性搜索根据颜色、纹理、形状和大小对相似的区域进行分组。对于特征提取，该模型通过在每个候选区域上应用Caffe CNN（卷积神经网络）得到4096维特征向量，227×227 的RGB图像，通过五个卷积层和两个全连接层前向传播来计算特征，节末链接中的论文解释的模型相对于PASCAL VOC 2012的先前结果实现了30％的改进。</p>
+<blockquote>
+<p><strong>RNN的基本原理</strong></p>
+<p>一、 提取候选区域<br>R-CNN目标检测首先需要获取2000个目标候选区域，能够生成候选区域的方法很多，比如：</p>
+<ol>
+<li>Objectness</li>
+<li>Selective search</li>
+<li>Category-independen object proposals</li>
+<li>Constrained parametric min-cuts(CPMC)</li>
+<li>Multi-scale combinatorial grouping</li>
+<li>Ciresan</li>
+</ol>
+<p>&emsp;R-CNN 采用的是 Selective Search 算法。简单来说就是通过一些传统图像处理方法将图像分成很多小尺寸区域，然后根据小尺寸区域的特征合并小尺寸得到大尺寸区域，以实现候选区域的选取。</p>
+<p>二、提取特征向量<br>&emsp;对于上述获取的候选区域，需进一步使用CNN提取对应的特征向量，作者使用模型AlexNet (2012)。（需要注意的是 Alexnet 的输入图像大小是 227x227，而通过 Selective Search 产生的候选区域大小不一，为了与 Alexnet 兼容，R-CNN 采用了非常暴力的手段，那就是无视候选区域的大小和形状，统一变换到 227x227 的尺寸）。<br>&emsp;那么，该网络是如何训练的呢？训练过程如下：</p>
+<ul>
+<li>有监督预训练：训练网络参数</li>
+</ul>
+<ol>
+<li>样本：ImageNet</li>
+<li>这里只训练和分类有关的参数，因为ImageNet数据只有分类，没有位置标注</li>
+<li>图片尺寸调整为227x227</li>
+<li>最后一层：4097维向量-&gt;1000向量的映射。</li>
+</ol>
+<ul>
+<li>特定样本下的微调 ：训练网络参数</li>
+</ul>
+<ol>
+<li>样本：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">样本</th>
+<th align="center">来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">正样本</td>
+<td align="center">Ground Truth+与Ground Truth相交loU&gt;0.5的建议框【由于Ground Truth太少了】</td>
+</tr>
+<tr>
+<td align="center">负样本</td>
+<td align="center">与Ground Truth相交IoU≤0.5的建议框</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>采用训练好的AlexNet模型进行PASCAL VOC 2007样本集下的微调，学习率=0.001（PASCAL VOC 2007样本集上既有图像中物体类别标签，也有图像中物体位置标签）</li>
+<li>mini-batch为32个正样本和96个负样本（由于正样本太少）</li>
+<li>修改了原来的1000为类别输出，改为21维【20类+背景】输出。</li>
+</ol>
+<p>三、SVM分类<br>通过上述卷积神经网络获取候选区域的特征向量，进一步使用SVM进行物体分类，关键知识点如下：</p>
+<ol>
+<li>使用了一个SVM进行分类：向SVM输入特征向量，输出类别得分</li>
+<li>用于训练多个SVM的数据集是ImageNet数据</li>
+<li>将2000×4096维特征（2000个候选框，每个候选框获得4096的特征向量）与20个SVM组成的权值矩阵4096×20相乘（20种分类，SVM是二分类器，每个种类训练一个SVM，则有20个SVM），获得2000×20维矩阵表示每个建议框是某个物体类别的得分</li>
+<li>分别对上述2000×20维矩阵中每列即每一类进行非极大值抑制剔除重叠建议框，得到该列即该类中得分最高的一些候选框；<br><img src="/images/pasted-10.png" alt="upload successful"></li>
+</ol>
+<p>SVM训练：<br>样本：</p>
+<table>
+<thead>
+<tr>
+<th align="center">样本</th>
+<th align="center">来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">正样本</td>
+<td align="center">Ground Truth</td>
+</tr>
+<tr>
+<td align="center">负样本</td>
+<td align="center">与Ground Truth相交 IoU &lt; 0.3 的建议框</td>
+</tr>
+</tbody></table>
+<ul>
+<li>由于SVM是二分类器，需要为每个类别训练单独的SVM；</li>
+<li>SVM训练时，输入正负样本是在AlexNet CNN网络输出的4096维特征向量，输出为该类的得分</li>
+<li>由于负样本太多，采用hard negative mining的方法在负样本中选取有代表性的负样本</li>
+</ul>
+<p>四、边框修正<br>&emsp;使用一个回归器进行边框回归：输入为卷积神经网络pool5层的4096维特征向量，输出为x、y方向的缩放和平移，实现边框的修正。在进行测试前仍需回归器进行训练。<br>回归器训练。</p>
+<ul>
+<li>样本：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">样本</th>
+<th align="center">来源</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">正样本</td>
+<td align="center">与Ground Truth相交IoU最大的Region Proposal，并且loU&gt;0.6的Region Proposal</td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>在2014年R-CNN横空出世的时候，颠覆了以往的目标检测方案，精度大大提升。<br><strong>对于R-CNN的贡献，可以主要分为以下两个方面：</strong></p>
+<ol>
+<li>使用了卷积神经网络进行特征提取</li>
+<li>使用bounding box regression进行目标包围框的修正</li>
+</ol>
+<p>但是，我们来看一下，R-CNN有什么问题：</p>
+<ul>
+<li>耗时的selective search，对一张图像，需要花费2s</li>
+<li>耗时的串行式CNN前向传播，对于每一个候选框，都需经过一个AlexNet提取特征，为所有的候选框提取特征大约花费47s</li>
+<li>三个模块（CNN特征提取、SVM分类和边框修正）是分别训练的，并且在训练的时候，对于存储空间的消耗很大</li>
+</ul>
+<p><strong>R-CNN的一些缺点是：</strong></p>
+<ul>
+<li>训练是一个多阶段的任务，调整物体区域的卷积神经网络，使SVM（支持向量机）适应ConvNet（卷积网络）功能，最后学习边界框回归；</li>
+<li>训练在空间和时间上都很昂贵，因为VGG16是占用大量空间的深层网络；</li>
+<li>目标检测很慢，因为它为每个候选区域都要执行ConvNet前向传播。</li>
+</ul>
+<blockquote>
+<p>相关论文和参考内容链接：</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1311.2524?source=post_page">https://arxiv.org/abs/1311.2524?source=post_page</a><br><a target="_blank" rel="noopener" href="http://host.robots.ox.ac.uk/pascal/VOC/voc2010/index.html?source=post_page">http://host.robots.ox.ac.uk/pascal/VOC/voc2010/index.html?source=post_page</a><br><a target="_blank" rel="noopener" href="https://heartbeat.fritz.ai/a-beginners-guide-to-convolutional-neural-networks-cnn-cf26c5ee17ed?source=post_page">https://heartbeat.fritz.ai/a-beginners-guide-to-convolutional-neural-networks-cnn-cf26c5ee17ed?source=post_page</a></p>
+</blockquote>
+<h2 id="4-Fast-R-CNN"><a href="#4-Fast-R-CNN" class="headerlink" title="4. Fast R-CNN"></a>4. Fast R-CNN</h2><p>&emsp;对R-CNN的缺陷，Ross在2015年提出的Fast R-CNN进行了改进，下图中展示的论文提出了一种基于快速区域的卷积网络方法（Fast R-CNN）进行目标检测，它在Caffe（使用Python和C ++）中实现，该模型在PASCAL VOC 2012上实现了66％的平均精度，而R-CNN则为62％。</p>
+<p><img src="/images/pasted-11.png" alt="upload successful"></p>
+<p>&emsp;与R-CNN相比，Fast R-CNN具有更高的平均精度，单阶段训练，更新所有网络层的训练，以及特征缓存不需要磁盘存储。在其结构中，Fast R-CNN将图像作为输入同时获得候选区域集，然后，它使用卷积和最大池化图层处理图像，以生成卷积特征图，在每个特征图中，对每个候选区域的感兴趣区域（ROI）池化层提取固定大小的特征向量。</p>
+<p>&emsp;这些特征向量之后将送到全连接层，然后它们分支成两个输出层，一个产生几个对象类softmax概率估计，而另一个产生每个对象类的四个实数值，这4个数字表示每个对象的边界框的位置。</p>
+<p><strong>下面我们来概述一下Fast R-CNN的解决方案：</strong></p>
+<ol>
+<li>首先还是采用selective search提取2000个候选框RoI</li>
+<li>使用一个卷积神经网络对全图进行特征提取</li>
+<li>使用一个RoI Pooling Layer在全图特征上摘取每一个RoI对应的特征</li>
+<li>分别经过为21和84维的全连接层（并列的，前者是分类输出，后者是回归输出）</li>
+</ol>
+<p>Fast R-CNN通过CNN直接获取整张图像的特征图，再使用RoI Pooling Layer在特征图上获取对应每个候选框的特征，避免了R-CNN中的对每个候选框串行进行卷积（耗时较长）。</p>
+<blockquote>
+<p><strong>Rol Pooling Layer</strong><br>对于每个RoI而言，需要从共享卷积层获取的特征图上提取对应的特征，并且送入全连接层进行分类。因此，RoI Pooling主要做了两件事，第一件是为每个RoI选取对应的特征，第二件事是为了满足全连接层的输入需求，将每个RoI对应的特征的维度转化成某个定值。<br>RoI Pooling示意图如下所示：<br><img src="/images/pasted-12.png" alt="upload successful"><br>如上图所示，对于每一个RoI，RoI Pooling Layer将其映射到特征图对应位置，获取对应特征。另外，由于每一个RoI的尺度各不相同，所以提取出来的特征向量region proposal维度也不尽相同，因此需要某种特殊的技术来做保证输入后续全连接层的特征向量维度相同。ROI Pooling的提出便是为了解决这一问题的。其思路如下：</p>
+<ul>
+<li>将region proposal划分为目标H×W大小的分块</li>
+<li>对每一个分块中做MaxPooling（每个分块中含有多个网格，每个分块获取一个特征值）</li>
+<li>将所有输出值组合起来便形成固定大小为H×W的feature map</li>
+</ul>
+<p><img src="/images/pasted-13.png" alt="upload successful"><br><img src="/images/pasted-14.png" alt="upload successful"></p>
+</blockquote>
+<p><strong>Fast R-CNN的贡献可以主要分为两个方面：</strong></p>
+<ol>
+<li>取代R-CNN的串行特征提取方式，直接采用一个CNN对全图提取特征(这也是为什么需要RoI Pooling的原因)。</li>
+<li>除了selective search，其他部分都可以合在一起训练。</li>
+</ol>
+<p><strong>Fast R-CNN也有缺点，体现在耗时的selective search还是依旧存在。</strong></p>
+<blockquote>
+<p>相关内容参考链接：<br><a target="_blank" rel="noopener" href="https://github.com/rbgirshick/fast-rcnn?source=post_page">https://github.com/rbgirshick/fast-rcnn?source=post_page</a></p>
+</blockquote>
+<h2 id="5-Faster-R-CNN"><a href="#5-Faster-R-CNN" class="headerlink" title="5. Faster R-CNN"></a>5. Faster R-CNN</h2><p>&emsp;Faster R-CNN：利用候选区域网络实现实时目标检测，提出了一种训练机制，可以对候选区域任务进行微调，并对目标检测进行微调。Faster R-CNN 取代selective search，直接通过一个Region Proposal Network (RPN)生成待检测区域，这么做，在生成RoI区域的时候，时间也就从2s缩减到了10ms。下图是Faster R-CNN整体结构。</p>
+<p>&emsp;Faster R-CNN模型由两个模块组成：提取候选区域的深度卷积网络，以及使用这些区域FastR-CNN检测器， Region Proposal Network将图像作为输入并生成矩形候选区域的输出，每个矩形都具有检测得分。</p>
+<p><img src="/images/pasted-15.png" alt="Faster R-CNN"></p>
+<p>由上图可知，Faster R-CNN由共享卷积层、RPN、RoI pooling以及分类和回归四部分组成：</p>
+<ol>
+<li>首先使用共享卷积层为全图提取特征feature maps</li>
+<li>将得到的feature maps送入RPN，RPN生成待检测框(指定RoI的位置),并对RoI的包围框进行第一次修正</li>
+<li>RoI Pooling Layer根据RPN的输出在feature map上面选取每个RoI对应的特征，并将维度置为定值</li>
+<li>使用全连接层(FC Layer)对框进行分类，并且进行目标包围框的第二次修正。</li>
+</ol>
+<p>尤其注意的是，Faster R-CNN真正实现了端到端的训练(end-to-end training)。Faster R-CNN最大特色是使用了RPN取代了SS算法来获取RoI，<strong>以下对RPN进行分析</strong>。</p>
+<blockquote>
+<p>经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS(Selective Search)方法生成检测框。而Faster R-CNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。<br>首先来看看RPN的工作原理：<br><img src="/images/pasted-16.png" alt="RPN"><br>上图展示了RPN网络的具体结构。可以看到RPN网络实际分为2条支线，上面一条支线通过softmax来分类anchors获得前景foreground和背景background（检测目标是foreground），下面一条支线用于计算anchors的边框偏移量，以获得精确的proposals。而最后的proposal层则负责综合foreground anchors和偏移量获取proposals，同时剔除太小和超出边界的proposals。其实整个网络到了Proposal Layer这里，就完成了相当于目标定位的功能。<br><strong>Anchor：</strong><br>简单地说，RPN依靠一个在共享特征图上滑动的窗口，为每个位置生成9种预先设置好长宽比与面积的目标框(即anchor)。这9种初始anchor包含三种面积(128×128，256×256，512×512)，每种面积又包含三种长宽比(1:1，1:2，2:1)。示意图如下所示：</p>
+<p><img src="/images/pasted-17.png" alt="Anchor"><br>由于共享特征图的大小约为40×60，所以RPN生成的初始anchor的总数约为20000个(40×60×9)。其实RPN最终就是在原图尺度上，设置了密密麻麻的候选anchor。进而去判断anchor到底是前景还是背景，意思就是判断这个anchor到底有没有覆盖目标，以及为属于前景的anchor进行第一次坐标修正。<br><img src="/images/pasted-18.png" alt="Generate Anchors"><br><strong>判断前景或背景：</strong><br>对于所有的anchors，首先需要判断anchor是是否为前景。对于第一个问题，RPN的做法是使用SoftmaxLoss直接训练，在训练的时候排除掉了超越图像边界的anchor；<br><strong>边框修正：</strong><br>如图绿色表示的是飞机的实际框标签(ground truth)，红色的表示的其中一个候选区域(foreground anchor)，即被分类器识别为飞机的区域，但是由于红色区域定位不准确，这张图相当于没有正确检测出飞机，所以我们希望采用一种方法对红色的框进行微调，使得候选区域和实际框更加接近：<br><img src="/images/pasted-19.png" alt="Dectect template"><br>对于目标框一般使用四维向量来表示(x,y,w,h)(x,y,w,h) ，分别表示目标框的中心点坐标、宽、高，我们使用AA 表示原始的foreground anchor，使用GG 表示目标的ground truth，我们的目标是寻找一种关系，使得输入原始的Anchor AA 经过映射到一个和真实框GG 更接近的回归窗口G′G′ ，即：</p>
+<ul>
+<li>给定：<br>$A = \left( A _ { x } , A _ { y } , A _ { w } , A _ { h } \right) , G = \left( G _ { x } , G _ { y } , G _ { w } , G _ { h } \right)$</li>
+<li>寻找一种变换FF ，使得<br>$  F \left( A _ { x } , A _ { y } , A _ { w } , A _ { h } \right) = \left( G _ { x } ^ { \prime } , G _ { y } ^ { \prime } , G _ { w } ^ { \prime } , G _ { h } ^ { \prime } \right) $<br>$ \left( G _ { x } , G _ { y } , G _ { w } , G _ { h } \right) \approx \left( G _ { x } ^ { \prime } , G _ { y } ^ { \prime } , G _ { w } ^ { \prime } , G _ { h } ^ { \prime } \right) $<br><img src="/images/pasted-20.png"></li>
+</ul>
+<p>那么如何去计算 $F$ 呢？这里我们可以通过平移和缩放实现</p>
+<p>$F(A) = G^{\prime}$</p>
+<ul>
+<li>平移：<br>$G _ { x } ^ { \prime } = A _ { x } + A _ { w } \cdot d _ { x } ( A )$<br>$G _ { y } ^ { \prime } = A _ { y } + A _ { h } \cdot d _ { y } ( A )$</li>
+<li>缩放：<br>$G _ { w } ^ { \prime } = A _ { w } \cdot \exp \left( d _ { w } ( A ) \right) $<br>$ G _ { h } ^ { \prime } = A _ { h } \cdot \exp \left( d _ { h } ( A ) \right) $</li>
+</ul>
+<p>上面公式中，我们需要学习四个参数，分别是<br>$d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )$<br>其中$<br>\left( A _ { w } \cdot d _ { x } ( A ) , A _ { w } \cdot d _ { y } ( A ) \right)<br>$表示的两个框中心距离的偏移量</p>
+<p>&emsp;当输入的anchor A与G相差较小时，可以认为这种变换是一种线性变换， 那么就可以用线性回归来建模对目标框进行微调（注意，只有当anchors A和G比较接近时，才能使用线性回归模型，否则就是复杂的非线性问题了）。<br>接下来就是如何通过线性回归获得 $d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )$</p>
+<p>线性回归就是给定输入的特征向量X ，学习一组参数W，使得线性回归的输出WX和真实值Y 的差很小。对于该问题，输入X是特征图，我们使用ϕ 表示，同时训练时还需要A到G变换的真实参数值：<br>$$<br>\left( t _ { x } , t _ { y } , t _ { w } , t _ { h } \right)<br>$$</p>
+<p>输出是<br>$$<br>d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )<br>$$<br>那么目标函数可以表示为：<br>$$<br>d _ { * } ( A ) = w _ { * } ^ { T } \cdot \phi ( A )<br>$$</p>
+<p>其中ϕ(A) 是对应anchor的特征图组成的特征向量，ww 是需要学习的参数，d(A) 是得到预测值(表示x*,y,w,*h，也就是每一个变换对应一个上述目标函数)，为了让预测值和真实值差距最小，代价函数如下：<br>$$<br>\operatorname { los } s = \sum _ { i = 1 } ^ { N } \left( t _ { * } ^ { i } - \hat { w } _ { * } ^ { T } \cdot \phi \left( A ^ { i } \right) \right) ^ { 2 }<br>$$</p>
+<p>函数优化目标为：<br>$$<br>w _ { * } = \underset { \hat { w } _ { * } } { \arg \min } \sum _ { i = 1 } ^ { N } \left( t _ { * } ^ { i } - \hat { w } _ { * } ^ { T } \cdot \phi \left( A ^ { i } \right) \right) ^ { 2 } + \lambda | \hat { w } * | 2<br>$$</p>
+<p>需要说明，只有在G和A比较接近时，才可近似认为上述线性变换成立，下面对于原文中，A与G之间的平移参数和尺度因子为：<br>$t _ { x } = \left( G _ { x } - A _ { x } \right) / A _ { w }$<br>$t _ { y } = \left( G _ { y } - A _ { y } \right) / A _ { h }$<br>$t _ { w } = \log \left( G _ { w } / A _ { w } \right)$<br>$t _ { h } = \log \left( G _ { h } / A _ { h } \right)$</p>
+<p>&emsp; 在得到每一个候选区域anchor A的修正参数之后，我们就可以计算出精确的anchor，然后按照物体的区域得分从大到小对得到的anchor排序，然后提出一些宽或者高很小的anchor(获取其它过滤条件)，再经过非极大值抑制抑制，取前Top-N的anchors，然后作为proposals(候选框)输出，送入到RoI Pooling层。<br>&emsp; 那么，RPN怎么实现呢？这个问题通过RPN的本质很好求解，RPN的本质是一个树状结构，树干是一个3×3的卷积层，树枝是两个1×1的卷积层，第一个1×1的卷积层解决了前后景的输出，第二个1×1的卷积层解决了边框修正的输出。<br><strong>RPN代码实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;RPN &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;#</span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn conv&#x2F;3x3&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;conv5&quot;</span><br><span class="line">top:&quot;rpn&#x2F;output&quot;</span><br><span class="line">convolution param&#123;</span><br><span class="line">	num output:256</span><br><span class="line">	kernel size:3 pad:1 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01&#125;</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn relu&#x2F;3x3&quot;</span><br><span class="line">type:&quot;ReLU&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;</span><br><span class="line">top:&quot;rpn&#x2F;output&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn cls score&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;top:&quot;rpn cls score&quot;</span><br><span class="line">  convolution param &#123;</span><br><span class="line">	num output:18 #2(bg&#x2F;fg)*9(anchors)</span><br><span class="line">	kernel size:l pad:0 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn bbox pred&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;top:&quot;rpn bbox pred&quot;</span><br><span class="line">convolution param&#123;</span><br><span class="line">	num output:36 #4*9(anchors)</span><br><span class="line">	kernel size:l pad:0 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp; 从如上代码中可以看到，对于RPN输出的特征图中的每一个点，一个1×1的卷积层输出了18个值，因为是每一个点对应9个anchor，每个anchor有一个前景分数和一个背景分数，所以9×2=18。另一个1×1的卷积层输出了36个值，因为是每一个点对应9个anchor，每个anchor对应了4个修正坐标的值，所以9×4=36。那么，要得到这些值，RPN网络需要训练。在训练的时候，就需要对应的标签。那么，如何判定一个anchor是前景还是背景呢？文中做出了如下定义：如果一个anchor与ground truth的IoU在0.7以上，那这个anchor就算前景(positive)。类似地，如果这个anchor与ground truth的IoU在0.3以下，那么这个anchor就算背景(negative)。在作者进行RPN网络训练的时候，只使用了上述两类anchor，与ground truth的IoU介于0.3和0.7的anchor没有使用。在训练anchor属于前景与背景的时候，是在一张图中，随机抽取了128个前景anchor与128个背景anchor。</p>
+<p><strong>分类与定位</strong><br>Faster R-CNN中的RoI Pooling Layer与 Fast R-CNN中原理一样。在RoI Pooling Layer之后，就是Faster R-CNN的分类器和RoI边框修正训练。分类器主要是分这个提取的RoI具体是什么类别(人，车，马等)，一共C+1类(包含一类背景)。RoI边框修正和RPN中的anchor边框修正原理一样，同样也是SmoothL1 Loss，值得注意的是，RoI边框修正也是对于非背景的RoI进行修正，对于类别标签为背景的RoI，则不进行RoI边框修正的参数训练。对于分类器和RoI边框修正的训练，可以损失函数描述如下：<br>$$L \left( p , u , t ^ { u } , v \right) = L _ { \mathrm { cls } } ( p , u ) + \lambda [ u \geq 1 ] L _ { \mathrm { loc } } \left( t ^ { u } , v \right)$$<br>上式中u&gt;=1表示RoI边框修正是对于非背景的RoI而言的，实验中，上式的λ取1。<br><strong>在训练分类器和RoI边框修正时，步骤如下所示：</strong></p>
+<ol>
+<li>首先通过RPN生成约20000个anchor(40×60×9)。</li>
+<li>对20000个anchor进行第一次边框修正，得到修订边框后的proposal。<br>2 对超过图像边界的proposal的边进行clip，使得该proposal不超过图像范围。</li>
+<li>忽略掉长或者宽太小的proposal。</li>
+<li>将所有proposal按照前景分数从高到低排序，选取前12000个proposal。</li>
+<li>使用阈值为0.7的NMS算法排除掉重叠的proposal。</li>
+<li>针对上一步剩下的proposal,选取前2000个proposal进行分类和第二次边框修正。</li>
+</ol>
+<p>总的来说，Faster R-CNN的loss分两大块，第一大块是训练RPN的loss(包含一个SoftmaxLoss和SmoothL1Loss)，第二大块是训练Faster R-CNN中分类器的loss(包含一个SoftmaxLoss和SmoothL1Loss)，Faster R-CNN的总的loss函数描述如下：</p>
+</blockquote>
+<p>$$<br>L_{final} = L \lbrace p_i \rbrace , \lbrace t_i \rbrace + L(p, u, t^u, v)<br>$$</p>
+<blockquote>
+</blockquote>
+<blockquote>
+<p>相关论文参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497?source=post_page">https://arxiv.org/abs/1506.01497?source=post_page</a></p>
+</blockquote>
+<h2 id="6-Mask-R-CNN"><a href="#6-Mask-R-CNN" class="headerlink" title="6. Mask R-CNN"></a>6. Mask R-CNN</h2><p>&emsp;Mask R-CNN是上述Faster R-CNN架构的扩展，它还能够估计人体姿势。<br>&emsp;在此模型中，物体通过边界框和语义分割实现分类和局部化，语义分割是将图片中每个像素分类。该模型通过在每个感兴趣区域（ROI）添加分割掩模的预测来扩展Faster R-CNN， Mask R-CNN产生两个输出，类标签和边界框。<br>&emsp;Mask R-CNN可以分解为3个模块：Faster-RCNN、RoI Align和Mask。<br><strong>算法框架如下：</strong><br><img src="/images/pasted-21.png" alt="Mask R-CNN算法框架"></p>
+<p><strong>算法步骤:</strong></p>
+<ul>
+<li>首先，输入一幅你想处理的图片，然后进行对应的预处理操作，或者预处理后的图片；</li>
+<li>然后，将其输入到一个预训练好的神经网络中（ResNeXt等）获得对应的feature map；</li>
+<li>接着，对这个feature map中的每一点设定预定个的RoI，从而获得多个候选RoI；</li>
+<li>接着，将这些候选的RoI送入RPN网络进行二值分类（前景或背景）和BB回归，过滤掉一部分候选的ROI；</li>
+<li>接着，对这些剩下的RoI进行RoIAlign操作（即先将原图和feature map的pixel对应起来，然后将feature map和固定的feature对应起来）；</li>
+<li>最后，对这些RoI进行分类（N类别分类）、BB回归和MASK生成（在每一个ROI里面进行FCN操作）。</li>
+</ul>
+<p>Mask R-CNN是一个非常灵活的框架，可以增加不同的分支完成不同的任务，可以完成目标分类、目标检测、语义分割、实例分割、人体姿势识别等多种任务，如下图所示。<br><img src="/images/pasted-23.png" alt="Mask R-CNN Application"></p>
+<p><strong>ROI Align</strong></p>
+<blockquote>
+<p>Mask R-CNN使用RoIAlign取代了Faster RCNN中的RoIPooling，故下文对RoIPooling和RoIAlign进行分析与比较<br><img src="/images/pasted-24.png"><br>如上图所示，RoI Pooling和RoIAlign最大的区别是：前者使用了两次量化操作，而后者并没有采用量化操作，使用了线性插值算法，具体的解释如下所示。<br><strong>RoI Pooling</strong><br><img src="/images/pasted-25.png"><br>如上图所示，为了得到固定大小（7X7）的feature map，我们需要做两次量化操作：1）图像坐标 — feature map坐标，2）feature map坐标 — RoI feature坐标。我们来说一下具体的细节，如图我们输入的是一张800x800的图像，在图像中有两个目标（猫和狗），狗的BB大小为665x665，经过VGG16网络后，我们可以获得对应的feature map，如果我们对卷积层进行Padding操作，我们的图片经过卷积层后保持原来的大小，但是由于池化层的存在，我们最终获得feature map 会比原图缩小一定的比例，这和Pooling层的个数和大小有关。在该VGG16中，我们使用了5个池化操作，每个池化操作都是2x2Pooling，因此我们最终获得feature map的大小为800/32 x 800/32 = 25x25（是整数），但是将狗的BB对应到feature map上面，我们得到的结果是665/32 x 665/32 = 20.78 x 20.78，结果是浮点数，含有小数，但是我们的像素值可没有小数，那么作者就对其进行了量化操作（即取整操作），即其结果变为20 x 20，在这里引入了第一次的量化误差；然而我们的feature map中有不同大小的ROI，但是我们后面的网络却要求我们有固定的输入，因此，我们需要将不同大小的ROI转化为固定的ROI feature，在这里使用的是7x7的ROI feature，那么我们需要将20 x 20的ROI映射成7 x 7的ROI feature，其结果是 20 /7 x 20/7 = 2.86 x 2.86，同样是浮点数，含有小数点，我们采取同样的操作对其进行取整吧，在这里引入了第二次量化误差。其实，这里引入的误差会导致图像中的像素和特征中的像素的偏差，即将feature空间的ROI对应到原图上面会出现很大的偏差。原因如下：比如用我们第二次引入的误差来分析，本来是2,86，我们将其量化为2，这期间引入了0.86的误差，看起来是一个很小的误差呀，但是你要记得这是在feature空间，我们的feature空间和图像空间是有比例关系的，在这里是1:32，那么对应到原图上面的差距就是0.86 x 32 = 27.52。这个差距不小吧，这还是仅仅考虑了第二次的量化误差。这会大大影响整个检测算法的性能，因此是一个严重的问题。</p>
+</blockquote>
+<p><strong>RoIAlign</strong></p>
+<blockquote>
+<p><img src="/images/pasted-26.png"><br>如上图所示，为了得到为了得到固定大小（7X7）的feature map，RoIAlign技术并没有使用量化操作，即我们不想引入量化误差，比如665 / 32 = 20.78，我们就用20.78，不用什么20来替代它，比如20.78 / 7 = 2.97，我们就用2.97，而不用2来代替它。这就是RoIAlign的初衷。那么我们如何处理这些浮点数呢，我们的解决思路是使用“双线性插值”算法。双线性插值是一种比较好的图像缩放算法，它充分的利用了原图中虚拟点（比如20.56这个浮点数，像素位置都是整数值，没有浮点值）四周的四个真实存在的像素值来共同决定目标图中的一个像素值，即可以将20.56这个虚拟的位置点对应的像素值估计出来。如下图所示，蓝色的虚线框表示卷积后获得的feature map，黑色实线框表示ROI feature，最后需要输出的大小是2x2，那么我们就利用双线性插值来估计这些蓝点（虚拟坐标点，又称双线性插值的网格点）处所对应的像素值，最后得到相应的输出。这些蓝点是2x2Cell中的随机采样的普通点，作者指出，这些采样点的个数和位置不会对性能产生很大的影响，你也可以用其它的方法获得。然后在每一个橘红色的区域里面进行max pooling或者average pooling操作，获得最终2x2的输出结果。我们的整个过程中没有用到量化操作，没有引入误差，即原图中的像素和feature map中的像素是完全对齐的，没有偏差，这不仅会提高检测的精度，同时也会有利于实例分割。<br><img src="/images/pasted-27.png"><br><strong>Mask</strong><br>下图阐述了Mask R-CNN的Mask branch：<br><img src="/images/pasted-28.png"><br>在Mask R-CNN中的RoI Align之后有一个”head”部分，主要作用是将RoI Align的输出维度扩大，这样在预测Mask时会更加精确。在Mask Branch的训练环节，作者没有采用FCN式的SoftmaxLoss，反而是输出了K个Mask预测图(为每一个类都输出一张)，并采用average binary cross-entropy loss训练，当然在训练Mask branch的时候，输出的K个特征图中，也只是对应ground truth类别的那一个特征图对Mask loss有贡献。<br>Mask R-CNN的训练损失函数可以描述为：<br>$$<br>L _ { \text {final } } = L \left( \lbrace p _ { i } \rbrace , \lbrace t _ { i } \rbrace \right) + \left( L _ { c l s } + L _ { b o x } + L _ { \text {mask } } \right)<br>$$</p>
+</blockquote>
+<blockquote>
+<p>相关论文参考链接：<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1703.06870?source=post_page">https://arxiv.org/abs/1703.06870?source=post_page</a></p>
+</blockquote>
+<h2 id="7-YOLO"><a href="#7-YOLO" class="headerlink" title="7. YOLO"></a>7. YOLO</h2><p>&emsp;以上目标检测模型都是two-stage算法，针对于two-stage目标检测算法普遍存在的运算速度慢的缺点，Yolo创造性的提出了one-stage，也就是将物体分类和物体定位在一个步骤中完成。Yolo直接在输出层回归bounding box的位置和bounding box所属类别，从而实现one-stage。通过这种方式，Yolo可实现45帧每秒的运算速度，完全能满足实时性要求（达到24帧每秒，人眼就认为是连续的）。整个系统如下图所示。</p>
+<p><img src="/images/pasted-30.png" alt="upload successful"></p>
+<p>&emsp;YOLO模型实时处理每秒45帧，YOLO将图像检测视为回归问题，这使得其管道非常简单因此该模型非常快。</p>
+<p>&emsp;在YOLO中，每个边界框都是通过整个图像的特征来预测的，每个边界框有5个预测，x，y，w，h和置信度，（x，y）表示相对于网格单元边界的边界框中心， w和h是整个图像的预测宽度和高度。</p>
+<p>&emsp;该模型通过卷积神经网络实现，并在PASCAL VOC检测数据集上进行评估。网络的卷积层负责提取特征，而全连接的层预测坐标和输出概率。</p>
+<p>&emsp;该模型的网络架构受到用于图像分类的GoogLeNet模型的启发，网络有24个卷积层和2个完全连接的层，模型的主要挑战是它只能预测一个类，并且它在诸如鸟类之类的小物体上表现不佳。</p>
+<p>此模型的平均AP精度为52.7％，但能够达到63.4％。</p>
+<blockquote>
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.02640?source=post_page">https://arxiv.org/abs/1506.02640?source=post_page</a></p>
+</blockquote>
+<h2 id="8-SSD-Single-Shot-MultiBox-Detectorz"><a href="#8-SSD-Single-Shot-MultiBox-Detectorz" class="headerlink" title="8. SSD: Single Shot MultiBox Detectorz"></a>8. SSD: Single Shot MultiBox Detectorz</h2><p>&emsp;SSD是一种使用单个深度神经网络预测图像中物体的模型。网络使用特征图的小卷积滤波器为每个对象类别生成分数。</p>
+<p>&emsp;该方法使用前馈卷积神经网络，产生特定目标的一组边界框和分数，添加了卷积特征图层，允许在多个尺度上进行特征检测，在此模型中，每个特征图单元格都关联到一组默认边界框.</p>
+<blockquote>
+<p>相关内容参考链接：<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.02325?source=post_page">https://arxiv.org/abs/1512.02325?source=post_page</a></p>
+</blockquote>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><blockquote>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/electech6/article/details/95240278">https://blog.csdn.net/electech6/article/details/95240278</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" data-id="ckezm26ch00036sun58713udi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          目标检测算法总结
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">目标检测算法总结</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测学习笔记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

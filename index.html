@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-目标检测算法总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/09/12/hello-world/" class="article-date">
-  <time datetime="2020-09-12T11:08:11.027Z" itemprop="datePublished">2020-09-12</time>
+    <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2020-03-07T05:48:34.000Z" itemprop="datePublished">2020-03-07</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/12/hello-world/">Hello World</a>
+      <a class="article-title" href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">目标检测算法总结</a>
     </h1>
   
 
@@ -86,24 +86,60 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+        <h2 id="1-基于候选区域的目标检测"><a href="#1-基于候选区域的目标检测" class="headerlink" title="1. 基于候选区域的目标检测"></a>1. 基于候选区域的目标检测</h2><h3 id="1-1-滑动窗口检测器"><a href="#1-1-滑动窗口检测器" class="headerlink" title="1.1 滑动窗口检测器"></a>1.1 滑动窗口检测器</h3><p>&emsp;一种用于目标检测的暴力方法是从左到右、从上到下滑动窗口，利用分类识别目标。为了在不同观察距离处检测不同的目标类型，需要使用不同大小和宽高比的窗口。</p>
+<p><img src="/images/pasted-31.png" alt="SlideWindow"></p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/09/12/hello-world/" data-id="ckezlud1200012wune6d51836" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" data-id="ckezm26cf00026sun02fabq7w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-目标检测" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="article-date">
+  <time datetime="2020-03-06T13:30:00.000Z" itemprop="datePublished">2020-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="目标检测学习笔记"><a href="#目标检测学习笔记" class="headerlink" title="目标检测学习笔记"></a>目标检测学习笔记</h1><p><img src="/images/pasted-8.png" alt="Obeject Dectecion"></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>&emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的方法。</p>
+<p><strong>目标检测的基本思路：同时解决定位（localization） + 识别（Recognition）</strong></p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" data-id="ckezm26ch00036sun58713udi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -131,7 +167,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
     </div>
   </div>
 
@@ -144,7 +180,11 @@
       <ul>
         
           <li>
-            <a href="/2020/09/12/hello-world/">Hello World</a>
+            <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">目标检测算法总结</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测学习笔记</a>
           </li>
         
       </ul>
