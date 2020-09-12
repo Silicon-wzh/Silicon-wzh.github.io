@@ -1,121 +1,103 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<html lang="en">
 
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    目标检测学习笔记 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
   
-  <title>目标检测学习笔记 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目标检测学习笔记 1.概述&amp;emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的">
-<meta property="og:type" content="article">
-<meta property="og:title" content="目标检测学习笔记">
-<meta property="og:url" content="http://example.com/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="目标检测学习笔记 1.概述&amp;emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/pasted-8.png">
-<meta property="og:image" content="http://example.com/images/pasted-4.png">
-<meta property="og:image" content="http://example.com/images/pasted-9.png">
-<meta property="og:image" content="http://example.com/images/pasted-10.png">
-<meta property="og:image" content="http://example.com/images/pasted-11.png">
-<meta property="og:image" content="http://example.com/images/pasted-12.png">
-<meta property="og:image" content="http://example.com/images/pasted-13.png">
-<meta property="og:image" content="http://example.com/images/pasted-14.png">
-<meta property="og:image" content="http://example.com/images/pasted-15.png">
-<meta property="og:image" content="http://example.com/images/pasted-16.png">
-<meta property="og:image" content="http://example.com/images/pasted-17.png">
-<meta property="og:image" content="http://example.com/images/pasted-18.png">
-<meta property="og:image" content="http://example.com/images/pasted-19.png">
-<meta property="og:image" content="http://example.com/images/pasted-20.png">
-<meta property="og:image" content="http://example.com/images/pasted-21.png">
-<meta property="og:image" content="http://example.com/images/pasted-23.png">
-<meta property="og:image" content="http://example.com/images/pasted-24.png">
-<meta property="og:image" content="http://example.com/images/pasted-25.png">
-<meta property="og:image" content="http://example.com/images/pasted-26.png">
-<meta property="og:image" content="http://example.com/images/pasted-27.png">
-<meta property="og:image" content="http://example.com/images/pasted-28.png">
-<meta property="og:image" content="http://example.com/images/pasted-30.png">
-<meta property="article:published_time" content="2020-03-06T13:30:00.000Z">
-<meta property="article:modified_time" content="2020-06-01T14:38:40.215Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/pasted-8.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.ico" />
   
   
 <link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-目标检测" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="article-date">
-  <time datetime="2020-03-06T13:30:00.000Z" itemprop="datePublished">2020-03-06</time>
-</a>
-    
-  </div>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-目标检测" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
   <div class="article-inner">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      目标检测学习笔记
-    </h1>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  目标检测学习笔记
+</h1>
   
 
-      </header>
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="article-date">
+  <time datetime="2020-03-06T13:30:00.000Z" itemprop="datePublished">2020-03-06</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">8.5k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">32分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="目标检测学习笔记"><a href="#目标检测学习笔记" class="headerlink" title="目标检测学习笔记"></a>目标检测学习笔记</h1><p><img src="/images/pasted-8.png" alt="Obeject Dectecion"></p>
-<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>&emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的方法。</p>
-<p><strong>目标检测的基本思路：同时解决定位（localization） + 识别（Recognition）</strong></p>
-<a id="more"></a>
 
+
+      
+
+      
+      <h1 id="目标检测学习笔记"><a href="#目标检测学习笔记" class="headerlink" title="目标检测学习笔记"></a>目标检测学习笔记</h1><p><img src="/images/pasted-8.png" alt="Obeject Dectecion"></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>&emsp;目标检测是计算机视觉三大任务之一，不论是需要实现图像与文字的交互还是需要识别精细类别，它都提供了可靠的信息。本文对目标检测进行了整体回顾，第一部分从RCNN开始介绍基于候选区域的目标检测器，包括 Fast R-CNN、Faster R-CNN 和 FPN等。第二部分则重点讨论了包括YOLO、SSD和RetinaNet 等在内的单次检测器，它们都是目前最为优秀的方法。</p>
+<p><strong>目标检测的基本思路：同时解决定位（localization） + 识别（Recognition）</strong><br><a id="more"></a></p>
 <h2 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h2><p>&emsp;目标检测目前有 one-stage 和 two-stage 两种，two-stage 指的是检测算法需要分两步完成，首先需要获取候选区域，然后进行分类与回归，比如基于Region Proposal的R-CNN系（R-CNN，Fast R-CNN, Faster R-CNN等）；与之相对的是 one-stage 检测，其仅仅使用一个卷积神经网络CNN直接预测不同目标的类别与位置，可以理解为一步到位，不需要单独寻找候选区域，典型的有 SSD/YOLO 。第一类方法是准确度高一些，但是速度慢，但是第二类算法是速度快，但是准确性要低一些。这可以在下图中看到。</p>
 <p><img src="/images/pasted-4.png" alt="Performance of Different Structure"></p>
 <h2 id="3-R-CNN"><a href="#3-R-CNN" class="headerlink" title="3. R-CNN"></a>3. R-CNN</h2><p>&emsp;该技术结合了两种主要方法：将高容量卷积神经网络应用于自下而上的候选区域，以便对物体进行局部化和分割，并监督辅助任务的预训练。接下来是特定领域的微调，从而产生高性能提升。论文的作者将算法命名为R-CNN（具有CNN特征的区域），因为它将候选区域与卷积神经网络相结合。<br>&emsp;目标检测有两个主要任务：物体分类和定位，为了完成这两个任务，R-CNN借鉴了滑动窗口思想， 采用对区域进行识别的方案，具体是：</p>
@@ -124,7 +106,7 @@
 <li>对于每个候选区域利用卷积神经网络来获取一个特征向量</li>
 <li>对于每个区域相应的特征向量，利用支持向量机SVM 进行分类，并通过一个bounding box regression调整目标包围框的大小</li>
 </ol>
-<p><img src="/images/pasted-9.png"></p>
+<p><img src="/images/pasted-9.png" alt=""></p>
 <p>&emsp;模型接收图像并提取约2000个自下而上的候选区域，然后，它使用大型CNN计算每个候选区域的特征，此后，它使用特定类的线性支持向量机（SVM）对每个区域进行分类，该模型在PASCAL VOC 2010上实现了53.7％的平均精度。</p>
 <p>&emsp;模型中的物体检测系统有三个模块：第一个负责生成与类别无关的候选区域，这些候选区域定义了模型检测器可用的候选检测器集；第二个模块是一个大型卷积神经网络，负责从每个区域提取固定长度的特征向量；第三个模块由一类支持向量机组成。</p>
 <p>&emsp;模型内部使用选择性搜索来生成区域类别，选择性搜索根据颜色、纹理、形状和大小对相似的区域进行分组。对于特征提取，该模型通过在每个候选区域上应用Caffe CNN（卷积神经网络）得到4096维特征向量，227×227 的RGB图像，通过五个卷积层和两个全连接层前向传播来计算特征，节末链接中的论文解释的模型相对于PASCAL VOC 2012的先前结果实现了30％的改进。</p>
@@ -135,8 +117,7 @@
 <li>Objectness</li>
 <li>Selective search</li>
 <li>Category-independen object proposals</li>
-<li>Constrained parametric min-cuts(CPMC)</li>
-<li>Multi-scale combinatorial grouping</li>
+<li>Constrained parametric min-cuts(CPMC)<br>5.Multi-scale combinatorial grouping</li>
 <li>Ciresan</li>
 </ol>
 <p>&emsp;R-CNN 采用的是 Selective Search 算法。简单来说就是通过一些传统图像处理方法将图像分成很多小尺寸区域，然后根据小尺寸区域的特征合并小尺寸得到大尺寸区域，以实现候选区域的选取。</p>
@@ -156,23 +137,27 @@
 <ol>
 <li>样本：</li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">样本</th>
-<th align="center">来源</th>
+<th style="text-align:center">样本</th>
+<th style="text-align:center">来源</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">正样本</td>
-<td align="center">Ground Truth+与Ground Truth相交loU&gt;0.5的建议框【由于Ground Truth太少了】</td>
+<tbody>
+<tr>
+<td style="text-align:center">正样本</td>
+<td style="text-align:center">Ground Truth+与Ground Truth相交loU&gt;0.5的建议框【由于Ground Truth太少了】</td>
 </tr>
 <tr>
-<td align="center">负样本</td>
-<td align="center">与Ground Truth相交IoU≤0.5的建议框</td>
+<td style="text-align:center">负样本</td>
+<td style="text-align:center">与Ground Truth相交IoU≤0.5的建议框</td>
 </tr>
-</tbody></table>
-<ol start="2">
+</tbody>
+</table>
+</div>
+<ol>
 <li>采用训练好的AlexNet模型进行PASCAL VOC 2007样本集下的微调，学习率=0.001（PASCAL VOC 2007样本集上既有图像中物体类别标签，也有图像中物体位置标签）</li>
 <li>mini-batch为32个正样本和96个负样本（由于正样本太少）</li>
 <li>修改了原来的1000为类别输出，改为21维【20类+背景】输出。</li>
@@ -185,22 +170,26 @@
 <li>分别对上述2000×20维矩阵中每列即每一类进行非极大值抑制剔除重叠建议框，得到该列即该类中得分最高的一些候选框；<br><img src="/images/pasted-10.png" alt="upload successful"></li>
 </ol>
 <p>SVM训练：<br>样本：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">样本</th>
-<th align="center">来源</th>
+<th style="text-align:center">样本</th>
+<th style="text-align:center">来源</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">正样本</td>
-<td align="center">Ground Truth</td>
+<tbody>
+<tr>
+<td style="text-align:center">正样本</td>
+<td style="text-align:center">Ground Truth</td>
 </tr>
 <tr>
-<td align="center">负样本</td>
-<td align="center">与Ground Truth相交 IoU &lt; 0.3 的建议框</td>
+<td style="text-align:center">负样本</td>
+<td style="text-align:center">与Ground Truth相交 IoU &lt; 0.3 的建议框</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>由于SVM是二分类器，需要为每个类别训练单独的SVM；</li>
 <li>SVM训练时，输入正负样本是在AlexNet CNN网络输出的4096维特征向量，输出为该类的得分</li>
@@ -210,18 +199,22 @@
 <ul>
 <li>样本：</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">样本</th>
-<th align="center">来源</th>
+<th style="text-align:center">样本</th>
+<th style="text-align:center">来源</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">正样本</td>
-<td align="center">与Ground Truth相交IoU最大的Region Proposal，并且loU&gt;0.6的Region Proposal</td>
+<tbody>
+<tr>
+<td style="text-align:center">正样本</td>
+<td style="text-align:center">与Ground Truth相交IoU最大的Region Proposal，并且loU&gt;0.6的Region Proposal</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 </blockquote>
 <p>在2014年R-CNN横空出世的时候，颠覆了以往的目标检测方案，精度大大提升。<br><strong>对于R-CNN的贡献，可以主要分为以下两个方面：</strong></p>
 <ol>
@@ -289,26 +282,31 @@
 <p>经典的检测方法生成检测框都非常耗时，如OpenCV adaboost使用滑动窗口+图像金字塔生成检测框；或如R-CNN使用SS(Selective Search)方法生成检测框。而Faster R-CNN则抛弃了传统的滑动窗口和SS方法，直接使用RPN生成检测框，这也是Faster R-CNN的巨大优势，能极大提升检测框的生成速度。<br>首先来看看RPN的工作原理：<br><img src="/images/pasted-16.png" alt="RPN"><br>上图展示了RPN网络的具体结构。可以看到RPN网络实际分为2条支线，上面一条支线通过softmax来分类anchors获得前景foreground和背景background（检测目标是foreground），下面一条支线用于计算anchors的边框偏移量，以获得精确的proposals。而最后的proposal层则负责综合foreground anchors和偏移量获取proposals，同时剔除太小和超出边界的proposals。其实整个网络到了Proposal Layer这里，就完成了相当于目标定位的功能。<br><strong>Anchor：</strong><br>简单地说，RPN依靠一个在共享特征图上滑动的窗口，为每个位置生成9种预先设置好长宽比与面积的目标框(即anchor)。这9种初始anchor包含三种面积(128×128，256×256，512×512)，每种面积又包含三种长宽比(1:1，1:2，2:1)。示意图如下所示：</p>
 <p><img src="/images/pasted-17.png" alt="Anchor"><br>由于共享特征图的大小约为40×60，所以RPN生成的初始anchor的总数约为20000个(40×60×9)。其实RPN最终就是在原图尺度上，设置了密密麻麻的候选anchor。进而去判断anchor到底是前景还是背景，意思就是判断这个anchor到底有没有覆盖目标，以及为属于前景的anchor进行第一次坐标修正。<br><img src="/images/pasted-18.png" alt="Generate Anchors"><br><strong>判断前景或背景：</strong><br>对于所有的anchors，首先需要判断anchor是是否为前景。对于第一个问题，RPN的做法是使用SoftmaxLoss直接训练，在训练的时候排除掉了超越图像边界的anchor；<br><strong>边框修正：</strong><br>如图绿色表示的是飞机的实际框标签(ground truth)，红色的表示的其中一个候选区域(foreground anchor)，即被分类器识别为飞机的区域，但是由于红色区域定位不准确，这张图相当于没有正确检测出飞机，所以我们希望采用一种方法对红色的框进行微调，使得候选区域和实际框更加接近：<br><img src="/images/pasted-19.png" alt="Dectect template"><br>对于目标框一般使用四维向量来表示(x,y,w,h)(x,y,w,h) ，分别表示目标框的中心点坐标、宽、高，我们使用AA 表示原始的foreground anchor，使用GG 表示目标的ground truth，我们的目标是寻找一种关系，使得输入原始的Anchor AA 经过映射到一个和真实框GG 更接近的回归窗口G′G′ ，即：</p>
 <ul>
-<li>给定：<br>$A = \left( A _ { x } , A _ { y } , A _ { w } , A _ { h } \right) , G = \left( G _ { x } , G _ { y } , G _ { w } , G _ { h } \right)$</li>
-<li>寻找一种变换FF ，使得<br>$  F \left( A _ { x } , A _ { y } , A _ { w } , A _ { h } \right) = \left( G _ { x } ^ { \prime } , G _ { y } ^ { \prime } , G _ { w } ^ { \prime } , G _ { h } ^ { \prime } \right) $<br>$ \left( G _ { x } , G _ { y } , G _ { w } , G _ { h } \right) \approx \left( G _ { x } ^ { \prime } , G _ { y } ^ { \prime } , G _ { w } ^ { \prime } , G _ { h } ^ { \prime } \right) $<br><img src="/images/pasted-20.png"></li>
+<li>给定：<br>$A = \left( A <em> { x } , A </em> { y } , A <em> { w } , A </em> { h } \right) , G = \left( G <em> { x } , G </em> { y } , G <em> { w } , G </em> { h } \right)$</li>
+<li>寻找一种变换FF ，使得<br>$  F \left( A <em> { x } , A </em> { y } , A <em> { w } , A </em> { h } \right) = \left( G <em> { x } ^ { \prime } , G </em> { y } ^ { \prime } , G <em> { w } ^ { \prime } , G </em> { h } ^ { \prime } \right) $<br>$ \left( G <em> { x } , G </em> { y } , G <em> { w } , G </em> { h } \right) \approx \left( G <em> { x } ^ { \prime } , G </em> { y } ^ { \prime } , G <em> { w } ^ { \prime } , G </em> { h } ^ { \prime } \right) $<br><img src="/images/pasted-20.png" alt=""></li>
 </ul>
 <p>那么如何去计算 $F$ 呢？这里我们可以通过平移和缩放实现</p>
 <p>$F(A) = G^{\prime}$</p>
 <ul>
-<li>平移：<br>$G _ { x } ^ { \prime } = A _ { x } + A _ { w } \cdot d _ { x } ( A )$<br>$G _ { y } ^ { \prime } = A _ { y } + A _ { h } \cdot d _ { y } ( A )$</li>
-<li>缩放：<br>$G _ { w } ^ { \prime } = A _ { w } \cdot \exp \left( d _ { w } ( A ) \right) $<br>$ G _ { h } ^ { \prime } = A _ { h } \cdot \exp \left( d _ { h } ( A ) \right) $</li>
+<li>平移：<br>$G <em> { x } ^ { \prime } = A </em> { x } + A <em> { w } \cdot d </em> { x } ( A )$<br>$G <em> { y } ^ { \prime } = A </em> { y } + A <em> { h } \cdot d </em> { y } ( A )$</li>
+<li>缩放：<br>$G <em> { w } ^ { \prime } = A </em> { w } \cdot \exp \left( d <em> { w } ( A ) \right) $<br>$ G </em> { h } ^ { \prime } = A <em> { h } \cdot \exp \left( d </em> { h } ( A ) \right) $</li>
 </ul>
-<p>上面公式中，我们需要学习四个参数，分别是<br>$d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )$<br>其中$<br>\left( A _ { w } \cdot d _ { x } ( A ) , A _ { w } \cdot d _ { y } ( A ) \right)<br>$表示的两个框中心距离的偏移量</p>
-<p>&emsp;当输入的anchor A与G相差较小时，可以认为这种变换是一种线性变换， 那么就可以用线性回归来建模对目标框进行微调（注意，只有当anchors A和G比较接近时，才能使用线性回归模型，否则就是复杂的非线性问题了）。<br>接下来就是如何通过线性回归获得 $d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )$</p>
-<p>线性回归就是给定输入的特征向量X ，学习一组参数W，使得线性回归的输出WX和真实值Y 的差很小。对于该问题，输入X是特征图，我们使用ϕ 表示，同时训练时还需要A到G变换的真实参数值：<br>$$<br>\left( t _ { x } , t _ { y } , t _ { w } , t _ { h } \right)<br>$$</p>
-<p>输出是<br>$$<br>d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )<br>$$<br>那么目标函数可以表示为：<br>$$<br>d _ { * } ( A ) = w _ { * } ^ { T } \cdot \phi ( A )<br>$$</p>
-<p>其中ϕ(A) 是对应anchor的特征图组成的特征向量，ww 是需要学习的参数，d(A) 是得到预测值(表示x*,y,w,*h，也就是每一个变换对应一个上述目标函数)，为了让预测值和真实值差距最小，代价函数如下：<br>$$<br>\operatorname { los } s = \sum _ { i = 1 } ^ { N } \left( t _ { * } ^ { i } - \hat { w } _ { * } ^ { T } \cdot \phi \left( A ^ { i } \right) \right) ^ { 2 }<br>$$</p>
-<p>函数优化目标为：<br>$$<br>w _ { * } = \underset { \hat { w } _ { * } } { \arg \min } \sum _ { i = 1 } ^ { N } \left( t _ { * } ^ { i } - \hat { w } _ { * } ^ { T } \cdot \phi \left( A ^ { i } \right) \right) ^ { 2 } + \lambda | \hat { w } * | 2<br>$$</p>
-<p>需要说明，只有在G和A比较接近时，才可近似认为上述线性变换成立，下面对于原文中，A与G之间的平移参数和尺度因子为：<br>$t _ { x } = \left( G _ { x } - A _ { x } \right) / A _ { w }$<br>$t _ { y } = \left( G _ { y } - A _ { y } \right) / A _ { h }$<br>$t _ { w } = \log \left( G _ { w } / A _ { w } \right)$<br>$t _ { h } = \log \left( G _ { h } / A _ { h } \right)$</p>
-<p>&emsp; 在得到每一个候选区域anchor A的修正参数之后，我们就可以计算出精确的anchor，然后按照物体的区域得分从大到小对得到的anchor排序，然后提出一些宽或者高很小的anchor(获取其它过滤条件)，再经过非极大值抑制抑制，取前Top-N的anchors，然后作为proposals(候选框)输出，送入到RoI Pooling层。<br>&emsp; 那么，RPN怎么实现呢？这个问题通过RPN的本质很好求解，RPN的本质是一个树状结构，树干是一个3×3的卷积层，树枝是两个1×1的卷积层，第一个1×1的卷积层解决了前后景的输出，第二个1×1的卷积层解决了边框修正的输出。<br><strong>RPN代码实现</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;RPN &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;#</span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn conv&#x2F;3x3&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;conv5&quot;</span><br><span class="line">top:&quot;rpn&#x2F;output&quot;</span><br><span class="line">convolution param&#123;</span><br><span class="line">	num output:256</span><br><span class="line">	kernel size:3 pad:1 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01&#125;</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn relu&#x2F;3x3&quot;</span><br><span class="line">type:&quot;ReLU&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;</span><br><span class="line">top:&quot;rpn&#x2F;output&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn cls score&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;top:&quot;rpn cls score&quot;</span><br><span class="line">  convolution param &#123;</span><br><span class="line">	num output:18 #2(bg&#x2F;fg)*9(anchors)</span><br><span class="line">	kernel size:l pad:0 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn bbox pred&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;top:&quot;rpn bbox pred&quot;</span><br><span class="line">convolution param&#123;</span><br><span class="line">	num output:36 #4*9(anchors)</span><br><span class="line">	kernel size:l pad:0 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&emsp; 从如上代码中可以看到，对于RPN输出的特征图中的每一个点，一个1×1的卷积层输出了18个值，因为是每一个点对应9个anchor，每个anchor有一个前景分数和一个背景分数，所以9×2=18。另一个1×1的卷积层输出了36个值，因为是每一个点对应9个anchor，每个anchor对应了4个修正坐标的值，所以9×4=36。那么，要得到这些值，RPN网络需要训练。在训练的时候，就需要对应的标签。那么，如何判定一个anchor是前景还是背景呢？文中做出了如下定义：如果一个anchor与ground truth的IoU在0.7以上，那这个anchor就算前景(positive)。类似地，如果这个anchor与ground truth的IoU在0.3以下，那么这个anchor就算背景(negative)。在作者进行RPN网络训练的时候，只使用了上述两类anchor，与ground truth的IoU介于0.3和0.7的anchor没有使用。在训练anchor属于前景与背景的时候，是在一张图中，随机抽取了128个前景anchor与128个背景anchor。</p>
-<p><strong>分类与定位</strong><br>Faster R-CNN中的RoI Pooling Layer与 Fast R-CNN中原理一样。在RoI Pooling Layer之后，就是Faster R-CNN的分类器和RoI边框修正训练。分类器主要是分这个提取的RoI具体是什么类别(人，车，马等)，一共C+1类(包含一类背景)。RoI边框修正和RPN中的anchor边框修正原理一样，同样也是SmoothL1 Loss，值得注意的是，RoI边框修正也是对于非背景的RoI进行修正，对于类别标签为背景的RoI，则不进行RoI边框修正的参数训练。对于分类器和RoI边框修正的训练，可以损失函数描述如下：<br>$$L \left( p , u , t ^ { u } , v \right) = L _ { \mathrm { cls } } ( p , u ) + \lambda [ u \geq 1 ] L _ { \mathrm { loc } } \left( t ^ { u } , v \right)$$<br>上式中u&gt;=1表示RoI边框修正是对于非背景的RoI而言的，实验中，上式的λ取1。<br><strong>在训练分类器和RoI边框修正时，步骤如下所示：</strong></p>
+<p>上面公式中，我们需要学习四个参数，分别是<br>$d <em> { x } ( A ) , d </em> { y } ( A ) , d <em> { w } ( A ) , d </em> { h } ( A )$<br>其中$<br>\left( A <em> { w } \cdot d </em> { x } ( A ) , A <em> { w } \cdot d </em> { y } ( A ) \right)<br>$表示的两个框中心距离的偏移量</p>
+<p>&emsp;当输入的anchor A与G相差较小时，可以认为这种变换是一种线性变换， 那么就可以用线性回归来建模对目标框进行微调（注意，只有当anchors A和G比较接近时，才能使用线性回归模型，否则就是复杂的非线性问题了）。<br>接下来就是如何通过线性回归获得 $d <em> { x } ( A ) , d </em> { y } ( A ) , d <em> { w } ( A ) , d </em> { h } ( A )$</p>
+<p>线性回归就是给定输入的特征向量X ，学习一组参数W，使得线性回归的输出WX和真实值Y 的差很小。对于该问题，输入X是特征图，我们使用ϕ 表示，同时训练时还需要A到G变换的真实参数值：</p>
+<script type="math/tex; mode=display">
+\left( t _ { x } , t _ { y } , t _ { w } , t _ { h } \right)</script><p>输出是</p>
+<script type="math/tex; mode=display">
+d _ { x } ( A ) , d _ { y } ( A ) , d _ { w } ( A ) , d _ { h } ( A )</script><p>那么目标函数可以表示为：</p>
+<script type="math/tex; mode=display">
+d _ { * } ( A ) = w _ { * } ^ { T } \cdot \phi ( A )</script><p>其中ϕ(A) 是对应anchor的特征图组成的特征向量，ww 是需要学习的参数，d(A) 是得到预测值(表示x<em>,y,w,</em>h，也就是每一个变换对应一个上述目标函数)，为了让预测值和真实值差距最小，代价函数如下：</p>
+<script type="math/tex; mode=display">
+\operatorname { los } s = \sum _ { i = 1 } ^ { N } \left( t _ { * } ^ { i } - \hat { w } _ { * } ^ { T } \cdot \phi \left( A ^ { i } \right) \right) ^ { 2 }</script><p>函数优化目标为：</p>
+<script type="math/tex; mode=display">
+w _ { * } = \underset { \hat { w } _ { * } } { \arg \min } \sum _ { i = 1 } ^ { N } \left( t _ { * } ^ { i } - \hat { w } _ { * } ^ { T } \cdot \phi \left( A ^ { i } \right) \right) ^ { 2 } + \lambda \| \hat { w } * \| 2</script><p>需要说明，只有在G和A比较接近时，才可近似认为上述线性变换成立，下面对于原文中，A与G之间的平移参数和尺度因子为：<br>$t <em> { x } = \left( G </em> { x } - A <em> { x } \right) / A </em> { w }$<br>$t <em> { y } = \left( G </em> { y } - A <em> { y } \right) / A </em> { h }$<br>$t <em> { w } = \log \left( G </em> { w } / A <em> { w } \right)$<br>$t </em> { h } = \log \left( G <em> { h } / A </em> { h } \right)$</p>
+<p>&emsp; 在得到每一个候选区域anchor A的修正参数之后，我们就可以计算出精确的anchor，然后按照物体的区域得分从大到小对得到的anchor排序，然后提出一些宽或者高很小的anchor(获取其它过滤条件)，再经过非极大值抑制抑制，取前Top-N的anchors，然后作为proposals(候选框)输出，送入到RoI Pooling层。<br>&emsp; 那么，RPN怎么实现呢？这个问题通过RPN的本质很好求解，RPN的本质是一个树状结构，树干是一个3×3的卷积层，树枝是两个1×1的卷积层，第一个1×1的卷积层解决了前后景的输出，第二个1×1的卷积层解决了边框修正的输出。<br><strong>RPN代码实现</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;RPN &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;#</span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn conv&#x2F;3x3&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;conv5&quot;</span><br><span class="line">top:&quot;rpn&#x2F;output&quot;</span><br><span class="line">convolution param&#123;</span><br><span class="line">	num output:256</span><br><span class="line">	kernel size:3 pad:1 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01&#125;</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn relu&#x2F;3x3&quot;</span><br><span class="line">type:&quot;ReLU&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;</span><br><span class="line">top:&quot;rpn&#x2F;output&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn cls score&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;top:&quot;rpn cls score&quot;</span><br><span class="line">  convolution param &#123;</span><br><span class="line">	num output:18 #2(bg&#x2F;fg)*9(anchors)</span><br><span class="line">	kernel size:l pad:0 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">layer&#123;</span><br><span class="line">name:&quot;rpn bbox pred&quot;</span><br><span class="line">type:&quot;Convolution&quot;</span><br><span class="line">bottom:&quot;rpn&#x2F;output&quot;top:&quot;rpn bbox pred&quot;</span><br><span class="line">convolution param&#123;</span><br><span class="line">	num output:36 #4*9(anchors)</span><br><span class="line">	kernel size:l pad:0 stride:1</span><br><span class="line">	weight filler &#123; type:&quot;gaussian&quot;std:0.01</span><br><span class="line">	bias filler &#123; type:&quot;constant&quot;value:0&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>&emsp; 从如上代码中可以看到，对于RPN输出的特征图中的每一个点，一个1×1的卷积层输出了18个值，因为是每一个点对应9个anchor，每个anchor有一个前景分数和一个背景分数，所以9×2=18。另一个1×1的卷积层输出了36个值，因为是每一个点对应9个anchor，每个anchor对应了4个修正坐标的值，所以9×4=36。那么，要得到这些值，RPN网络需要训练。在训练的时候，就需要对应的标签。那么，如何判定一个anchor是前景还是背景呢？文中做出了如下定义：如果一个anchor与ground truth的IoU在0.7以上，那这个anchor就算前景(positive)。类似地，如果这个anchor与ground truth的IoU在0.3以下，那么这个anchor就算背景(negative)。在作者进行RPN网络训练的时候，只使用了上述两类anchor，与ground truth的IoU介于0.3和0.7的anchor没有使用。在训练anchor属于前景与背景的时候，是在一张图中，随机抽取了128个前景anchor与128个背景anchor。</p>
+<p><strong>分类与定位</strong><br>Faster R-CNN中的RoI Pooling Layer与 Fast R-CNN中原理一样。在RoI Pooling Layer之后，就是Faster R-CNN的分类器和RoI边框修正训练。分类器主要是分这个提取的RoI具体是什么类别(人，车，马等)，一共C+1类(包含一类背景)。RoI边框修正和RPN中的anchor边框修正原理一样，同样也是SmoothL1 Loss，值得注意的是，RoI边框修正也是对于非背景的RoI进行修正，对于类别标签为背景的RoI，则不进行RoI边框修正的参数训练。对于分类器和RoI边框修正的训练，可以损失函数描述如下：</p>
+<script type="math/tex; mode=display">L \left( p , u , t ^ { u } , v \right) = L _ { \mathrm { cls } } ( p , u ) + \lambda [ u \geq 1 ] L _ { \mathrm { loc } } \left( t ^ { u } , v \right)</script><p>上式中u&gt;=1表示RoI边框修正是对于非背景的RoI而言的，实验中，上式的λ取1。<br><strong>在训练分类器和RoI边框修正时，步骤如下所示：</strong></p>
 <ol>
 <li>首先通过RPN生成约20000个anchor(40×60×9)。</li>
 <li>对20000个anchor进行第一次边框修正，得到修订边框后的proposal。<br>2 对超过图像边界的proposal的边进行clip，使得该proposal不超过图像范围。</li>
@@ -318,12 +316,8 @@
 <li>针对上一步剩下的proposal,选取前2000个proposal进行分类和第二次边框修正。</li>
 </ol>
 <p>总的来说，Faster R-CNN的loss分两大块，第一大块是训练RPN的loss(包含一个SoftmaxLoss和SmoothL1Loss)，第二大块是训练Faster R-CNN中分类器的loss(包含一个SoftmaxLoss和SmoothL1Loss)，Faster R-CNN的总的loss函数描述如下：</p>
-</blockquote>
-<p>$$<br>L_{final} = L \lbrace p_i \rbrace , \lbrace t_i \rbrace + L(p, u, t^u, v)<br>$$</p>
-<blockquote>
-</blockquote>
-<blockquote>
-<p>相关论文参考链接：</p>
+<script type="math/tex; mode=display">
+L_{final} = L \lbrace p_i \rbrace , \lbrace t_i \rbrace + L(p, u, t^u, v)</script><p>相关论文参考链接：</p>
 <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497?source=post_page">https://arxiv.org/abs/1506.01497?source=post_page</a></p>
 </blockquote>
 <h2 id="6-Mask-R-CNN"><a href="#6-Mask-R-CNN" class="headerlink" title="6. Mask R-CNN"></a>6. Mask R-CNN</h2><p>&emsp;Mask R-CNN是上述Faster R-CNN架构的扩展，它还能够估计人体姿势。<br>&emsp;在此模型中，物体通过边界框和语义分割实现分类和局部化，语义分割是将图片中每个像素分类。该模型通过在每个感兴趣区域（ROI）添加分割掩模的预测来扩展Faster R-CNN， Mask R-CNN产生两个输出，类标签和边界框。<br>&emsp;Mask R-CNN可以分解为3个模块：Faster-RCNN、RoI Align和Mask。<br><strong>算法框架如下：</strong><br><img src="/images/pasted-21.png" alt="Mask R-CNN算法框架"></p>
@@ -339,14 +333,10 @@
 <p>Mask R-CNN是一个非常灵活的框架，可以增加不同的分支完成不同的任务，可以完成目标分类、目标检测、语义分割、实例分割、人体姿势识别等多种任务，如下图所示。<br><img src="/images/pasted-23.png" alt="Mask R-CNN Application"></p>
 <p><strong>ROI Align</strong></p>
 <blockquote>
-<p>Mask R-CNN使用RoIAlign取代了Faster RCNN中的RoIPooling，故下文对RoIPooling和RoIAlign进行分析与比较<br><img src="/images/pasted-24.png"><br>如上图所示，RoI Pooling和RoIAlign最大的区别是：前者使用了两次量化操作，而后者并没有采用量化操作，使用了线性插值算法，具体的解释如下所示。<br><strong>RoI Pooling</strong><br><img src="/images/pasted-25.png"><br>如上图所示，为了得到固定大小（7X7）的feature map，我们需要做两次量化操作：1）图像坐标 — feature map坐标，2）feature map坐标 — RoI feature坐标。我们来说一下具体的细节，如图我们输入的是一张800x800的图像，在图像中有两个目标（猫和狗），狗的BB大小为665x665，经过VGG16网络后，我们可以获得对应的feature map，如果我们对卷积层进行Padding操作，我们的图片经过卷积层后保持原来的大小，但是由于池化层的存在，我们最终获得feature map 会比原图缩小一定的比例，这和Pooling层的个数和大小有关。在该VGG16中，我们使用了5个池化操作，每个池化操作都是2x2Pooling，因此我们最终获得feature map的大小为800/32 x 800/32 = 25x25（是整数），但是将狗的BB对应到feature map上面，我们得到的结果是665/32 x 665/32 = 20.78 x 20.78，结果是浮点数，含有小数，但是我们的像素值可没有小数，那么作者就对其进行了量化操作（即取整操作），即其结果变为20 x 20，在这里引入了第一次的量化误差；然而我们的feature map中有不同大小的ROI，但是我们后面的网络却要求我们有固定的输入，因此，我们需要将不同大小的ROI转化为固定的ROI feature，在这里使用的是7x7的ROI feature，那么我们需要将20 x 20的ROI映射成7 x 7的ROI feature，其结果是 20 /7 x 20/7 = 2.86 x 2.86，同样是浮点数，含有小数点，我们采取同样的操作对其进行取整吧，在这里引入了第二次量化误差。其实，这里引入的误差会导致图像中的像素和特征中的像素的偏差，即将feature空间的ROI对应到原图上面会出现很大的偏差。原因如下：比如用我们第二次引入的误差来分析，本来是2,86，我们将其量化为2，这期间引入了0.86的误差，看起来是一个很小的误差呀，但是你要记得这是在feature空间，我们的feature空间和图像空间是有比例关系的，在这里是1:32，那么对应到原图上面的差距就是0.86 x 32 = 27.52。这个差距不小吧，这还是仅仅考虑了第二次的量化误差。这会大大影响整个检测算法的性能，因此是一个严重的问题。</p>
-</blockquote>
-<p><strong>RoIAlign</strong></p>
-<blockquote>
-<p><img src="/images/pasted-26.png"><br>如上图所示，为了得到为了得到固定大小（7X7）的feature map，RoIAlign技术并没有使用量化操作，即我们不想引入量化误差，比如665 / 32 = 20.78，我们就用20.78，不用什么20来替代它，比如20.78 / 7 = 2.97，我们就用2.97，而不用2来代替它。这就是RoIAlign的初衷。那么我们如何处理这些浮点数呢，我们的解决思路是使用“双线性插值”算法。双线性插值是一种比较好的图像缩放算法，它充分的利用了原图中虚拟点（比如20.56这个浮点数，像素位置都是整数值，没有浮点值）四周的四个真实存在的像素值来共同决定目标图中的一个像素值，即可以将20.56这个虚拟的位置点对应的像素值估计出来。如下图所示，蓝色的虚线框表示卷积后获得的feature map，黑色实线框表示ROI feature，最后需要输出的大小是2x2，那么我们就利用双线性插值来估计这些蓝点（虚拟坐标点，又称双线性插值的网格点）处所对应的像素值，最后得到相应的输出。这些蓝点是2x2Cell中的随机采样的普通点，作者指出，这些采样点的个数和位置不会对性能产生很大的影响，你也可以用其它的方法获得。然后在每一个橘红色的区域里面进行max pooling或者average pooling操作，获得最终2x2的输出结果。我们的整个过程中没有用到量化操作，没有引入误差，即原图中的像素和feature map中的像素是完全对齐的，没有偏差，这不仅会提高检测的精度，同时也会有利于实例分割。<br><img src="/images/pasted-27.png"><br><strong>Mask</strong><br>下图阐述了Mask R-CNN的Mask branch：<br><img src="/images/pasted-28.png"><br>在Mask R-CNN中的RoI Align之后有一个”head”部分，主要作用是将RoI Align的输出维度扩大，这样在预测Mask时会更加精确。在Mask Branch的训练环节，作者没有采用FCN式的SoftmaxLoss，反而是输出了K个Mask预测图(为每一个类都输出一张)，并采用average binary cross-entropy loss训练，当然在训练Mask branch的时候，输出的K个特征图中，也只是对应ground truth类别的那一个特征图对Mask loss有贡献。<br>Mask R-CNN的训练损失函数可以描述为：<br>$$<br>L _ { \text {final } } = L \left( \lbrace p _ { i } \rbrace , \lbrace t _ { i } \rbrace \right) + \left( L _ { c l s } + L _ { b o x } + L _ { \text {mask } } \right)<br>$$</p>
-</blockquote>
-<blockquote>
-<p>相关论文参考链接：<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1703.06870?source=post_page">https://arxiv.org/abs/1703.06870?source=post_page</a></p>
+<p>Mask R-CNN使用RoIAlign取代了Faster RCNN中的RoIPooling，故下文对RoIPooling和RoIAlign进行分析与比较<br><img src="/images/pasted-24.png" alt=""><br>如上图所示，RoI Pooling和RoIAlign最大的区别是：前者使用了两次量化操作，而后者并没有采用量化操作，使用了线性插值算法，具体的解释如下所示。<br><strong>RoI Pooling</strong><br><img src="/images/pasted-25.png" alt=""><br>如上图所示，为了得到固定大小（7X7）的feature map，我们需要做两次量化操作：1）图像坐标 — feature map坐标，2）feature map坐标 — RoI feature坐标。我们来说一下具体的细节，如图我们输入的是一张800x800的图像，在图像中有两个目标（猫和狗），狗的BB大小为665x665，经过VGG16网络后，我们可以获得对应的feature map，如果我们对卷积层进行Padding操作，我们的图片经过卷积层后保持原来的大小，但是由于池化层的存在，我们最终获得feature map 会比原图缩小一定的比例，这和Pooling层的个数和大小有关。在该VGG16中，我们使用了5个池化操作，每个池化操作都是2x2Pooling，因此我们最终获得feature map的大小为800/32 x 800/32 = 25x25（是整数），但是将狗的BB对应到feature map上面，我们得到的结果是665/32 x 665/32 = 20.78 x 20.78，结果是浮点数，含有小数，但是我们的像素值可没有小数，那么作者就对其进行了量化操作（即取整操作），即其结果变为20 x 20，在这里引入了第一次的量化误差；然而我们的feature map中有不同大小的ROI，但是我们后面的网络却要求我们有固定的输入，因此，我们需要将不同大小的ROI转化为固定的ROI feature，在这里使用的是7x7的ROI feature，那么我们需要将20 x 20的ROI映射成7 x 7的ROI feature，其结果是 20 /7 x 20/7 = 2.86 x 2.86，同样是浮点数，含有小数点，我们采取同样的操作对其进行取整吧，在这里引入了第二次量化误差。其实，这里引入的误差会导致图像中的像素和特征中的像素的偏差，即将feature空间的ROI对应到原图上面会出现很大的偏差。原因如下：比如用我们第二次引入的误差来分析，本来是2,86，我们将其量化为2，这期间引入了0.86的误差，看起来是一个很小的误差呀，但是你要记得这是在feature空间，我们的feature空间和图像空间是有比例关系的，在这里是1:32，那么对应到原图上面的差距就是0.86 x 32 = 27.52。这个差距不小吧，这还是仅仅考虑了第二次的量化误差。这会大大影响整个检测算法的性能，因此是一个严重的问题。</p>
+<p><strong>RoIAlign</strong><br><img src="/images/pasted-26.png" alt=""><br>如上图所示，为了得到为了得到固定大小（7X7）的feature map，RoIAlign技术并没有使用量化操作，即我们不想引入量化误差，比如665 / 32 = 20.78，我们就用20.78，不用什么20来替代它，比如20.78 / 7 = 2.97，我们就用2.97，而不用2来代替它。这就是RoIAlign的初衷。那么我们如何处理这些浮点数呢，我们的解决思路是使用“双线性插值”算法。双线性插值是一种比较好的图像缩放算法，它充分的利用了原图中虚拟点（比如20.56这个浮点数，像素位置都是整数值，没有浮点值）四周的四个真实存在的像素值来共同决定目标图中的一个像素值，即可以将20.56这个虚拟的位置点对应的像素值估计出来。如下图所示，蓝色的虚线框表示卷积后获得的feature map，黑色实线框表示ROI feature，最后需要输出的大小是2x2，那么我们就利用双线性插值来估计这些蓝点（虚拟坐标点，又称双线性插值的网格点）处所对应的像素值，最后得到相应的输出。这些蓝点是2x2Cell中的随机采样的普通点，作者指出，这些采样点的个数和位置不会对性能产生很大的影响，你也可以用其它的方法获得。然后在每一个橘红色的区域里面进行max pooling或者average pooling操作，获得最终2x2的输出结果。我们的整个过程中没有用到量化操作，没有引入误差，即原图中的像素和feature map中的像素是完全对齐的，没有偏差，这不仅会提高检测的精度，同时也会有利于实例分割。<br><img src="/images/pasted-27.png" alt=""><br><strong>Mask</strong><br>下图阐述了Mask R-CNN的Mask branch：<br><img src="/images/pasted-28.png" alt=""><br>在Mask R-CNN中的RoI Align之后有一个”head”部分，主要作用是将RoI Align的输出维度扩大，这样在预测Mask时会更加精确。在Mask Branch的训练环节，作者没有采用FCN式的SoftmaxLoss，反而是输出了K个Mask预测图(为每一个类都输出一张)，并采用average binary cross-entropy loss训练，当然在训练Mask branch的时候，输出的K个特征图中，也只是对应ground truth类别的那一个特征图对Mask loss有贡献。<br>Mask R-CNN的训练损失函数可以描述为：</p>
+<script type="math/tex; mode=display">
+L _ { \text {final } } = L \left( \lbrace p _ { i } \rbrace , \lbrace t _ { i } \rbrace \right) + \left( L _ { c l s } + L _ { b o x } + L _ { \text {mask } } \right)</script><p>相关论文参考链接：<br><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1703.06870?source=post_page">https://arxiv.org/abs/1703.06870?source=post_page</a></p>
 </blockquote>
 <h2 id="7-YOLO"><a href="#7-YOLO" class="headerlink" title="7. YOLO"></a>7. YOLO</h2><p>&emsp;以上目标检测模型都是two-stage算法，针对于two-stage目标检测算法普遍存在的运算速度慢的缺点，Yolo创造性的提出了one-stage，也就是将物体分类和物体定位在一个步骤中完成。Yolo直接在输出层回归bounding box的位置和bounding box所属类别，从而实现one-stage。通过这种方式，Yolo可实现45帧每秒的运算速度，完全能满足实时性要求（达到24帧每秒，人眼就认为是连续的）。整个系统如下图所示。</p>
 <p><img src="/images/pasted-30.png" alt="upload successful"></p>
@@ -368,112 +358,467 @@
 </blockquote>
 
       
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
     </div>
+    
+    
+      <!-- copyright -->
+      
     <footer class="article-footer">
-      <a data-url="http://example.com/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" data-id="ckezm6a960004u8unhgjs4wds" class="article-share-link">Share</a>
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
       
       
+
     </footer>
+
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          目标检测算法总结
-        
-      </div>
-    </a>
-  
-  
-</nav>
 
   
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            目标检测算法总结
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '27f22c9606d2801d92eb',
+    clientSecret: '629cbd4c87183101d7d8542013329b0c4fc04534',
+    repo: 'AHU-HUI.github.io',
+    owner: 'AHU-HUI',
+    admin: ['AHU-HUI'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
 </article>
-
 </section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">目标检测算法总结</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测学习笔记</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
+      <footer class="footer">
   <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2017-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <a href="http://beian.miit.gov.cn/" target="_black">皖ICP备17013875号</a>
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
   </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+  <ul class="nav nav-main">
     
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
 
 
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开！','愿你一生努力，一生被爱！','想要的都拥有，得不到的都释怀！'],
+    startDelay: 0,
+    typeSpeed: 500,
+    loop: true,
+    backSpeed: 200,
+    showCursor: true
+    });
+  } catch (err) {
+  }
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+</script>
 
 
 
 
-<script src="/js/script.js"></script>
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
 
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
 
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
   </div>
 </body>
+
 </html>

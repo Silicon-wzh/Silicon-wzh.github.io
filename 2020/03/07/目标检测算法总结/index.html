@@ -1,142 +1,104 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<html lang="en">
 
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    目标检测算法总结 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
   
-  <title>目标检测算法总结 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 基于候选区域的目标检测1.1 滑动窗口检测器&amp;emsp;一种用于目标检测的暴力方法是从左到右、从上到下滑动窗口，利用分类识别目标。为了在不同观察距离处检测不同的目标类型，需要使用不同大小和宽高比的窗口。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="目标检测算法总结">
-<meta property="og:url" content="http://example.com/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1. 基于候选区域的目标检测1.1 滑动窗口检测器&amp;emsp;一种用于目标检测的暴力方法是从左到右、从上到下滑动窗口，利用分类识别目标。为了在不同观察距离处检测不同的目标类型，需要使用不同大小和宽高比的窗口。">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/pasted-31.png">
-<meta property="og:image" content="http://example.com/images/pasted-32.png">
-<meta property="og:image" content="http://example.com/images/pasted-33.png">
-<meta property="og:image" content="http://example.com/images/pasted-34.png">
-<meta property="og:image" content="http://example.com/images/pasted-35.png">
-<meta property="og:image" content="http://example.com/images/pasted-36.png">
-<meta property="og:image" content="http://example.com/images/pasted-37.png">
-<meta property="og:image" content="http://example.com/images/pasted-38.png">
-<meta property="og:image" content="http://example.com/images/pasted-39.png">
-<meta property="og:image" content="http://example.com/images/pasted-40.png">
-<meta property="og:image" content="http://example.com/images/pasted-41.png">
-<meta property="og:image" content="http://example.com/images/pasted-42.png">
-<meta property="og:image" content="http://example.com/images/pasted-43.png">
-<meta property="og:image" content="http://example.com/images/pasted-44.png">
-<meta property="og:image" content="http://example.com/images/pasted-45.png">
-<meta property="og:image" content="http://example.com/images/pasted-46.png">
-<meta property="og:image" content="http://example.com/images/pasted-47.png">
-<meta property="og:image" content="http://example.com/images/pasted-48.png">
-<meta property="og:image" content="http://example.com/images/pasted-49.png">
-<meta property="og:image" content="http://example.com/images/pasted-50.png">
-<meta property="og:image" content="http://example.com/images/pasted-51.png">
-<meta property="og:image" content="http://example.com/images/pasted-52.png">
-<meta property="og:image" content="http://example.com/images/pasted-53.png">
-<meta property="og:image" content="http://example.com/images/pasted-54.png">
-<meta property="og:image" content="http://example.com/images/pasted-55.png">
-<meta property="og:image" content="http://example.com/images/pasted-56.png">
-<meta property="og:image" content="http://example.com/images/pasted-57.png">
-<meta property="og:image" content="http://example.com/images/pasted-58.png">
-<meta property="og:image" content="http://example.com/images/pasted-59.png">
-<meta property="og:image" content="http://example.com/images/pasted-60.png">
-<meta property="og:image" content="http://example.com/images/pasted-61.png">
-<meta property="og:image" content="http://example.com/images/pasted-62.png">
-<meta property="og:image" content="http://example.com/images/pasted-63.png">
-<meta property="og:image" content="http://example.com/images/pasted-64.png">
-<meta property="og:image" content="http://example.com/images/pasted-65.png">
-<meta property="og:image" content="http://example.com/images/pasted-66.png">
-<meta property="og:image" content="http://example.com/images/pasted-67.png">
-<meta property="og:image" content="http://example.com/images/pasted-68.png">
-<meta property="og:image" content="http://example.com/images/pasted-69.png">
-<meta property="og:image" content="http://example.com/images/pasted-70.png">
-<meta property="og:image" content="http://example.com/images/pasted-71.png">
-<meta property="article:published_time" content="2020-03-07T05:48:34.000Z">
-<meta property="article:modified_time" content="2020-06-01T14:38:40.104Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/pasted-31.png">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.ico" />
   
   
 <link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 5.1.1"></head>
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-目标检测算法总结" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="article-date">
-  <time datetime="2020-03-07T05:48:34.000Z" itemprop="datePublished">2020-03-07</time>
-</a>
-    
-  </div>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-目标检测算法总结" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
   <div class="article-inner">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      目标检测算法总结
-    </h1>
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  目标检测算法总结
+</h1>
   
 
-      </header>
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2020-03-07T05:48:34.000Z" itemprop="datePublished">2020-03-07</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">6.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">23分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-基于候选区域的目标检测"><a href="#1-基于候选区域的目标检测" class="headerlink" title="1. 基于候选区域的目标检测"></a>1. 基于候选区域的目标检测</h2><h3 id="1-1-滑动窗口检测器"><a href="#1-1-滑动窗口检测器" class="headerlink" title="1.1 滑动窗口检测器"></a>1.1 滑动窗口检测器</h3><p>&emsp;一种用于目标检测的暴力方法是从左到右、从上到下滑动窗口，利用分类识别目标。为了在不同观察距离处检测不同的目标类型，需要使用不同大小和宽高比的窗口。</p>
+
+
+      
+
+      
+      <h2 id="1-基于候选区域的目标检测"><a href="#1-基于候选区域的目标检测" class="headerlink" title="1. 基于候选区域的目标检测"></a>1. 基于候选区域的目标检测</h2><h3 id="1-1-滑动窗口检测器"><a href="#1-1-滑动窗口检测器" class="headerlink" title="1.1 滑动窗口检测器"></a>1.1 滑动窗口检测器</h3><p>&emsp;一种用于目标检测的暴力方法是从左到右、从上到下滑动窗口，利用分类识别目标。为了在不同观察距离处检测不同的目标类型，需要使用不同大小和宽高比的窗口。</p>
 <p><img src="/images/pasted-31.png" alt="SlideWindow"></p>
 <a id="more"></a>
-<p>&emsp;我们根据滑动窗口从图像中剪切图像块。由于很多分类器只取固定大小的图像，因此这些图像块是经过变形转换的。但是，这不影响分类准确率，因为分类器可以处理变形后的图像。<br><img src="/images/pasted-32.png"><br>&emsp;变形图像块被输入 CNN 分类器中，提取出 4096 个特征。之后，我们使用 SVM 分类器识别类别和该边界框的另一个线性回归器。<br><img src="/images/pasted-33.png" alt="upload successful"><br>&emsp;下面是伪代码。我们创建很多窗口来检测不同位置的不同目标，要提升性能，一个显而易见的办法就是减少窗口数量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for window in windows:</span><br><span class="line">    patchs &#x3D; get_patch(image, window)</span><br><span class="line">    results &#x3D; detector(patchs)</span><br></pre></td></tr></table></figure>
-
-
+<p>&emsp;我们根据滑动窗口从图像中剪切图像块。由于很多分类器只取固定大小的图像，因此这些图像块是经过变形转换的。但是，这不影响分类准确率，因为分类器可以处理变形后的图像。<br><img src="/images/pasted-32.png" alt=""><br>&emsp;变形图像块被输入 CNN 分类器中，提取出 4096 个特征。之后，我们使用 SVM 分类器识别类别和该边界框的另一个线性回归器。<br><img src="/images/pasted-33.png" alt="upload successful"><br>&emsp;下面是伪代码。我们创建很多窗口来检测不同位置的不同目标，要提升性能，一个显而易见的办法就是减少窗口数量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for window in windows:</span><br><span class="line">    patchs &#x3D; get_patch(image, window)</span><br><span class="line">    results &#x3D; detector(patchs)</span><br></pre></td></tr></table></figure></p>
 <h3 id="1-2-R-CNN"><a href="#1-2-R-CNN" class="headerlink" title="1.2 R-CNN"></a>1.2 R-CNN</h3><p>&emsp;实际上，更实用的方法是候选区域（Region Proposals ）方法来获取感兴趣的区域（ROI）。选择性搜索（Selective Search ）就是一种典型的候选区域方法。算法原理如下：首先将每个像素作为一组。然后，计算每一组的纹理，并将两个最接近的组结合起来。但是为了避免单个区域吞噬其他区域，我们首先对较小的组进行分组。我们继续合并区域，直到所有区域都结合在一起。下图第一行展示了如何使区域增长，第二行中的蓝色矩形代表合并过程中所有可能的 ROI。与寻找几乎个区域比起来，这种方法要高效的多。</p>
 <p><img src="/images/pasted-34.png" alt="selective search"></p>
 <p>&emsp;学者们在这个方向做了很多研究，比较有名的是 selective search 方法，这是一种从图片中选出潜在物体候选框(Regions of Interest，ROI)的方 法即可。有了获取 ROI 的方法，接下来就可以通过分类和合并的方法来获取最终的 目标检测结果。基于这个思路有了下面的 R-CNN 方法。</p>
@@ -150,7 +112,6 @@
 <p><img src="/images/pasted-35.png" alt="steps"></p>
 <p>通过使用更少且更高质量的 ROI，R-CNN 要比滑动窗口方法更快速、更准确。伪代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROIs &#x3D; region_proposal(image)</span><br><span class="line">for ROI in ROIs</span><br><span class="line">    patch &#x3D; get_patch(image, ROI)</span><br><span class="line">    results &#x3D; detector(patch)</span><br></pre></td></tr></table></figure>
-
 <h3 id="1-2-Fast-R-CNN"><a href="#1-2-Fast-R-CNN" class="headerlink" title="1.2 Fast R-CNN"></a>1.2 Fast R-CNN</h3><p>&emsp;针对 R-CNN 的 3 个主要问题，我们思考一下是否有更好的解决方案。首先是速度，2000 个 ROI 的 CNN 特征提取占用了大量的时间，是否可以用更好的方法，比如共享卷积层来同时处理所有 2000 个 ROI ? 其次是 CNN 的特征不会因 SVM 和回归的调整而更新。</p>
 <p>&emsp;R-CNN 的操作流程比较复杂，能否有更好的方式使得训练过程成为端到端的? 接下来我们将介绍 Firshick 等人于 2015 年提出的 Fast R-CNN，它非常巧妙地解决了 R-CNN 主要的几个问题。</p>
 <p>&emsp;R-CNN 需要非常多的候选区域以提升准确度，但其实有很多区域是彼此重叠的。如果我们有 2000 个候选区域，且每一个都需要独立地馈送到 CNN 中，那么对于不同的 ROI，我们可能需要重复提取很多次特征。因此 R-CNN 的训练和预测速度非常慢。</p>
@@ -170,10 +131,6 @@
 <p>&emsp;按上述步骤得到一个 2×2 的特征图块，可以送至分类器和边界框回归器中。使用softmax损失进行分类；使用回归损失比如平滑L1损失校正包围框。总损失是两部分的和，然后反向传播进行训练。Fast R-CNN 最重要的一点就是包含特征提取器、分类器和边界框回归器在内的整个网络能通过多任务损失函数进行端到端的训练，这种多任务损失即结合了分类损失和定位损失的方法，大大提升了模型准确度。</p>
 <p>&emsp;在下面的伪代码中，计算量巨大的特征提取过程从 For 循环中移出来了，因此速度得到显著提升。Fast R-CNN 的训练速度是 R-CNN 的 10 倍，预测速度是后者的 150 倍。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">feature_maps &#x3D; process(image)</span><br><span class="line">ROIs &#x3D; region_proposal(feature_maps)</span><br><span class="line">for ROI in ROIs</span><br><span class="line">    patch &#x3D; roi_pooling(feature_maps, ROI)</span><br><span class="line">    results &#x3D; detector2(patch)</span><br></pre></td></tr></table></figure>
-
-
-
-
 <h3 id="1-3-Faster-R-CNN"><a href="#1-3-Faster-R-CNN" class="headerlink" title="1.3 Faster R-CNN"></a>1.3 Faster R-CNN</h3><p>&emsp;Faster R-CNN 作为目标检测的经典方法在现今很多实战项目和比赛中频频出现。其实，Faster R-CNN 就是在 Fast R-CNN 的基础上构建一个小的网络，直接产生 region proposal 来代替通过其他方法(如 selective search)得到 ROI。这 个小型的网络被称为区域预测网络(Region Proposal Network，RPN)。Faster R-CNN 的训练流程其中的 RPN 是关键，其余流程基本和 Fast R-CNN一致。</p>
 <p><strong>Faster R-CNN 的训练过程:</strong></p>
 <ul>
@@ -193,47 +150,40 @@
 <p><img src="/images/pasted-44.png" alt="upload successful"></p>
 <p>&emsp;Faster R-CNN 使用更多的锚点。它部署 9 个锚点框：3 个不同宽高比的 3 个不同大小的锚点框。每一个位置使用 9 个锚点，每个位置会生成 2×9 个目标分数和 4×9 个坐标。</p>
 <p><img src="/images/pasted-45.png" alt="upload successful"></p>
-<p>伪代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feature_maps &#x3D; process(image)</span><br><span class="line">ROIs &#x3D; rpn(feature_maps)</span><br><span class="line">for ROI in ROIs</span><br><span class="line">    patch &#x3D; roi_pooling(feature_maps, ROI)</span><br><span class="line">    class_scores, box &#x3D; detector(patch) </span><br><span class="line">    class_probabilities &#x3D; softmax(class_scores)</span><br></pre></td></tr></table></figure>
-
-
+<p>伪代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">feature_maps &#x3D; process(image)</span><br><span class="line">ROIs &#x3D; rpn(feature_maps)</span><br><span class="line">for ROI in ROIs</span><br><span class="line">    patch &#x3D; roi_pooling(feature_maps, ROI)</span><br><span class="line">    class_scores, box &#x3D; detector(patch) </span><br><span class="line">    class_probabilities &#x3D; softmax(class_scores)</span><br></pre></td></tr></table></figure></p>
 <h3 id="1-4-F-RCN"><a href="#1-4-F-RCN" class="headerlink" title="1.4 F-RCN"></a>1.4 F-RCN</h3><p>&emsp;F-RCN 通过减少每个 ROI 所需的工作量实现加速。上面基于区域的特征图与 ROI 是独立的，可以在每个 ROI 之外单独计算。剩下的工作就比较简单了，因此 R-FCN 的速度比 Faster R-CNN 快。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">feature_maps &#x3D; process(image)</span><br><span class="line">ROIs &#x3D; region_proposal(feature_maps)         </span><br><span class="line">score_maps &#x3D; compute_score_map(feature_maps)</span><br><span class="line">for ROI in ROIs</span><br><span class="line">    V &#x3D; region_roi_pool(score_maps, ROI)     </span><br><span class="line">    class_scores, box &#x3D; average(V)                   # Much simpler!</span><br><span class="line">    class_probabilities &#x3D; softmax(class_scores)</span><br></pre></td></tr></table></figure>
-
-
 <h2 id="2-One-Stage-目标检测"><a href="#2-One-Stage-目标检测" class="headerlink" title="2. One-Stage 目标检测"></a>2. One-Stage 目标检测</h2><p>&emsp;这部分我们将对单次目标检测器（包括 SSD、YOLO、YOLOv2、YOLOv3）进行综述。我们将分析 FPN 以理解多尺度特征图如何提高准确率，特别是小目标的检测，其在单次检测器中的检测效果通常很差。然后我们将分析 Focal loss 和 RetinaNet，看看它们是如何解决训练过程中的类别不平衡问题的。</p>
 <p><strong>one-stage检测器</strong></p>
-<p>&emsp;Faster R-CNN 中有一个专用的候选区域网络RPN。基于区域的检测器是很准确的，但需要付出代价。Faster R-CNN 在 PASCAL VOC 2007 测试集上每秒处理 7 帧的图像（7 FPS）。作为替代，我们是否需要一个分离的候选区域步骤？我们可以直接在一个步骤内得到边界框和类别吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">feature_maps &#x3D; process(image)</span><br><span class="line">results &#x3D; detector3(feature_maps) # No more separate step for ROIs</span><br></pre></td></tr></table></figure>
-<p>&emsp;让我们再看一下滑动窗口检测器。我们可以通过在特征图上滑动窗口来检测目标。对于不同的目标类型，我们使用不同的窗口类型。以前的滑动窗口方法的致命错误在于使用窗口作为最终的边界框，这就需要非常多的形状来覆盖大部分目标。更有效的方法是将窗口当做初始猜想，这样我们就得到了从当前滑动窗口同时预测类别和边界框的检测器。</p>
-<p><img src="/images/pasted-46.png"></p>
+<p>&emsp;Faster R-CNN 中有一个专用的候选区域网络RPN。基于区域的检测器是很准确的，但需要付出代价。Faster R-CNN 在 PASCAL VOC 2007 测试集上每秒处理 7 帧的图像（7 FPS）。作为替代，我们是否需要一个分离的候选区域步骤？我们可以直接在一个步骤内得到边界框和类别吗？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">feature_maps &#x3D; process(image)</span><br><span class="line">results &#x3D; detector3(feature_maps) # No more separate step for ROIs</span><br></pre></td></tr></table></figure><br>&emsp;让我们再看一下滑动窗口检测器。我们可以通过在特征图上滑动窗口来检测目标。对于不同的目标类型，我们使用不同的窗口类型。以前的滑动窗口方法的致命错误在于使用窗口作为最终的边界框，这就需要非常多的形状来覆盖大部分目标。更有效的方法是将窗口当做初始猜想，这样我们就得到了从当前滑动窗口同时预测类别和边界框的检测器。</p>
+<p><img src="/images/pasted-46.png" alt=""></p>
 <p>&emsp;这个概念和 Faster R-CNN 中的锚点很相似。然而，单次检测器会同时预测边界框和类别。例如，我们有一个 8 × 8 特征图，在每个位置，我们有 k 个锚点（锚点是固定的初始边界框猜想），一个锚点对应一个特定位置。我们使用相同的锚点形状仔细地选择锚点和每个位置，并在每个位置做出 k 个预测，即总共有 8 × 8 × k 个预测结果。</p>
-<p><img src="/images/pasted-47.png"><br>以下是 4 个锚点（绿色）和 4 个对应预测（蓝色），每个预测对应一个特定锚点。</p>
-<p><img src="/images/pasted-48.png"></p>
+<p><img src="/images/pasted-47.png" alt=""><br>以下是 4 个锚点（绿色）和 4 个对应预测（蓝色），每个预测对应一个特定锚点。</p>
+<p><img src="/images/pasted-48.png" alt=""></p>
 <p>在 Faster R-CNN 中，我们使用卷积核来做 6个参数的预测：4 个参数对应某个锚点的预测边框，2个参数对应 objectness 置信度得分。因此 3× 3× D × 6 卷积核将特征图从 8 × 8 × D 转换为 8 × 8 × 6。</p>
-<p><img src="/images/pasted-49.png"></p>
+<p><img src="/images/pasted-49.png" alt=""></p>
 <p>在单次检测器中，卷积核还预测 C 个类别概率以执行分类（每个概率对应一个类别，包含背景）。因此我们应用一个 3× 3× D × 25 卷积核将特征图从 8 × 8 × D 转换为 8 × 8 × 25 （C=20，（dx, dy, dh, dw, confidence）4个边框参数，1个置信度）。</p>
-<p><img src="/images/pasted-50.png"></p>
+<p><img src="/images/pasted-50.png" alt=""></p>
 <p>单次检测器通常需要在准确率和实时处理速度之间进行权衡。它们在检测太近距离或太小的目标时容易出现问题。在下图中，左下角有 9 个圣诞老人，但某个单次检测器只检测出了 5 个。</p>
-<p><img src="/images/pasted-51.png"></p>
+<p><img src="/images/pasted-51.png" alt=""></p>
 <h3 id="2-1-SSD"><a href="#2-1-SSD" class="headerlink" title="2.1 SSD"></a>2.1 SSD</h3><p>&emsp;SSD 同时借鉴了 YOLO 网格的思想和 Faster R-CNN 的 anchor 机制，使 得 SSD 可以快速进行预测的同时又可以相对准确地获取目标的位置。接下来介绍SSD 的一些特点：</p>
 <p>&emsp;使用多尺度特征层进行检测。在 Faster R-CNN 的 RPN 中，anchor 是在主干 网络的最后一个特征层上生成的，而在 SSD 中，anchor 不仅仅在最后一个 特征层上产生，在几个高层特征层处同时也在产生 anchor。</p>
 <p>&emsp;SSD 中所有特征层产生的 anchor 都将经过正负样本的筛选后直接进行分类分数以及 bbox 位置的学习。</p>
 <p>&emsp;SSD（Single-Shot MultiBox Detector），使用 VGG19 网络作为特征提取器（和 Faster R-CNN 中使用的 CNN 一样）的单次检测器。我们在该网络之后添加自定义卷积层（蓝色），并使用卷积核（绿色）执行预测。</p>
-<p><img src="/images/pasted-52.png"></p>
+<p><img src="/images/pasted-52.png" alt=""></p>
 <p>&emsp;然而，卷积层降低了空间维度和分辨率。因此上述模型仅可以检测较大的目标。为了解决该问题，我们从多个特征图上执行独立的目标检测。</p>
-<p><img src="/images/pasted-53.png"></p>
+<p><img src="/images/pasted-53.png" alt=""></p>
 <p>以下是特征图图示。</p>
-<p><img src="/images/pasted-54.png"></p>
+<p><img src="/images/pasted-54.png" alt=""></p>
 <p>&emsp;SSD 使用卷积网络中较深的层来检测目标。如果我们按接近真实的比例重绘上图，我们会发现图像的空间分辨率已经被显著降低，且可能已无法定位在低分辨率中难以检测的小目标。如果出现了这样的问题，我们需要增加输入图像的分辨率。</p>
-<p><img src="/images/pasted-55.png"></p>
+<p><img src="/images/pasted-55.png" alt=""></p>
 <h3 id="2-2-YOLO"><a href="#2-2-YOLO" class="headerlink" title="2.2 YOLO"></a>2.2 YOLO</h3><p>&emsp;YOLO （You Only Look Once）是另一种单次目标检测器。YOLO 在卷积层之后使用了 DarkNet 来做特征检测。由于在 R-CNN 的系列算法中都需要首先获取大量proposal，但 proposal 之 间有很大的重叠，会带来很多重复的工作。YOLO 一改基于 proposal 的预测思路， 将输入图片划分成 S*S 个小格子，在每个小格子中做预测，最终将结果合并。</p>
-<p><img src="/images/pasted-56.png"></p>
+<p><img src="/images/pasted-56.png" alt=""></p>
 <p>&emsp;然而，它并没有使用多尺度特征图来做独立的检测。相反，它将特征图部分平滑化，并将其和另一个较低分辨率的特征图拼接。例如，YOLO 将一个 28 × 28 × 512 的层重塑为 14 × 14 × 2048，然后将它和 14 × 14 ×1024 的特征图拼接。之后，YOLO 在新的 14 × 14 × 3072 层上应用卷积核进行预测。</p>
 <p>&emsp;YOLO v2做出了很多实现上的改进，比如使用BN层、使用高分辨率图像微调分类模型、采用Anchor Boxes、约束预测边框的位置等，将 mAP 值从第一次发布时的 63.4 提高到了 78.6。YOLO9000 可以检测 9000 种不同类别的目标。</p>
 <p>&emsp;YOLO v3主要的改进有：调整了网络结构；利用多尺度特征进行对象检测；对象分类用logistic取代了softmax。下面主要介绍一下YOLO v3。（参考文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/49556105">YOLO v3深入理解</a>）</p>
 <p><strong>网络架构</strong><br>&emsp;在基本的图像特征提取方面，YOLO v3采用了称之为Darknet-53的网络结构（含有52个卷积层1个全连接层），它借鉴了残差网络residual network的做法，在一些层之间设置了快捷链路（shortcut connections）。DarkNet-53 主要由 3 × 3 和 1× 1 的卷积核以及类似 ResNet 中的快捷链路构成。相比 ResNet-152，DarkNet 有更低的 BFLOP（十亿次浮点数运算），但能以 2 倍的速度得到相同的分类准确率。</p>
-<p><img src="/images/pasted-57.png"><br>&emsp;上图的Darknet-53网络采用2562563作为输入，最左侧那一列的1、2、8等数字表示多少个重复的残差组件。每个残差组件有两个卷积层和一个快捷链路，示意图如下：</p>
+<p><img src="/images/pasted-57.png" alt=""><br>&emsp;上图的Darknet-53网络采用2562563作为输入，最左侧那一列的1、2、8等数字表示多少个重复的残差组件。每个残差组件有两个卷积层和一个快捷链路，示意图如下：</p>
 <p><img src="/images/pasted-58.png" alt="残差组件"></p>
 <p><strong>特征金字塔网络（FPN）——利用多尺度特征进行检测</strong><br>&emsp;YOLO v2曾采用passthrough结构来检测细粒度特征，在YOLO v3更进一步采用了3个不同尺度的特征图来进行对象检测。<br><img src="/images/pasted-59.png" alt="YOLO v3 network Architecture"></p>
 <p>&emsp;结合上图看，卷积网络在79层后，经过下方几个黄色的卷积层得到一种尺度的检测结果。相比输入图像，这里用于检测的特征图有32倍的下采样。比如输入是416x416的话，这里的特征图就是13x13了。由于下采样倍数高，这里特征图的感受野比较大，因此适合检测图像中尺寸比较大的对象。</p>
@@ -241,41 +191,47 @@
 <p>&emsp;最后，第91层特征图再次上采样，并与第36层特征图融合，最后得到相对输入图像8倍下采样的特征图。它的感受野最小，适合检测小尺寸的对象。</p>
 <p>&emsp;上面使用不同尺寸特征图进行预测的网络称为特征金字塔网络（FPN），是一种旨在提高准确率和速度的特征提取器。数据流如下：<br><img src="/images/pasted-60.png" alt="FPN"></p>
 <p>&emsp;FPN 由自下而上和自上而下路径组成。其中自下而上的路径是用于特征提取的常用卷积网络。空间分辨率自下而上地下降。当检测到更高层的结构，每层的语义值增加。<br><img src="/images/pasted-61.png" alt="FPN中的特征提取"></p>
-<p>&emsp;SSD 通过多个特征图完成检测。但是，最底层不会被选择执行目标检测。它们的分辨率高但是语义值不够，导致速度显著下降而不能被使用。SSD 只使用较上层执行目标检测，因此对于小的物体的检测性能较差。<br><img src="/images/pasted-62.png"></p>
+<p>&emsp;SSD 通过多个特征图完成检测。但是，最底层不会被选择执行目标检测。它们的分辨率高但是语义值不够，导致速度显著下降而不能被使用。SSD 只使用较上层执行目标检测，因此对于小的物体的检测性能较差。<br><img src="/images/pasted-62.png" alt=""></p>
 <p>&emsp;FPN 提供了一条自上而下的路径，从语义丰富的层利用上采样构建高分辨率的层。<br><img src="/images/pasted-63.png" alt="自上而下重建空间分辨率"></p>
 <p>&emsp;虽然该重建层的语义较强，但在经过所有的上采样和下采样之后，目标的位置不精确。在重建层和相应的特征图之间添加横向连接可以使位置侦测更加准确。<br><img src="/images/pasted-64.png" alt="增加跳过连接"></p>
-<p>&emsp;FPN 可以结合 Fast R-CNN 或 Faster R-CNN。在 FPN 中，我们生成了一个特征图的金字塔，然后用 RPN（来生成 ROI。基于 ROI 的大小，我们选择最合适尺寸的特征图层来提取特征块。<br><img src="/images/pasted-65.png"></p>
+<p>&emsp;FPN 可以结合 Fast R-CNN 或 Faster R-CNN。在 FPN 中，我们生成了一个特征图的金字塔，然后用 RPN（来生成 ROI。基于 ROI 的大小，我们选择最合适尺寸的特征图层来提取特征块。<br><img src="/images/pasted-65.png" alt=""></p>
 <p><strong>9种尺度的 anchor boxes</strong></p>
 <p>&emsp;随着输出的特征图的数量和尺度的变化，先验框的尺寸也需要相应的调整。YOLO2已经开始采用K-means聚类得到先验框的尺寸，YOLO3延续了这种方法，为每种下采样尺度设定3种先验框，总共聚类出9种尺寸的先验框。在COCO数据集这9个先验框是：(10x13)，(16x30)，(33x23)，(30x61)，(62x45)，(59x119)，(116x90)，(156x198)，(373x326)。</p>
 <p>&emsp;分配上，在最小的13x13特征图上（有最大的感受野）应用较大的先验框(116x90)，(156x198)，(373x326)，适合检测较大的对象。中等的26x26特征图上（中等感受野）应用中等的先验框(30x61)，(62x45)，(59x119)，适合检测中等大小的对象。较大的52x52特征图上（较小的感受野）应用较小的先验框(10x13)，(16x30)，(33x23)，适合检测较小的对象。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">特征图</th>
-<th align="center">13*13</th>
-<th align="center">26*26</th>
-<th align="center">52*52</th>
+<th style="text-align:center">特征图</th>
+<th style="text-align:center">13*13</th>
+<th style="text-align:center">26*26</th>
+<th style="text-align:center">52*52</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">感受野</td>
-<td align="center">大</td>
-<td align="center">中</td>
-<td align="center">小</td>
+<tbody>
+<tr>
+<td style="text-align:center">感受野</td>
+<td style="text-align:center">大</td>
+<td style="text-align:center">中</td>
+<td style="text-align:center">小</td>
 </tr>
 <tr>
-<td align="center">先验框</td>
-<td align="center">（116×90）（156×198）（373×326）</td>
-<td align="center">（30×61）</td>
-<td align="center">（62×45）（59×119）</td>
+<td style="text-align:center">先验框</td>
+<td style="text-align:center">（116×90）（156×198）（373×326）</td>
+<td style="text-align:center">（30×61）</td>
+<td style="text-align:center">（62×45）（59×119）</td>
+<td>（10×13）</td>
+<td>（16x30）（33×23）</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>&emsp;感受一下9种先验框的尺寸，下图中蓝色框为聚类得到的先验框。黄色框式ground truth，红框是对象中心点所在的网格。</p>
 <p><img src="/images/pasted-66.png" alt="13*13"><br><img src="/images/pasted-67.png" alt="26*26"><br><img src="/images/pasted-68.png" alt="52*52"></p>
 <p><strong>分类softmax改成logistic</strong></p>
 <p>预测对象类别时不使用softmax，改成使用logistic的输出进行预测。</p>
 <p><strong>输入映射到输出</strong></p>
-<p><img src="/images/pasted-69.png"></p>
+<p><img src="/images/pasted-69.png" alt=""></p>
 <p>&emsp;不考虑神经网络结构细节的话，总的来说，对于一个输入图像，YOLO v3将其映射到3个尺度的输出张量，代表图像各个位置存在各种对象的概率。</p>
 <p>&emsp;看一下YOLO v3共进行了多少个预测。对于一个416x416的输入图像，在每个尺度的特征图的每个网格设置3个先验框，总共有 13x13x3 + 26x26x3 + 52x52x3 = 10647 个预测。每一个预测是一个(4+1+80)=85维向量，这个85维向量包含边框坐标（4个数值），边框置信度（1个数值），对象类别的概率（对于COCO数据集，有80种对象）。</p>
 <p>&emsp;对比一下，YOLO v2采用13x13x5 = 845个预测，YOLO v3的尝试预测边框数量增加了10多倍，而且是在不同分辨率上进行，所以mAP以及对小物体的检测效果有一定的提升。</p>
@@ -284,116 +240,472 @@
 <li>YOLO 对于网络输入图片的尺寸有要求，首先需要将图片缩放到指定尺寸 (448448)，再将图片划分成 SS 的小格。</li>
 <li>每个小格里面做这几个预测:该小格是否包含物体、包含物体对应的矩形框 位置以及该小格对应 C 个类别的分数是多少。</li>
 </ul>
-<h3 id="2-3-RetianNet"><a href="#2-3-RetianNet" class="headerlink" title="2.3 RetianNet"></a>2.3 RetianNet</h3><p>&emsp;RetianNet是基于 ResNet、FPN以及利用 Focal loss 构建的 。<br><img src="/images/pasted-70.png"></p>
-<p><strong>Focal Loss</strong><br>&emsp;类别不平衡会损害性能。SSD 在训练期间重新采样目标类和背景类的比率，这样它就不会被图像背景淹没。Focal loss（FL）采用另一种方法来减少训练良好的类的损失。因此，只要该模型能够很好地检测背景，就可以减少其损失并重新增强对目标类的训练。我们从交叉熵损失 （Cross Entroy Loss）开始，并添加一个权重来降低高可信度类的交叉熵。<br>$$  C E \left( p _ { t } \right) = - \log \left( p _ { t } \right) $$<br>$$ F L \left( p _ { t } \right) = - \left( 1 - p _ { t } \right) ^ { \gamma } \log \left( p _ { t } \right) $$<br>$Where$<br>$ p_r \quad is \quad the \quad predicted \quad class \quad probability \quad for \quad ground \quad truth.$<br>$\gamma &gt; 0$</p>
-<p>例如，令 γ = 0.5, 经良好分类的样本的 Focal Loss 趋近于 0。<br><img src="/images/pasted-71.png"></p>
+<h3 id="2-3-RetianNet"><a href="#2-3-RetianNet" class="headerlink" title="2.3 RetianNet"></a>2.3 RetianNet</h3><p>&emsp;RetianNet是基于 ResNet、FPN以及利用 Focal loss 构建的 。<br><img src="/images/pasted-70.png" alt=""></p>
+<p><strong>Focal Loss</strong><br>&emsp;类别不平衡会损害性能。SSD 在训练期间重新采样目标类和背景类的比率，这样它就不会被图像背景淹没。Focal loss（FL）采用另一种方法来减少训练良好的类的损失。因此，只要该模型能够很好地检测背景，就可以减少其损失并重新增强对目标类的训练。我们从交叉熵损失 （Cross Entroy Loss）开始，并添加一个权重来降低高可信度类的交叉熵。</p>
+<script type="math/tex; mode=display">C E \left( p _ { t } \right) = - \log \left( p _ { t } \right)</script><script type="math/tex; mode=display">F L \left( p _ { t } \right) = - \left( 1 - p _ { t } \right) ^ { \gamma } \log \left( p _ { t } \right)</script><p>$Where$<br>$ p_r \quad is \quad the \quad predicted \quad class \quad probability \quad for \quad ground \quad truth.$<br>$\gamma &gt; 0$</p>
+<p>例如，令 γ = 0.5, 经良好分类的样本的 Focal Loss 趋近于 0。<br><img src="/images/pasted-71.png" alt=""></p>
 <blockquote>
 <p><strong>Reference</strong><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/468e08f739bd">https://www.jianshu.com/p/468e08f739bd</a></p>
 </blockquote>
 
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" data-id="ckezm6a940003u8un162f2ept" class="article-share-link">Share</a>
+      <!-- reward -->
       
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">目标检测学习笔记</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">目标检测算法总结</a>
-          </li>
-        
-          <li>
-            <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">目标检测学习笔记</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+      <div id="reward-btn">
+        打赏
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      
     </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/03/07/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">目标检测学习笔记</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '27f22c9606d2801d92eb',
+    clientSecret: '629cbd4c87183101d7d8542013329b0c4fc04534',
+    repo: 'AHU-HUI.github.io',
+    owner: 'AHU-HUI',
+    admin: ['AHU-HUI'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2017-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <a href="http://beian.miit.gov.cn/" target="_black">皖ICP备17013875号</a>
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
   </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+  <ul class="nav nav-main">
     
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
 
 
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开！','愿你一生努力，一生被爱！','想要的都拥有，得不到的都释怀！'],
+    startDelay: 0,
+    typeSpeed: 500,
+    loop: true,
+    backSpeed: 200,
+    showCursor: true
+    });
+  } catch (err) {
+  }
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
+</script>
 
 
 
 
-<script src="/js/script.js"></script>
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
 
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
 
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
   </div>
 </body>
+
 </html>
