@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    STL常用容器 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-STL常用容器" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  STL常用容器
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/07/07/STL%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" class="article-date">
+  <time datetime="2018-07-07T15:18:34.000Z" itemprop="datePublished">2018-07-07</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.3k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">11分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="1、选择C-刷算法的理由"><a href="#1、选择C-刷算法的理由" class="headerlink" title="1、选择C++刷算法的理由"></a>1、选择C++刷算法的理由</h2><ul>
+<li>1.C++速度快（C不是更快么，java太慢了）</li>
+<li>2.C++有STL（什么是STL）——使用很方便的类库</li>
+<li>3.好处：刷算法，学习成本极低</li>
+</ul>
+<a id="more"></a>
+<h2 id="2、输入输出"><a href="#2、输入输出" class="headerlink" title="2、输入输出"></a>2、输入输出</h2><p>C++保留了C的scanf和printf，增加了额外的cin与cout</p>
+<h3 id="2-1-C程序中输入输出"><a href="#2-1-C程序中输入输出" class="headerlink" title="2.1.C程序中输入输出"></a>2.1.C程序中输入输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">scanf(&quot;%d&quot;,&amp;a);</span><br><span class="line">printf(&quot;%d&quot;,a);</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-C-输入输出"><a href="#2-2-C-输入输出" class="headerlink" title="2.2.C++输入输出"></a>2.2.C++输入输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a;</span><br><span class="line">cin&gt;&gt;a;</span><br><span class="line">cout&lt;&lt;a;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-连续输入输出变量"><a href="#2-3-连续输入输出变量" class="headerlink" title="2.3.连续输入输出变量"></a>2.3.连续输入输出变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a,b,c;</span><br><span class="line">cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;</span><br><span class="line">cout&lt;&lt;a&lt;&lt;b&lt;&lt;c;</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-优雅地换行"><a href="#2-4-优雅地换行" class="headerlink" title="2.4.优雅地换行"></a>2.4.优雅地换行</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cout&lt;&lt;1;</span><br><span class="line">cout&lt;&lt;endl;</span><br><span class="line">cout&lt;&lt;2;</span><br><span class="line">cout&lt;&lt;3&lt;&lt;endl&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>好处：<br>1.少写了很多东西<br>2.连续输入输出变量<br>3.换行优雅</p>
+<ul>
+<li>注意：cin、cout比scanf、printf慢，有时候刷算法超时，可能因为使用了cin、cout<br>输入输出的数量(&gt;1000)特别多，刷算法用cin，cout容易超时</li>
+</ul>
+</blockquote>
+<h2 id="3、STL-Standard-Template-Library-与algorithm头文件"><a href="#3、STL-Standard-Template-Library-与algorithm头文件" class="headerlink" title="3、STL(Standard Template Library)与algorithm头文件"></a>3、STL(Standard Template Library)与algorithm头文件</h2><p>STL是一些“容器”的集合，这些“容器”有list,vector,set,map等，STL也是算法和其他一些组件的集合。<br><code>algorithm</code>是对容器继承的一些算法函数，辅助刷算法题<br><code>sort</code>函数</p>
+<ul>
+<li>概念：迭代器——理解为指针<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int a[]&#x3D;&#123;2,1,5,0,-1,5,9&#125;;</span><br><span class="line">    sort(a,a+7);</span><br><span class="line">    for(int i&#x3D;0;i&lt;7;i++)</span><br><span class="line">        cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="4、STL——string"><a href="#4、STL——string" class="headerlink" title="4、STL——string(*)"></a>4、STL——string(*)</h2><p>概念：相当于char*的封装，理解为字符串</p>
+<h3 id="4-1-简单使用"><a href="#4-1-简单使用" class="headerlink" title="4.1.简单使用"></a>4.1.简单使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**C中定义字符串以及打印*&#x2F;</span><br><span class="line">char *ch&#x3D;&quot;asdkajbf&quot;;</span><br><span class="line">for(int i&#x3D;0;ch[i]!&#x3D;&#39;\0&#39;;i++) cout&lt;&lt;*(ch+i);</span><br><span class="line">&#x2F;**C++中*&#x2F;</span><br><span class="line">string s&#x3D;&quot;ssadaffw&quot;;</span><br><span class="line">cout&lt;&lt;s&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-获取一行字符串"><a href="#4-2-获取一行字符串" class="headerlink" title="4.2.获取一行字符串"></a>4.2.获取一行字符串</h3><p>我想获取一行字符串 <code>hello world</code></p>
+<ul>
+<li>C中：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scanf(&quot;%s&quot;,ch);&#x2F;&#x2F;1.仅获取一个单词，空格结束 2.ch[100]得设置初始大小</span><br></pre></td></tr></table></figure></li>
+<li>C++中：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s;</span><br><span class="line">getline(cin,s);&#x2F;&#x2F;获取一行数据</span><br><span class="line">cout&lt;&lt;s;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-运算符"><a href="#4-3-运算符" class="headerlink" title="4.3.+=运算符"></a>4.3.+=运算符</h3><code>+=</code> 对于字符串，字符有效，数字会转为<code>ascii</code>码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">string s;</span><br><span class="line">s+&#x3D;&quot;hello&quot;;</span><br><span class="line">s+&#x3D;&quot; world&quot;;</span><br><span class="line">s+&#x3D;&#39;5&#39;;</span><br><span class="line">s+&#x3D;10;&#x2F;&#x2F;10对应的asc码是换行</span><br><span class="line">int a&#x3D;5;&#x2F;&#x2F;想把a加入字符串</span><br><span class="line">s+&#x3D;(a+&#39;0&#39;);</span><br><span class="line">cout&lt;&lt;s;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-4-排序（使用algorithm）"><a href="#4-4-排序（使用algorithm）" class="headerlink" title="4.4.排序（使用algorithm）"></a>4.4.排序（使用<code>algorithm</code>）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s&#x3D;&quot;5418340&quot;;</span><br><span class="line">sort(s.begin(),s.end());</span><br><span class="line">cout&lt;&lt;s;</span><br></pre></td></tr></table></figure>
+<h3 id="4-5-erase函数"><a href="#4-5-erase函数" class="headerlink" title="4.5.erase函数"></a>4.5.<code>erase</code>函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**begin是头迭代器，end是尾迭代器*&#x2F;</span><br><span class="line">string s&#x3D;&quot;5418340&quot;;</span><br><span class="line">s.erase(s.begin());&#x2F;&#x2F;删除第一个</span><br><span class="line">s.erase(--s.end());&#x2F;&#x2F;删除最后一个</span><br><span class="line">cout&lt;&lt;s;</span><br></pre></td></tr></table></figure>
+<h3 id="4-6-substr函数"><a href="#4-6-substr函数" class="headerlink" title="4.6.substr函数"></a>4.6.<code>substr</code>函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**begin是头迭代器，end是尾迭代器*&#x2F;</span><br><span class="line">string s&#x3D;&quot;5418340&quot;;</span><br><span class="line">s&#x3D;s.substr(1,3);&#x2F;&#x2F;取418,取索引为1，往后截断3个</span><br><span class="line">s&#x3D;s.substr(1,-1);&#x2F;&#x2F;索引为1，截断到最后</span><br><span class="line">cout&lt;&lt;s;</span><br></pre></td></tr></table></figure>
+<h3 id="4-7-循环-3种"><a href="#4-7-循环-3种" class="headerlink" title="4.7.循环(3种)"></a>4.7.循环(3种)</h3><ul>
+<li><p>1.<code>for</code>循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string s&#x3D;&quot;5418340&quot;;</span><br><span class="line">for(int i&#x3D;0;i&lt;s.length();i++) cout&lt;&lt;s[i];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.迭代器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(string::iterator it&#x3D;s.begin();it!&#x3D;s.end();it++) cout&lt;&lt;*it;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.迭代器化简</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(auto it&#x3D;s.begin();it!&#x3D;s.end();it++) cout&lt;&lt;*it;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.利用C++ 11新特性for循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for(auto x:s) cout&lt;&lt;x;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="5、STL——vector"><a href="#5、STL——vector" class="headerlink" title="5、STL——vector(*)"></a>5、STL——vector(*)</h2><p>概念：vector相当于数组，模板类型相当于存放的内容</p>
+<ul>
+<li><p>1.vector构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; v;&#x2F;&#x2F;定义一个空vector</span><br><span class="line">vector&lt;int&gt; v2(4);&#x2F;&#x2F;定义一个4个大小的vector，初始为0</span><br><span class="line">vector&lt;int&gt; v3(4,6);&#x2F;&#x2F;定义一个4个大小的vector，初始为6</span><br><span class="line">vector&lt;int&gt; v&#123;1,2,3,4,5&#125;;&#x2F;&#x2F;定义一个vector，数字为1,2，3,4,5</span><br><span class="line">for(auto x:v3) cout&lt;&lt;x;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2.用at或者[]获取元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; v&#123;1,2,3,4,5&#125;;</span><br><span class="line">cout&lt;&lt;v[1];&#x2F;&#x2F;取索引为1的</span><br><span class="line">cout&lt;&lt;v.at(2);&#x2F;&#x2F;取索引为2的</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3.方法</p>
+</li>
+</ul>
+<p><code>push_back</code>追加内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; v;</span><br><span class="line">v.push_back(5);</span><br><span class="line">v.push_back(5);</span><br><span class="line">v.push_back(5);</span><br><span class="line">v.push_back(5);</span><br><span class="line">v.push_back(6);</span><br><span class="line">for(auto x:v) cout&lt;&lt;x;</span><br></pre></td></tr></table></figure><br><code>resize</code>进行重置大小<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v.resize(10);&#x2F;&#x2F;不赋值默认为0</span><br></pre></td></tr></table></figure></p>
+<p><code>erase</code>删除元素，复杂度为O(n)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v.erase(v.begin());&#x2F;&#x2F;删除第一个元素</span><br><span class="line">v.erase(--v.end());&#x2F;&#x2F;删除最后一个元素</span><br></pre></td></tr></table></figure></p>
+<p>获取第一个元素，获取最后一个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**获取第一个元素*&#x2F;</span><br><span class="line">cout&lt;&lt;v.front();</span><br><span class="line">cout&lt;&lt;v[0];</span><br><span class="line">cout&lt;&lt;*v.begin();</span><br><span class="line">&#x2F;**获取最后一个元素*&#x2F;</span><br><span class="line">cout&lt;&lt;v.back();</span><br><span class="line">cout&lt;&lt;v[v.size()-1];&#x2F;&#x2F;size是获取大小</span><br><span class="line">cout&lt;&lt;*--v.end();</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-排序"><a href="#4-排序" class="headerlink" title="4.排序"></a>4.排序</h2><p>第三个参数为比较器，不写默认为less<int>()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; v&#123;5,1,2,5,4,0,-1&#125;;</span><br><span class="line">sort(v.begin(),v.end(),less&lt;int&gt;());&#x2F;&#x2F;从小到大</span><br><span class="line">sort(v.begin(),v.end(),greater&lt;int&gt;());&#x2F;&#x2F;从大到小排序</span><br><span class="line">for(auto x:v) cout&lt;&lt;x;</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-循环"><a href="#5-循环" class="headerlink" title="5.循环"></a>5.循环</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; v&#123;5,1,2,5,4,0,-1&#125;;</span><br><span class="line">for(int i&#x3D;0;i&lt;v.size();i++) cout&lt;&lt;v[i];&#x2F;&#x2F;for循环</span><br><span class="line">cout&lt;&lt;endl;</span><br><span class="line">for(vector&lt;int&gt;::iterator it&#x3D;v.begin();it!&#x3D;v.end();it++) cout&lt;&lt;*it;&#x2F;&#x2F;迭代器循环</span><br><span class="line">cout&lt;&lt;endl;</span><br><span class="line">for(auto it&#x3D;v.begin();it!&#x3D;v.end();it++) cout&lt;&lt;*it;&#x2F;&#x2F;迭代器简化循环</span><br><span class="line">cout&lt;&lt;endl;</span><br><span class="line">for(auto x:v) cout&lt;&lt;x;&#x2F;&#x2F;c++11新特性</span><br></pre></td></tr></table></figure>
+<h3 id="6、STL——stack"><a href="#6、STL——stack" class="headerlink" title="6、STL——stack(*)"></a>6、STL——stack(*)</h3><p>概念：栈</p>
+<ul>
+<li><p>构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stack&lt;int&gt; s;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>push、pop、size、empty</p>
+</li>
+<li>push 入栈一个元素</li>
+<li>pop 出栈一个元素，pop无返回值</li>
+<li>top 取栈顶元素</li>
+<li><p>size 查看元素个数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s.push(2);</span><br><span class="line">s.push(3);</span><br><span class="line">cout&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line">s.pop();</span><br><span class="line">cout&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line">cout&lt;&lt;s.size()&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进制转换(十进制转二进制)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int itob(int decimal)&#123;</span><br><span class="line">    stack&lt;int&gt; s;int res&#x3D;0;</span><br><span class="line">    while(decimal!&#x3D;0)&#123;</span><br><span class="line">        s.push(decimal%2);</span><br><span class="line">        decimal&#x2F;&#x3D;2;</span><br><span class="line">    &#125;</span><br><span class="line">    while(!s.empty())&#123;</span><br><span class="line">        res&#x3D;res*10+s.top();</span><br><span class="line">        s.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>逆序单词（拓展<code>sstream</code>，<code>stoi</code>，<code>itoa</code>）</p>
+</li>
+</ul>
+<blockquote>
+<p>输入一行字符串，将字符串逆序打印<br>输入：hello world my name is steve yu<br>输出：yu steve is name my world hello<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stack&gt;</span><br><span class="line">#include &lt;sstream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    string str;</span><br><span class="line">    stack&lt;string&gt; s;</span><br><span class="line">    getline(cin,str);</span><br><span class="line">    stringstream ss;</span><br><span class="line">    ss&lt;&lt;str;</span><br><span class="line">    while(ss&gt;&gt;str)</span><br><span class="line">        s.push(str);</span><br><span class="line">    while(!s.empty())&#123;</span><br><span class="line">        cout&lt;&lt;s.top();</span><br><span class="line">        s.pop();</span><br><span class="line">        if(s.size()!&#x3D;0) cout&lt;&lt;&quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>字符串转数字</li>
+</ul>
+</blockquote>
+<p>方法1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">string s&#x3D;&quot;1234&quot;;</span><br><span class="line">int i;</span><br><span class="line">stringstream ss;</span><br><span class="line">ss&lt;&lt;s;</span><br><span class="line">ss&gt;&gt;i;</span><br><span class="line">cout&lt;&lt;i;</span><br></pre></td></tr></table></figure></p>
+<p>方法2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s&#x3D;&quot;1234&quot;;</span><br><span class="line">int i&#x3D;stoi(s);</span><br><span class="line">cout&lt;&lt;i;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>数字转字符串</li>
+</ul>
+<p>方法1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int a&#x3D;1234;</span><br><span class="line">string out;</span><br><span class="line">stringstream ss;</span><br><span class="line">ss&lt;&lt;a;</span><br><span class="line">ss&gt;&gt;out;</span><br><span class="line">cout&lt;&lt;out&lt;&lt;endl;</span><br></pre></td></tr></table></figure></p>
+<p>方法2:(c++ 11)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int a&#x3D;1234;</span><br><span class="line">cout&lt;&lt;to_string(a)&lt;&lt;endl;</span><br></pre></td></tr></table></figure></p>
+<h2 id="7、STL——queue"><a href="#7、STL——queue" class="headerlink" title="7、STL——queue"></a>7、STL——queue</h2><ul>
+<li>概念：队列<br>构造<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">queue&lt;int&gt; q;</span><br></pre></td></tr></table></figure></li>
+<li>push、back<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">q.push(5);</span><br><span class="line">q.push(6);</span><br><span class="line">cout&lt;&lt;q.front()&lt;&lt;endl;</span><br><span class="line">q.pop();</span><br><span class="line">cout&lt;&lt;q.front()&lt;&lt;endl;</span><br><span class="line">cout&lt;&lt;q.size()&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="8、STL——map-unordered-map-pair"><a href="#8、STL——map-unordered-map-pair" class="headerlink" title="8、STL——map(unordered_map pair)"></a>8、STL——map(unordered_map pair)</h2><p>概念：映射（<code>map</code>为树状表，<code>unorderedmap</code>为哈希表）</p>
+<ul>
+<li><p>map</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">map&lt;int,int&gt; m;&#x2F;&#x2F;有序的，树状结构（底层）</span><br><span class="line">m[6]&#x3D;3;</span><br><span class="line">m[5]&#x3D;8;</span><br><span class="line">m[4]&#x3D;9;</span><br><span class="line">for(auto it&#x3D;m.begin();it!&#x3D;m.end();it++)</span><br><span class="line">	cout&lt;&lt;it-&gt;first&lt;&lt;&quot; &quot;&lt;&lt;it-&gt;second&lt;&lt;endl;</span><br><span class="line">for(auto tmp:m)&#123;</span><br><span class="line">	cout&lt;&lt;tmp.first&lt;&lt;&quot; &quot;&lt;&lt;tmp.second&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>unordered_map</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;int,int&gt; m;&#x2F;&#x2F;无序的，哈希结构（底层）</span><br><span class="line">m[6]&#x3D;3;</span><br><span class="line">m[5]&#x3D;8;</span><br><span class="line">m[4]&#x3D;9;</span><br><span class="line">for(auto it&#x3D;m.begin();it!&#x3D;m.end();it++)</span><br><span class="line">	cout&lt;&lt;it-&gt;first&lt;&lt;&quot; &quot;&lt;&lt;it-&gt;second&lt;&lt;endl;</span><br><span class="line">for(auto tmp:m)&#123;</span><br><span class="line">	cout&lt;&lt;tmp.first&lt;&lt;&quot; &quot;&lt;&lt;tmp.second&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pair的用法(map转成vector进行排序)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">bool cmp(pair&lt;int,int&gt; a,pair&lt;int,int&gt; b)&#123;</span><br><span class="line">    return a.first&gt;b.first;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    unordered_map&lt;int,int&gt; m;&#x2F;&#x2F;无序的，哈希结构（底层）</span><br><span class="line">    m[6]&#x3D;3;</span><br><span class="line">    m[5]&#x3D;8;</span><br><span class="line">    m[4]&#x3D;9;</span><br><span class="line">    vector&lt;pair&lt;int,int&gt;&gt; v(m.begin(),m.end());</span><br><span class="line">    sort(v.begin(),v.end(),cmp);</span><br><span class="line">    for(auto tmp:v)&#123;</span><br><span class="line">        cout&lt;&lt;tmp.first&lt;&lt;tmp.second&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="9、set-unordered-set"><a href="#9、set-unordered-set" class="headerlink" title="9、set(unordered_set)"></a>9、set(unordered_set)</h2><p>概念：集合</p>
+<ul>
+<li>应用计数、去重<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">set&lt;int&gt; s;&#x2F;&#x2F;树状结构，有序</span><br><span class="line">unordered_set&lt;int&gt; s2;&#x2F;&#x2F;哈希结构，无序，快</span><br><span class="line">s.insert(3);</span><br><span class="line">s.insert(4);</span><br><span class="line">s.insert(4);</span><br><span class="line">s.insert(4);</span><br><span class="line">cout&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">for(auto tmp:s)</span><br><span class="line">	cout&lt;&lt;tmp&lt;&lt;&quot; &quot;;</span><br><span class="line">cout&lt;&lt;endl;</span><br><span class="line">for(auto it&#x3D;s.begin();it!&#x3D;s.end();it++)</span><br><span class="line">	cout&lt;&lt;*it&lt;&lt;&quot; &quot;;</span><br><span class="line">cout&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="10、STL——deque"><a href="#10、STL——deque" class="headerlink" title="10、STL——deque"></a>10、STL——deque</h2><p>概念：双端队列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deque&lt;int&gt; d;</span><br><span class="line">&#x2F;&#x2F; 4 9 1 2</span><br><span class="line">d.push_back(1);</span><br><span class="line">d.push_back(2);</span><br><span class="line">d.push_front(9);</span><br><span class="line">d.push_front(4);</span><br><span class="line">d.pop_back();</span><br><span class="line">d.pop_front();</span><br><span class="line">for(auto tmp:d) cout&lt;&lt;tmp&lt;&lt;endl;</span><br><span class="line">for(auto it&#x3D;d.begin();it!&#x3D;d.end();it++) cout&lt;&lt;*it&lt;&lt;endl;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>排序<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort(d.begin(),d.end(),greater&lt;int&gt;());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="11、STL——list"><a href="#11、STL——list" class="headerlink" title="11、STL——list"></a>11、STL——list</h2><p>概念：双向链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">list&lt;int&gt; li;</span><br><span class="line">li.push_back(6);</span><br><span class="line">li.push_front(5);</span><br><span class="line">li.emplace_front(9);</span><br><span class="line">li.emplace_back(10);</span><br><span class="line">li.insert(++li.begin(),2);</span><br><span class="line">for(auto tmp:li) cout&lt;&lt;tmp&lt;&lt;endl;</span><br><span class="line">for(auto it&#x3D;li.begin();it!&#x3D;li.end();it++) cout&lt;&lt;*it&lt;&lt;endl;</span><br></pre></td></tr></table></figure></p>
+<h2 id="12-文档"><a href="#12-文档" class="headerlink" title="12.文档"></a>12.文档</h2><blockquote>
+<p>英文：<br><a target="_blank" rel="noopener" href="http://www.cplusplus.com/reference/stl/">http://www.cplusplus.com/reference/stl/</a><br>中文：<br><a target="_blank" rel="noopener" href="http://c.biancheng.net/stl/map/">http://c.biancheng.net/stl/map/</a></p>
+</blockquote>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2018/07/07/STL%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/08/09/MachineLearning/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MathineLearing
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/07/05/JavaScript%E5%9F%BA%E7%A1%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JavaScript基础</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '27f22c9606d2801d92eb',
+    clientSecret: '629cbd4c87183101d7d8542013329b0c4fc04534',
+    repo: 'AHU-HUI.github.io',
+    owner: 'AHU-HUI',
+    admin: ['AHU-HUI'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2017-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <a href="http://beian.miit.gov.cn/" target="_black">皖ICP备17013875号</a>
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开！','愿你一生努力，一生被爱！','想要的都拥有，得不到的都释怀！'],
+    startDelay: 0,
+    typeSpeed: 500,
+    loop: true,
+    backSpeed: 200,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+  </div>
+</body>
+
+</html>

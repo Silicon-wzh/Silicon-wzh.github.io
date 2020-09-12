@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    MathineLearing |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-MachineLearning" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MathineLearing
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/08/09/MachineLearning/" class="article-date">
+  <time datetime="2018-08-08T16:48:34.000Z" itemprop="datePublished">2018-08-09</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.2k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="一、卷积-amp-池化"><a href="#一、卷积-amp-池化" class="headerlink" title="一、卷积&amp;池化"></a>一、卷积&amp;池化</h1><h4 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h4><ul>
+<li><strong>卷积能抽取特征</strong></li>
+<li><strong>多层卷积能抽取复杂特征</strong><blockquote>
+<ol>
+<li><strong>卷积神经网络每层的卷积核权重是由数据驱动学习得来</strong>，不是人工设计的，人工只能胜任简单卷积核的设计，像边缘，但在边缘响应图之上设计出能描述复杂模式的卷积核则十分困难。<a id="more"></a></li>
+<li><strong>数据驱动卷积神经网络逐层学到由简单到复杂的特征（模式），复杂模式是由简单模式组合而成</strong>，比如Layer4的狗脸是由Layer3的几何图形组合而成，Layer3的几何图形是由Layer2的纹理组合而成，Layer2的纹理是由Layer1的边缘组合而成，从特征图上看的话，Layer4特征图上一个点代表Layer3某种几何图形或表面的组合，Layer3特征图上一个点代表Layer2某种纹理的组合，Layer2特征图上一个点代表Layer1某种边缘的组合。</li>
+<li><strong>这种组合是一种相对灵活的方式在进行</strong>，不同的边缘→不同纹理→不同几何图形和表面→不同的狗脸、不同的物体……，前面层模式的组合可以多种多样，使后面层可以描述的模式也可以多种多样，所以<strong>具有很强的表达能力</strong>，不是“死板”的模板，而是“灵活”的模板，泛化能力更强。</li>
+<li><strong>卷积神经网络真正使用时，还需要配合池化、激活函数等，以获得更强的表达能力，但模式蕴含在卷积核中，如果没有非线性激活函数，网络仍能学到模式，但表达能力会下降</strong>，由论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1606.02228">《Systematic evaluation of CNN advances on the ImageNet》</a>，在ImageNet上，使用调整后的caffenet，不使用非线性激活函数相比使用ReLU的性能会下降约8个百分点，如下图所示。通过池化和激活函数的配合，可以看到复现出的每层学到的特征是非常单纯的，狗、人、物体是清晰的，少有其他其他元素的干扰，可见网络学到了待检测对象区别于其他对象的模式。<br><img src="https://upload-images.jianshu.io/upload_images/5868203-3096f0d1792c238f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Convolution"><br><img src="https://upload-images.jianshu.io/upload_images/5868203-2443f3d28a8d4a89.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Convolution"><br><strong>卷积后大小 $m<em>后 = m</em>原 - k_核 + 1 $</strong></li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h4 id="池化-下采样"><a href="#池化-下采样" class="headerlink" title="池化(下采样)"></a>池化(下采样)</h4><blockquote>
+<p>&emsp;在每一次卷积的时候, 神经层可能会无意地丢失一些信息. 这时, 池化 (pooling) 就可以很好地解决这一问题. 也就是说在卷集的时候, 我们不压缩长宽, 尽量地保留更多信息, 压缩的工作就交给池化了,这样的一项附加工作能够很有效的提高准确性.<br> &emsp; 池化（Pooling）是卷积神经网络中另一个重要的概念，它实际上是一种形式的降采样。有多种不同形式的非线性池化函数，而其中“最大池化（Max pooling）”是最为常见的。它是将输入的图像划分为若干个矩形区域，对每个子区域输出最大值。直觉上，这种机制能够有效地原因在于，在发现一个特征之后，它的精确位置远不及它和其他特征的相对位置的关系重要。池化层会不断地减小数据的空间大小，因此参数的数量和计算量也会下降，这在一定程度上也控制了过拟合。通常来说，CNN的卷积层之间都会周期性地插入池化层。<br> &emsp;池化层通常会分别作用于每个输入的特征并减小其大小。当前最常用形式的池化层是每隔2个元素从图像划分出2*2的区块，然后对每个区块中的4个数取最大值。这将会减少75%的数据量。<br><img src="https://upload-images.jianshu.io/upload_images/5868203-f098eac8d06a40e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MaxPooling"></p>
+</blockquote>
+<hr>
+<hr>
+<h1 id="二、卷积神经网络-Convolutional-Neural-Networks（CNN）"><a href="#二、卷积神经网络-Convolutional-Neural-Networks（CNN）" class="headerlink" title="二、卷积神经网络 Convolutional Neural Networks（CNN）"></a>二、卷积神经网络 Convolutional Neural Networks（CNN）</h1><p>&emsp;卷积也就是说神经网络不再是对每个像素的输入信息做处理了,而是图片上每一小块像素区域进行处理, 这种做法加强了图片信息的连续性. 使得神经网络能看到图形, 而非一个点. 这种做法同时也加深了神经网络对图片的理解. 具体来说, 卷积神经网络有一个批量过滤器, 持续不断的在图片上滚动收集图片里的信息,每一次收集的时候都只是收集一小块像素区域, 然后把收集来的信息进行整理, 这时候整理出来的信息有了一些实际上的呈现, 比如这时的神经网络能看到一些边缘的图片信息, 然后在以同样的步骤, 用类似的批量过滤器扫过产生的这些边缘信息, 神经网络从这些边缘信息里面总结出更高层的信息结构,比如说总结的边缘能够画出眼睛,鼻子等等. 再经过一次过滤, 脸部的信息也从这些眼睛鼻子的信息中被总结出来. 最后我们再把这些信息套入几层普通的全连接神经层进行分类, 这样就能得到输入的图片能被分为哪一类的结果了.<br>&emsp;一张图片,有长, 宽, 高 三个参数. 这里的高指的是计算机用于产生颜色使用的信息. 如果是黑白照片的话, 高的单位就只有1, 如果是彩色照片, 就可能有红绿蓝三种颜色的信息, 这时的高度为3. 我们以彩色照片为例子. 过滤器就是影像中不断移动的东西, 他不断在图片收集小批小批的像素块, 收集完所有信息后, 输出的值, 我们可以理解成是一个高度更高,长和宽更小的”图片”. 这个图片里就能包含一些边缘信息. 然后以同样的步骤再进行多次卷积, 将图片的长宽再压缩, 高度再增加, 就有了对输入图片更深的理解. 将压缩,增高的信息嵌套在普通的分类神经层上,我们就能对这种图片进行分类了.</p>
+<blockquote>
+<p>包含卷积层的神经网络、擅长处理图像<br>常见网络：LeNet、AlexNet、VGG16、GoogleNet、ResNet</p>
+<h1 id="三、循环神经网络-Recurrent-Neural-Networks（RNN）"><a href="#三、循环神经网络-Recurrent-Neural-Networks（RNN）" class="headerlink" title="三、循环神经网络  Recurrent Neural Networks（RNN）"></a>三、循环神经网络  Recurrent Neural Networks（RNN）</h1><h5 id="序列数据"><a href="#序列数据" class="headerlink" title="序列数据"></a>序列数据</h5><p><img src="https://upload-images.jianshu.io/upload_images/5868203-4afe0e186f08981f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+</blockquote>
+<p>我们想象现在有一组序列数据 data 0,1,2,3. 在当预测 result0 的时候,我们基于的是 data0, 同样在预测其他数据的时候, 我们也都只单单基于单个的数据. 每次使用的神经网络都是同一个 NN. 不过这些数据是有关联 顺序的 , 就像在厨房做菜, 酱料 A要比酱料 B 早放, 不然就串味了. 所以普通的神经网络结构并不能让 NN 了解这些数据之间的关联.</p>
+<h5 id="处理序列数据的神经网络"><a href="#处理序列数据的神经网络" class="headerlink" title="处理序列数据的神经网络"></a>处理序列数据的神经网络</h5><p><img src="https://upload-images.jianshu.io/upload_images/5868203-a2f15d6677d03b05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>那我们如何让数据间的关联也被 NN 加以分析呢? 想想我们人类是怎么分析各种事物的关联吧, 最基本的方式,就是记住之前发生的事情. 那我们让神经网络也具备这种记住之前发生的事的能力. 再分析 Data0 的时候, 我们把分析结果存入记忆. 然后当分析 data1的时候, NN会产生新的记忆, 但是新记忆和老记忆是没有联系的. 我们就简单的把老记忆调用过来, 一起分析. 如果继续分析更多的有序数据 , RNN就会把之前的记忆都累积起来, 一起分析.</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-d6bbcb852373c907.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>再重复一遍刚才的流程, 不过这次是以加入一些数学方面的东西. 每次 RNN 运算完之后都会产生一个对于当前状态的描述 , state. 我们用简写 S( t) 代替, 然后这个 RNN开始分析 x(t+1) , 他会根据 x(t+1)产生s(t+1), 不过此时 y(t+1) 是由 s(t) 和 s(t+1) 共同创造的. 所以我们通常看到的 RNN 也可以表达成这种样子.</p>
+<blockquote>
+<p>为处理时序数据而设计的，例如一段文字或者语音<br>常见网络：长短期记忆（long short-term memory，LSTM）</p>
+<hr>
+<hr>
+</blockquote>
+<h3 id="典型的循环神经网络LeNet"><a href="#典型的循环神经网络LeNet" class="headerlink" title="典型的循环神经网络LeNet"></a>典型的循环神经网络LeNet</h3><blockquote>
+<p>LeNet网络最早由纽约大学的Yann LeCun等人于1998年提出，也称LeNet5，它是卷积神经网络的鼻祖，被誉为卷积神经网络的”Hello World”。<br><img src="https://upload-images.jianshu.io/upload_images/5868203-0b78b17e4f1bb64d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeNet"><br><img src="https://upload-images.jianshu.io/upload_images/5868203-ed9a1ff5d825ce77.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeNet Structure"></p>
+</blockquote>
+<h6 id="第一个卷积层"><a href="#第一个卷积层" class="headerlink" title="第一个卷积层"></a>第一个卷积层</h6><p><img src="https://upload-images.jianshu.io/upload_images/5868203-a2c501fd05dd19a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="First Convolution Layer"></p>
+<h6 id="第一个池化层"><a href="#第一个池化层" class="headerlink" title="第一个池化层"></a>第一个池化层</h6><p><img src="https://upload-images.jianshu.io/upload_images/5868203-bd3f297134726d84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="First Pooling Layer"></p>
+<h6 id="第二个卷积层"><a href="#第二个卷积层" class="headerlink" title="第二个卷积层"></a>第二个卷积层</h6><p><img src="https://upload-images.jianshu.io/upload_images/5868203-f0aaff0224464d8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Secong Convolution Layer"></p>
+<h6 id="第二个池化层"><a href="#第二个池化层" class="headerlink" title="第二个池化层"></a>第二个池化层</h6><p><img src="https://upload-images.jianshu.io/upload_images/5868203-08db0f2576bd9d1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Secong Pooling Layer"></p>
+<h6 id="全连接卷积层"><a href="#全连接卷积层" class="headerlink" title="全连接卷积层"></a>全连接卷积层</h6><p><img src="https://upload-images.jianshu.io/upload_images/5868203-ddfd914105bc7be6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fully Connected Convolution Layer"></p>
+<h6 id="全连接层"><a href="#全连接层" class="headerlink" title="全连接层"></a>全连接层</h6><p><img src="https://upload-images.jianshu.io/upload_images/5868203-c0e57d2891aea926.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fully Connected Layer"></p>
+<h5 id="全连接层（输出层）"><a href="#全连接层（输出层）" class="headerlink" title="全连接层（输出层）"></a>全连接层（输出层）</h5><p><img src="https://upload-images.jianshu.io/upload_images/5868203-1017a57f6e185f0c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fully Connected Layer(OutPut Layer)"></p>
+<h2 id="—"><a href="#—" class="headerlink" title="—-"></a>—-</h2><h1 id="Numpy"><a href="#Numpy" class="headerlink" title="Numpy"></a>Numpy</h1><ul>
+<li>关键字</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">array</td>
+<td style="text-align:center">创建数组</td>
+</tr>
+<tr>
+<td style="text-align:center">dtype</td>
+<td style="text-align:center">指定数据类型</td>
+</tr>
+<tr>
+<td style="text-align:center">zeros</td>
+<td style="text-align:center">创建数据全为0</td>
+</tr>
+<tr>
+<td style="text-align:center">ones</td>
+<td style="text-align:center">创建数据全为1</td>
+</tr>
+<tr>
+<td style="text-align:center">empty</td>
+<td style="text-align:center">创建数据接近0</td>
+</tr>
+<tr>
+<td style="text-align:center">arrange</td>
+<td style="text-align:center">按指定范围创建数据</td>
+</tr>
+<tr>
+<td style="text-align:center">reshape</td>
+<td style="text-align:center">重构</td>
+</tr>
+<tr>
+<td style="text-align:center">linspace</td>
+<td style="text-align:center">创建线段</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<h3 id="mat与array区别"><a href="#mat与array区别" class="headerlink" title="mat与array区别"></a>mat与array区别</h3><ul>
+<li>mat()函数与array()函数生成矩阵所需的数据格式有区别,mat()函数中数据可以为字符串以分号(；)分割，或者为列表形式以逗号（，）分割。而array()函数中数据只能以（，）分割</li>
+<li>mat()函数与array()函数生成的矩阵计算方式不同<br>1.mat()函数中矩阵的乘积可以使用（星号） <em>  或 .dot()函数，其结果相同。而矩阵对应位置元素相乘需调用numpy.multiply()函数。<br>2.array()函数中矩阵的乘积只能使用 .dot()函数。而星号乘 （</em>）则表示矩阵对应位置元素相乘，与numpy.multiply()函数结果相同。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;a &#x3D; np.array([2,23,4])                           #  a &#x3D; [2 23 4]</span><br><span class="line">&gt;a &#x3D; np.array([2,23,4],dtype&#x3D;np.int)              #  a.dtype &#x3D; int32</span><br><span class="line">&gt;a &#x3D; np.zeros((3,4))                              # 三行四列全零数组</span><br><span class="line">&gt;a &#x3D; np.ones((3,4))                               # 三行四列全一数组</span><br><span class="line">&gt;a &#x3D; np.arange(10,20,2)                           # a &#x3D; [10, 12, 14, 16, 18]</span><br><span class="line">&gt;a &#x3D; np.arange(12).reshape((3,4))                 # a &#x3D; [[0,1,2,3],[4,5,6,7],[8,9,10,11,]]</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><p>运算</p>
+<blockquote>
+<p>+ - * / 运算：为对应位的运算  算符两侧矩阵类型需相同<br>比较运算： 输出的是矩阵中每一位进行比较运算结果的矩阵<br>矩阵乘法运算：a×b = a.dot(b)</p>
+</blockquote>
+</li>
+<li><p>方法</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&gt;a.shape()                    #获取矩阵a的属性</span><br><span class="line">&gt;np.argmin(a)                 #矩阵a中最小元素的索引</span><br><span class="line">&gt;np.argmax(a)                 #矩阵a中最大元素的索引</span><br><span class="line">&gt;np.mean(a) or np.average(a)  #矩阵均值（a.mean() a.average()）</span><br><span class="line">&gt;np.average(a,weights &#x3D; w)    #矩阵a按w加权均值</span><br><span class="line">&gt;np.median()                  #中位数</span><br><span class="line">&gt;np.cumsum()                  #累加</span><br><span class="line">&gt;np.diff()                    #每项中后一项与前一项之差</span><br><span class="line">&gt;np.nonzero()                 #矩阵中不为0的元素的坐标</span><br><span class="line">&gt;np.sort()                    #对每行从小到大排序</span><br><span class="line">&gt;np.transpose(A)  &#x3D; A.T       #转置</span><br><span class="line">&gt;np.clip(A,min,max)           #限幅  </span><br><span class="line">&gt;np.flatten()                 #展开成一行</span><br><span class="line">&gt;np.vstack(a,b)               #a,b按行合并</span><br><span class="line">&gt;np.hstack(a,b)               #a,b按列合并</span><br><span class="line">&gt;np.split(A,x,axis&#x3D;0&#x2F;1)       #a,b分割  0横1纵（只能等量分割）</span><br><span class="line">&gt;np.array_split()             #不等量分割</span><br><span class="line">&gt;vsplit()&#x2F;hsplit()            #横&#x2F;纵分割</span><br><span class="line"></span><br><span class="line">- 索引</span><br><span class="line">A[a] : 第a行的所有元素</span><br><span class="line">&gt;A[a][b:c] : a行b到c列的元素</span><br><span class="line"></span><br><span class="line">- 赋值</span><br><span class="line">&gt;矩阵间使用等号赋值具有关联性</span><br><span class="line">&gt;使用b&#x3D;a.copy()赋值没有关联性</span><br><span class="line"></span><br><span class="line">----</span><br><span class="line">---- </span><br><span class="line">#Pandas</span><br><span class="line">- Series</span><br><span class="line">&gt;索引在左边，值在右边。自动创建一个0到N-1（N为长度）的整数型索引。</span><br></pre></td></tr></table></figure>
+<p>s = pd.Series([1,3,6,np.nan,44,1])<br>print(s)<br>“””<br>0     1.0<br>1     3.0<br>2     6.0<br>3     NaN<br>4    44.0<br>5     1.0<br>dtype: float64<br>“””</p>
+</blockquote>
+</li>
+<li><p>DataFrame</p>
+<blockquote>
+<p>DataFrame是一个表格型的数据结构，它包含有一组有序的列，每列可以是不同的值类型（数值，字符串，布尔值等）。DataFrame既有行索引也有列索引， 它可以被看做由Series组成的大字典。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;df &#x3D; pd.DataFrame(np.random.randn(6,4),index&#x3D;dates,columns&#x3D;[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])</span><br><span class="line">&gt;print(df)</span><br><span class="line">&gt;&quot;&quot;&quot;</span><br><span class="line">                  a         b         c         d</span><br><span class="line">&gt;2016-01-01 -0.253065 -2.071051 -0.640515  0.613663</span><br><span class="line">&gt;2016-01-02 -1.147178  1.532470  0.989255 -0.499761</span><br><span class="line">&gt;2016-01-03  1.221656 -2.390171  1.862914  0.778070</span><br><span class="line">&gt;2016-01-04  1.473877 -0.046419  0.610046  0.204672</span><br><span class="line">&gt;2016-01-05 -1.584752 -0.700592  1.487264 -1.778293</span><br><span class="line">&gt;2016-01-06  0.633675 -1.414157 -0.277066 -0.442545</span><br><span class="line">&gt;&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line"># MNIST数据集格式转换</span><br><span class="line"></span><br><span class="line">&gt;将图片从28×28扩充为32×32</span><br></pre></td></tr></table></figure>
+<p>np.pad(xtrain, ((0,0), (2,2), (2,2), ‘constant’, constant_values=0)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;数据类型转换</span><br></pre></td></tr></table></figure>
+<p>x_train = xtrain.astype(‘float32’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;数据正则化</span><br></pre></td></tr></table></figure>
+<p>xtrain /= 255</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;数据维度转换([n, h, w, c])</span><br></pre></td></tr></table></figure>
+<p>x_train.reshape(x_train.shape[0], 32, 32, 1)<br>```</p>
+</blockquote>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2018/08/09/MachineLearning/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/08/21/HTTP%E5%8D%8F%E8%AE%AE%E5%B8%B8%E8%AF%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            HTTP协议常识
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/07/07/STL%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">STL常用容器</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '27f22c9606d2801d92eb',
+    clientSecret: '629cbd4c87183101d7d8542013329b0c4fc04534',
+    repo: 'AHU-HUI.github.io',
+    owner: 'AHU-HUI',
+    admin: ['AHU-HUI'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2017-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <a href="http://beian.miit.gov.cn/" target="_black">皖ICP备17013875号</a>
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开！','愿你一生努力，一生被爱！','想要的都拥有，得不到的都释怀！'],
+    startDelay: 0,
+    typeSpeed: 500,
+    loop: true,
+    backSpeed: 200,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+  </div>
+</body>
+
+</html>

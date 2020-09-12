@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    数字图像处理 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-图像处理与分析" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  数字图像处理
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/02/28/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E5%88%86%E6%9E%90/" class="article-date">
+  <time datetime="2020-02-28T12:28:12.000Z" itemprop="datePublished">2020-02-28</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">5.3k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">21分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="一、照明与图像"><a href="#一、照明与图像" class="headerlink" title="一、照明与图像"></a>一、照明与图像</h3><p>光通量（Φ  流明 lm）：光通量指人眼所能感觉到的辐射功率，它等于单位时间内某一波段的辐射能量和该波段的相对视见率的乘积。<br>辐照度（E 勒克斯 lux）：辐照度指投射到一平表面上的辐射通量密度。指到达一表平面上，单位时间，单位面积上的辐射能。</p>
+<blockquote>
+<p>1lux = 1 lm /m³</p>
+</blockquote>
+<h6 id="RGB与CMYK颜色模型"><a href="#RGB与CMYK颜色模型" class="headerlink" title="RGB与CMYK颜色模型"></a>RGB与CMYK颜色模型</h6><p>RGB：红绿蓝三原色<br> CMYK：品红 黄 青 三补色<br><img src="https://upload-images.jianshu.io/upload_images/5868203-6355a284505b19ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两种颜色模型"><br><a id="more"></a></p>
+<h6 id="HSI颜色模型"><a href="#HSI颜色模型" class="headerlink" title="HSI颜色模型"></a>HSI颜色模型</h6><ul>
+<li>色调H是描述纯色的属性（如红色、黄色等）</li>
+<li>饱和度S表示的是一种纯色被白光稀释的程度的度量</li>
+<li>亮度体现了无色的光强度概念，是一个主观的描述</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-0582c7957908003a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="HSI(HSV颜色模型)"></p>
+<h5 id="OpenCV颜色空间转换"><a href="#OpenCV颜色空间转换" class="headerlink" title="OpenCV颜色空间转换"></a>OpenCV颜色空间转换</h5><blockquote>
+<p><code>dst = cv.cvtColor(src, dst, code)</code><br>*src:输入<br>dst:输出<br>code:色彩空间转换模式</p>
+<ul>
+<li>OpenCV中，彩色图像缺省为BGR格式，颜色三通道顺序为B，G，R，分别对应索引0，1，2</li>
+<li>OpenCV中，HSI/HSV颜色空间中H的取值范围是0-180，其他两个是0-255</li>
+<li>两个相似的概念：HSI和HSV空间。HSV里面的v指的是RGB里面的最大的值，v=max（r，g，b）；而HSI的是平均值，l=（r+g+b）/3；另外两个分量应该是一样的</li>
+</ul>
+</blockquote>
+<h3 id="二、图像平滑滤波"><a href="#二、图像平滑滤波" class="headerlink" title="二、图像平滑滤波"></a>二、图像平滑滤波</h3><h6 id="图像的卷积"><a href="#图像的卷积" class="headerlink" title="图像的卷积"></a>图像的卷积</h6><ul>
+<li>图像滤波由卷积定义：$( f * g ) ( x , y ) = \frac {1}{NM} \sum <em> { i = 0 } ^ { N - 1 } \sum </em> { j = 0 } ^ { M - 1 } f ( i , j ) g ( x - i , y - j )$</li>
+<li>若滤波器对称：$( f * g ) ( x , y ) = \frac {1}{NM} \sum <em> { i = 0 } ^ { N - 1 } \sum </em> { j = 0 } ^ { M - 1 } f ( i , j ) g ( x + i , y + j )$</li>
+<li>图像卷积操作，由卷积核逐点乘积后累加得到</li>
+<li>图像卷积操作需要事先将滤波器上下左右反转再计算</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-1b0191563a159195.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4-邻域 8-邻域"></p>
+<hr>
+<h6 id="平均滤波"><a href="#平均滤波" class="headerlink" title="平均滤波"></a>平均滤波</h6><ul>
+<li>在一个小区域内像素值平均：$g(x,y) = \frac{1}{M} \sum_{i,j}f(i,j)$<script type="math/tex; mode=display">
+\frac {1} {5} \left[ \begin{array} { c c c } { 0 } & { 1 } & { 0 } \\ { 1 } & { 1 } & { 1 } \\ { 0 } & { 1 } & { 0 } \end{array} \right] \quad \frac {1} {8} \left[ \begin{array} { c c c } { 1 } & { 1 } & { 1 } \\ { 1 } & { 0 } & { 1 } \\ { 1 } & { 1 } & { 1 } \end{array} \right] \quad \frac {1} {9} \left[ \begin{array} { c c c } { 1 } & { 1 } & { 1 } \\ { 1 } & { 1 } & { 1 } \\ { 1 } & { 1 } & { 1 } \end{array} \right]</script><blockquote>
+<p><strong>使图像边缘变得平滑，损失了图像的细节，核越大，图像越模糊，对椒盐噪声效果不佳</strong></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h6 id="加权平均滤波"><a href="#加权平均滤波" class="headerlink" title="加权平均滤波"></a>加权平均滤波</h6><ul>
+<li>在一个小区域内像素值加权平均：$g(x,y) = \sum<em>{i,j} w</em>{ij}f(i,j)$<script type="math/tex; mode=display">
+\frac {1}{10} \left[ \begin{array}{ccc} 1&1&1 \\ 1&2&1 \\ 1&1&1 \end{array} \right] 
+\quad \frac {1}{16} \left[ \begin{array}{ccc} 1&2&1 \\ 2&4&2 \\ 1&2&1 \end{array} \right]</script><blockquote>
+<p><strong>高斯滤波：</strong>根据像素位置赋不同的权值，临近的像素具有更高的重要度<br><img src="https://upload-images.jianshu.io/upload_images/5868203-9480cdd35688822b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="高斯滤波"><br><strong>使图像边缘变得平滑的同时不损失图像的细节，应用广泛</strong></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h6 id="双边滤波"><a href="#双边滤波" class="headerlink" title="双边滤波"></a>双边滤波</h6><ul>
+<li>权值同时与像素位置和灰度值有关<script type="math/tex; mode=display">g(x,y) = \frac {\sum_{k,l} f_{k,l} w_{x, y, k, l }} {\sum_{ k, l } w_{x, y, k, l}}</script>其中<script type="math/tex">\begin{aligned}
+w_{x,y,k,l} &= exp(- \frac {(x -k)^2+(y-l)^2}{2 {\sigma_d}^2} - \frac {||f(x,y) - f(k, l)||^2}{2 {\sigma_r}^2}) \\ 
+&= { { d_{x, y, k, l } } \cdot { r_{x, y, k, l }} } 
+  \end{aligned}</script><br>$d,r$分别为空域核(高斯核)和值域核(类阶跃高斯核)<script type="math/tex">{d_{x, y, k, l }} = exp(- \frac {(x -k)^2+(y-l)^2}{2 {\sigma_d}^2 })  , { r_{x, y, k, l }} =  exp(\frac {||f(x,y) - f(k, l)||^2}{2 {\sigma_r}^2} )</script><br><img src="https://upload-images.jianshu.io/upload_images/5868203-86532dc4d63138ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="双边滤波"></li>
+</ul>
+<hr>
+<h6 id="中值滤波"><a href="#中值滤波" class="headerlink" title="中值滤波"></a>中值滤波</h6><ul>
+<li>确定窗口及位置（含有奇数个像素）</li>
+<li>窗口内像素按灰度大小排序</li>
+<li>取中间值代替原窗口中心像素值<blockquote>
+<p><strong>对孤立噪声特别有效，核越大图像越模糊，核必须是奇数</strong></p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="三、数学形态学滤波"><a href="#三、数学形态学滤波" class="headerlink" title="三、数学形态学滤波"></a>三、数学形态学滤波</h3><h6 id="膨胀"><a href="#膨胀" class="headerlink" title="膨胀"></a>膨胀</h6><script type="math/tex; mode=display">A \oplus B = \bigcup _ { b \in B } ( A ) _ { b }</script><p><img src="https://upload-images.jianshu.io/upload_images/5868203-b80df1028fe20631.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="膨胀操作"></p>
+<h6 id="腐蚀"><a href="#腐蚀" class="headerlink" title="腐蚀"></a>腐蚀</h6><script type="math/tex; mode=display">A \ominus B = \bigcap _ { b \in B } ( A ) _ { - b }</script><p><img src="https://upload-images.jianshu.io/upload_images/5868203-935858830d9ccfeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="腐蚀操作"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-ec965e35da8948bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="腐蚀与膨胀"></p>
+<blockquote>
+<p>腐蚀：灰度值大的变小（图像变暗）<br>膨胀：灰度值大的变大（图像变亮）<br>膨胀腐蚀都会使图像颗粒化</p>
+</blockquote>
+<h6 id="开闭运算"><a href="#开闭运算" class="headerlink" title="开闭运算"></a>开闭运算</h6><p>开运算：先腐蚀后膨胀</p>
+<script type="math/tex; mode=display">A \circ B = ( A \ominus B ) \oplus B</script><p>闭运算：先膨胀后腐蚀</p>
+<script type="math/tex; mode=display">A \cdot B = ( A \oplus B ) \ominus B</script><blockquote>
+<p><strong>先开后闭：可有效去除噪声</strong></p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-3730efc4b466e60a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="开闭运算"></p>
+<h5 id="OpenCV-图像滤波"><a href="#OpenCV-图像滤波" class="headerlink" title="OpenCV 图像滤波"></a>OpenCV 图像滤波</h5><blockquote>
+<h6 id="滤波函数"><a href="#滤波函数" class="headerlink" title="滤波函数"></a>滤波函数</h6><p><code>dst = cv2.filter2D(src , ddepth, kernel, dst, anchor, delta, borderType)</code><br>src:输入图像<br>ddepth:目标图像的所需深度，包括CV_16S/CV_32F/CV_64F等<br>kernel:卷积核（或相当于相关核），单通道浮点矩阵；如果要将不同的内核应用于不同的通道，请使用拆分将图像拆分为单独的颜色平面，然后单独处理它们<br>dst:输出图像，与输入图像尺寸和通道数相同<br>anchor:内核的锚点，指示内核中过滤点的相对位置;锚应位于内核中;默认值（-1，-1） 表示锚位于内核中心<br>delta:在将它们存储在dst中之前，将可选值添加到已过滤的像素中。类似于偏置<br>borderType:卷积填充方式，包括BORDER_CONSTANT, BORDER_REPLICATE, BORDER_REFLECT 等</p>
+<h6 id="常用滤波函数"><a href="#常用滤波函数" class="headerlink" title="常用滤波函数"></a>常用滤波函数</h6><ul>
+<li>平均滤波<br><code>dst=cv2.blur(src，ksizel，dst，anchor，borderType)</code></li>
+<li>高斯平滑滤波<br><code>dst=cv2.GaussianBlur(src，ksize，sigmaX，dst，sigmaY，borderType)</code></li>
+<li>中值滤波<br><code>dst=cv2.medianBlur(src，ksizeL，dst)</code></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>ksize</code></td>
+<td style="text-align:center">滤波器大小，如(5,5)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>双边滤波<br><code>dst=cv2. bilateralFilter(src, d, sigmaColor, sigmaSpace, dst, borderType)</code></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>src</code></td>
+<td style="text-align:left">原始图像：8-bit或floating-point，1-channel或3-channel</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>dst</code></td>
+<td style="text-align:left">目标图像：size和type与原始图像相同</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>d</code></td>
+<td style="text-align:left">过滤期间使用的各像素邻域的直径</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>sigmacolor</code></td>
+<td style="text-align:left">色彩空间的sigma参数，该参数较大时，各像素邻域内相距较远的颜色会被混合到一起，从而造成更大范围的半相等颜色</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>sigmaSpace</code></td>
+<td style="text-align:left">坐标空间的sigma参数，该参数较大时，只要颜色相近，越远的像素会相互影响</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>borderType</code></td>
+<td style="text-align:left">卷积填充方式，包括BORDER_CONSTANT，BORDERREPLICATE, BORDER_REFLECT等</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-f60bbfa592ab76d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原图——————————均值滤波——————————高斯滤波——————————中值滤波——————————双边滤波"></p>
+<h3 id="四、边缘检测"><a href="#四、边缘检测" class="headerlink" title="四、边缘检测"></a>四、边缘检测</h3><h5 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程"></a>计算过程</h5><ul>
+<li>1.使用相应边缘检测滤波器（如果是卷积核需要进行上下左右翻转）；</li>
+<li>2.进行卷积运算计算边缘检测结果</li>
+</ul>
+<h6 id="基本算子"><a href="#基本算子" class="headerlink" title="基本算子"></a>基本算子</h6><ul>
+<li>Robert算子卷积核</li>
+<li>Sobel 算子卷积核(常用)</li>
+<li>Laplace算子</li>
+<li>LoG算子</li>
+</ul>
+<blockquote>
+<ol>
+<li>边缘检测即图像差分 </li>
+<li>常见边缘检测算子包括Robert算子，Sobel算子，LoG 算子等，其中Sobel算子最为常用 </li>
+<li>二维图像的边缘具有强度和方向两个性质</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>Canny算子</strong><br>优点：边缘可自动连通<blockquote>
+<ul>
+<li>算法步骤：<br>1.平滑图像 <blockquote>
+<ul>
+<li>使用高斯函数完成平滑,以 5×5 为例<script type="math/tex; mode=display">\begin{aligned}
+G(x,y) &= \frac {1} { \sqrt{2\pi} \sigma }{ exp \left[ { - \frac{x^2 + y^2 }{ \sigma^2 }} \right]} \\ 
+K &= \frac {1} {139} \left[ \begin{array} { c c c c c} { 2 } & { 4 } & { 5 } &{ 4 } &{ 2 }\\ { 4 } & { 9 } & { 12 } &{ 9 } &{ 4 } \\ { 5 } & { 12 } & { 15 } &{ 12 } &{ 9 }\\ { 4 } & { 9 } & { 12 } &{ 9 } &{ 4 }\\ { 2 } & { 4 } & { 5 } &{ 4 } &{ 2 } \end{array} \right]
+\end{aligned}</script></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>2.计算梯度(幅值和方向)</p>
+<blockquote>
+<ul>
+<li>使用Sobel边缘检测算子对平滑图像进行xy方向的边缘检测，假设得到结果分别为$E<em>{x}$，$E</em>{y}$</li>
+<li>进一步计算梯度幅值和方向：<script type="math/tex; mode=display">\begin{aligned} 
+M ( x , y ) &= \sqrt { E _ { x } ^ { 2 } ( x , y ) + E _ { y } ^ { 2 } ( x , y ) }  \\ 
+\theta ( x , y ) &= \tan ^ { - 1 } \left( \frac { E _ { y } ( x , y ) } { E _ { x } ( x , y ) } \right)
+\end{aligned}</script></li>
+<li>方向离散化</li>
+</ul>
+</blockquote>
+<p>3.梯度幅值进行非极大值抑制</p>
+<blockquote>
+<p>细化梯度幅值图像中的屋脊带，只保留幅值局部变化最大的点</p>
+</blockquote>
+<p>4.自动边缘连接</p>
+<blockquote>
+<ul>
+<li>对上一步得到的图像使用低、高阈值$\tau_1 \tau_2$阈值化，得到三幅图像<script type="math/tex; mode=display">\left\{ \begin{array} \\{ T _ { 1 } [ i , j ] \left( M ( i , j ) < \tau _ { 1 } \right) } \\ { T _ { 2 } [ i , j ] \left( \tau _ { 1 } \leq M ( i , j ) \leq \tau _ { 2 } \right) } \\ { T _ { 3 } [ i , j ] \left( M ( i , j ) > \tau _ { 2 } \right) } \end{array} \right.</script>$T_1$对应假边缘，去除<br>$T_2$对应真边缘，全部保留<br>$T_3$连接：临接像素中是否有属于$T_3$的像素</li>
+<li>通过查看弱边缘像素及其8个邻域像素，只要其中一个为强 边缘像素，则该弱边缘点就可以保留为真实的边缘。</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h4 id="数学形态学边缘检测"><a href="#数学形态学边缘检测" class="headerlink" title="数学形态学边缘检测"></a>数学形态学边缘检测</h4><hr>
+<ul>
+<li>边缘梯度(gradient)<br>定义：灰度膨胀图像与灰度腐蚀图像的差值<blockquote>
+<script type="math/tex; mode=display">r = ( A \oplus B ) - ( A \ominus B )</script></blockquote>
+</li>
+</ul>
+<hr>
+<ul>
+<li>顶帽与黑帽变换<blockquote>
+<p>顶帽变换（tophat）定义为图像与其开运算的差值：</p>
+<script type="math/tex; mode=display">r = A -(A \circ B)</script><p>黑帽变换（blackhat）定义为图像闭运算与自身的差值：</p>
+<script type="math/tex; mode=display">r = (A \cdot B) - A</script></blockquote>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-79a7d57019c8561c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="原图"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-7472a22b8bada8b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="顶帽变换 底帽变换"></p>
+<blockquote>
+<p><strong>顶帽变换和底帽变换的结合使用能够应用于灰度图像的对比度增强<br>常用做法：将源图像加上顶帽变换再减去底帽变换 →增强对比度</strong></p>
+</blockquote>
+<hr>
+<ul>
+<li>击中或击不中变换(HMT)<br>输出图像由所有在$B_1$中匹配的像素（击中）和未在$B_2$中匹配的像素（击不中）组成</li>
+</ul>
+<blockquote>
+<script type="math/tex; mode=display">
+r = A ⊛ B = \left( A \ominus B _ { 1 } \right) \cap \left( A ^ { c } \ominus B _ { 2 } \right)</script></blockquote>
+<h6 id="OpenCV实现边缘检测"><a href="#OpenCV实现边缘检测" class="headerlink" title="OpenCV实现边缘检测"></a>OpenCV实现边缘检测</h6><blockquote>
+<ul>
+<li>Sobel算子边缘检测<br><code>dst  = cv2.Sobel(src ,  ddepth ,  dx ,  dy [,  dst [,  ksize [,  scale [,  delta [,  borderType ]]]]] )</code></li>
+<li>Laplace算子<br><code>dst  = cv2.Laplacian(  src ,  ddepth [,  dst [,  ksize [,  scale [,  delta [,  borderType ]]]]] )</code></li>
+<li>Canny算子<br><code>dst  = cv2.Canny(  image ,  threshold1 ,  threshold2 [,  edges [,  apertureSize [,  L2gradient ]]] )</code></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ddepth</td>
+<td style="text-align:left">目标图像的所需深度，包括CV_16S/CV_32F/CV_64F等 </td>
+</tr>
+<tr>
+<td style="text-align:center">ksize</td>
+<td style="text-align:left">滤波器大小，通常可选为(5,5)或(3,3)，或直接使用缺省</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>形态学滤波<br><code>dst  = cv2.morphologyEx( src ,  op ,  kernel [,  dst [,  anchor [,  iterations [,  borderType [,  borderValue ]]]]] )</code></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">src</td>
+<td style="text-align:left">原图像</td>
+</tr>
+<tr>
+<td style="text-align:center">op</td>
+<td style="text-align:left">形态学操作，包括MORPH_ERODE, MORPH_DILATE, MORPH_OPEN,  MORPH_CLOSE,MORPH_GRADIENT, MORPH_TOPHAT,  MORPH_BLACKHAT, MORPH_HITMISS</td>
+</tr>
+<tr>
+<td style="text-align:center">kernel</td>
+<td style="text-align:left">滤波结构元素，参见getStructuringElement</td>
+</tr>
+<tr>
+<td style="text-align:center">iterations</td>
+<td style="text-align:left">进行操作的次数</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>dst  = cv2.getStructuringElement(shape ,  ksize [,  anchor ] )</code><br>这个函数的第一个参数表示内核的形状，有三种形状可以选择。<br>矩形：MORPH_RECT;<br>交叉形：MORPH_CROSS;<br>椭圆形：MORPH_ELLIPSE;</p>
+</blockquote>
+<p><strong>1.OpenCV提供了Sobel，Canny等函数用于边缘检测</strong></p>
+<h2 id="2-OpenCV提供了MorphologyEx函数用于形态学滤波"><a href="#2-OpenCV提供了MorphologyEx函数用于形态学滤波" class="headerlink" title="2. OpenCV提供了MorphologyEx函数用于形态学滤波"></a><strong>2. OpenCV提供了MorphologyEx函数用于形态学滤波</strong></h2><h3 id="五、图像变换"><a href="#五、图像变换" class="headerlink" title="五、图像变换"></a>五、图像变换</h3><h5 id="常见几何变换"><a href="#常见几何变换" class="headerlink" title="常见几何变换"></a>常见几何变换</h5><ul>
+<li>放缩</li>
+<li>平移</li>
+<li>旋转</li>
+<li>镜像</li>
+</ul>
+<h5 id="距离变换"><a href="#距离变换" class="headerlink" title="距离变换"></a>距离变换</h5><ul>
+<li>通常作用于二值图像上，描述的是该位置像素点到最近的区域边界的距离。如果假设背景为黑（对应值为0），则为到最近0值的距离</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-99c4793d21eb57de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="距离变换"></p>
+<h5 id="对数极坐标变换-Log-Polar变换"><a href="#对数极坐标变换-Log-Polar变换" class="headerlink" title="对数极坐标变换(Log-Polar变换)"></a>对数极坐标变换(Log-Polar变换)</h5><ul>
+<li>将图像像素坐标转换为极坐标，然后对距离取对数<br>变换公式：$\left{ \begin{aligned} r = \sqrt { x ^ { 2 } + y ^ { 2 } } , \rho &amp; = \log ( r ) \ \theta = \arctan \frac { y } { x } \end{aligned} \right.$<br>反变换公式：$\left{ \begin{aligned} x &amp;= rcos(\theta ) \ y &amp;= rsin( \theta ) \end{aligned} \right.$</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/5868203-9536eb8f04657335.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Log-Polar变换"></p>
+<blockquote>
+<p><strong>Log-Polar变换应用：全景展开</strong></p>
+</blockquote>
+<h3 id="六、灰度直方图"><a href="#六、灰度直方图" class="headerlink" title="六、灰度直方图"></a>六、灰度直方图</h3><p>  灰度直方图是关于灰度级分布的函数，是对图像中灰度级分布的统计。灰度直方图是将数字图像中的所有像素，按照灰度值的大小，统计其出现的频率。灰度直方图是灰度级的函数，它表示图像中具有某种灰度级的像素的个数，反映了图像中某种灰度出现的频率。通过直方图可判断图像曝光及对比度等情况 .<br><img src="https://upload-images.jianshu.io/upload_images/5868203-64642bef371c47f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="灰度直方图对图像照明特征的反映"></p>
+<blockquote>
+<p><strong>越集中对比度越低</strong></p>
+</blockquote>
+<h5 id="直方图均衡化"><a href="#直方图均衡化" class="headerlink" title="直方图均衡化"></a>直方图均衡化</h5><ul>
+<li>直方图均衡化的作用就是图像增强<br>需要满足条件：亮的依然亮，暗的依然暗。</li>
+<li>直方图映射方法：<script type="math/tex; mode=display">
+s _ { k } = \sum _ { j = 0 } ^ { k } \frac { n _ { j } } { n } , k = 0,1,2 , \cdots , L - 1</script></li>
+</ul>
+<h5 id="局部直方图均衡化"><a href="#局部直方图均衡化" class="headerlink" title="局部直方图均衡化"></a>局部直方图均衡化</h5><ul>
+<li>在图像的一个小邻域内使用直方图均衡化，直方图均衡可增加图像对比度<br>缺点:在照度正常区域将对比度拉大容易出现明暗相间条纹</li>
+</ul>
+<h5 id="利用局部直方图统计进行灰度增强"><a href="#利用局部直方图统计进行灰度增强" class="headerlink" title="利用局部直方图统计进行灰度增强"></a>利用局部直方图统计进行灰度增强</h5><ul>
+<li>在图像的每个小邻域内，计算局部直方图，进而计算灰度和方差；</li>
+<li>根据需求，对图像的亮部或暗部进行增强。如前例需对暗部增强，<br>（1）计算局部均值$m$，与全局均值$m$，如$m_l≤k_0m$，则认为该点是候选点<br>（2）进一步计算局部方差$\sigma_l$与全局方差$\sigma$，如$k_1 ≤ k_2 \sigma$，且$ k_1 \sigma ≤ \sigma_l，k_1&lt;k_2 $（对标准差为0的区域不增强），则满足增强条件<br>（3）对同时满足（1），（2）条件的点进行增强：<script type="math/tex; mode=display">g(x,y) = E \cdot f(x,y)</script></li>
+</ul>
+<h3 id="七、霍夫（Hough）变换"><a href="#七、霍夫（Hough）变换" class="headerlink" title="七、霍夫（Hough）变换"></a>七、霍夫（Hough）变换</h3><ul>
+<li>功能：确定图像中哪些点对应一条直线</li>
+<li>核心思想：将原坐标（x，y）转换到参数空间中表示，进一步利用投票机制解决鲁棒性问题。</li>
+<li>直线方程表达：<br>（1）斜率/截距：$y=kx+b$每一条直线对应一个$k$，$b$<br>（2）法线式：$xcos \theta+ysin \theta= \rho $<br><img src="https://upload-images.jianshu.io/upload_images/5868203-a6c8efa9ead66eb7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></li>
+<li>直角坐标系的一点$（x_0，y_0）$，对应参数空间$（\theta，\rho）$中一条近似正弦曲线：<script type="math/tex; mode=display">
+x _ { 0 } \cos \theta + y _ { 0 } \sin \theta = \rho \Rightarrow \rho = \sqrt { x _ { 0 } ^ { 2 } + y _ { 0 } ^ { 2 } } \cos ( \theta + \phi )</script></li>
+<li>同一条直线上的多个点，在$（\theta，\rho）$空间中必相交于一点<br><img src="https://upload-images.jianshu.io/upload_images/5868203-652dc6f463550d42.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Hough变换"></li>
+</ul>
+<h5 id="Hough变换步骤"><a href="#Hough变换步骤" class="headerlink" title="Hough变换步骤"></a>Hough变换步骤</h5><ul>
+<li>将$（\theta，\rho）$空间量化成许多小格</li>
+<li>根据$x-y$平面每一个点代入$\theta$的量化值，算出各个$\rho$</li>
+<li>将对应格计数累加</li>
+<li>当全部点变换后，对小格进行检验（投票机制）。设置累计阈值$T$，计数器大于$T$的小格对应于共线点，其可以用作直线拟合参数。小于T的反映非共线点，丢弃不用</li>
+</ul>
+<h5 id="图像变换OpenCV函数"><a href="#图像变换OpenCV函数" class="headerlink" title="图像变换OpenCV函数"></a>图像变换OpenCV函数</h5><ul>
+<li><p>距离变换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst  &#x3D;   cv.distanceTransform(  src, distanceType ,  maskSize [ , dst [,  dstType ]]   ) </span><br></pre></td></tr></table></figure>
+<p>|参数|功能|<br>|:—-:|:—-:|<br>|<code>distanceType</code>| 距离计算方式，<code>DIST_L1</code>， <code>DIST_L2</code>或 <code>DIST_C</code>|<br>|<code>maskSize</code>|掩模尺寸，可取<code>DIST_MASK_PRECISE</code>或<code>DIST_MASK_3，5</code>等|</p>
+</li>
+<li><p>Log-polar变换 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst  &#x3D;   cv.logPolar(  src ,  center ,  M ,  flags [, dst] )</span><br></pre></td></tr></table></figure>
+<p>|参数|功能|<br>|:—-:|:—-:|<br>|<code>center</code>|变换中心点|<br>|<code>M</code>|幅值尺度参数|<br>|<code>flags</code>|标志位，是插值方法和下面选项的组合：<code>CV_WARP_FILL_OUTLIERS</code> 填充目标图像中的所 有像素；<code>CV_WARP_INVERSE_MAP</code>  表示矩阵是从目标图像到源图像的反变换|</p>
+</li>
+<li><p>计算直方图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">  matplotlib.pyplot.hist( x, bins&#x3D;None, range&#x3D;None,  ...) </span><br></pre></td></tr></table></figure>
+<p>|参数|功能|<br>|:—-:|:—-:|<br>|<code>bins</code>| 多少个柱|<br>|<code>range</code>|显示的范围|</p>
+</li>
+<li><p>直方图均衡化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dst  &#x3D;   cv.equalizeHist(  src  [, dst] )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>标准Hough变换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines  &#x3D; cv.HoughLines(  image ,  rho ,  theta ,  threshold [,  lines [,  srn [,  stn [,  min_theta [,  max_theta ]]]]] ) </span><br></pre></td></tr></table></figure>
+<p>|参数|功能|<br>|:—-:|:—-:|<br>|<code>image</code>|输入图像，应为二值图像，通常使用边缘检测结果；|<br>|<code>rho</code>| 线段以像素为单位的距离精度，double类型的，推荐用1.0|<br>|<code>theta</code>|线段以弧度为单位的角度精度，推荐用numpy.pi/180|<br>|<code>threshod</code>|累加平面的阈值参数，int类型，超过设定阈值才被检测出线段，值越大，基本上意味着检出的线 段越长，检出的线段个数越少|</p>
+</li>
+<li><p>累计概率Hough变换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lines  &#x3D; cv.HoughLinesP(  image ,  rho ,  theta ,  threshold [,  lines [,  minLineLength [,  maxLineGap ]]] ) </span><br></pre></td></tr></table></figure>
+<p>效果更好，能检测大部分的直线线条！</p>
+</li>
+</ul>
+<h3 id="八、图像分割"><a href="#八、图像分割" class="headerlink" title="八、图像分割"></a>八、图像分割</h3><ul>
+<li>目标：将图像划分为不同区域</li>
+</ul>
+<ol>
+<li>图像分割是中层视觉的重要内容，具有广泛应用 </li>
+<li>图像分割的主要方法包括阈值法、区域法等 </li>
+<li>图像标记为分割后的结果打上不同标签，便于后续处理</li>
+</ol>
+<h5 id="灰度阈值分割"><a href="#灰度阈值分割" class="headerlink" title="灰度阈值分割"></a>灰度阈值分割</h5><ul>
+<li><p>假设：图像中的目标区和背景区之间或者不同目 标区之间，灰度存在明显差异<br><img src="https://upload-images.jianshu.io/upload_images/5868203-a440abcd564b3190.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Example"></p>
+</li>
+<li><p>凡是灰度值包含于z的像素都变成某一灰度值，其 他的变成另一个灰度值，则该图像就以$z$为界被分成两个区域</p>
+<script type="math/tex; mode=display">
+f ( x , y ) = \left\{ \begin{array} { l l } { z _ { a } } & { f ( x , y ) \in z } \\ { z _ { b } } & {其他}  \end{array} \right.</script></li>
+<li>特殊的，如果=1和=0，分割后的图像为二值图像    </li>
+</ul>
+<h5 id="自动阈值分割"><a href="#自动阈值分割" class="headerlink" title="自动阈值分割"></a>自动阈值分割</h5><p>自动确定最佳阈值，使背景和目标之间的差异 最大</p>
+<blockquote>
+<ul>
+<li>大津(Otsu)算法原理I<br>根据统计分析理论，最佳阈值确定的最佳二分类应使类内方差最小，等同于类间方差最大<br><strong>大津算法基本思想：</strong>确定使灰度直方图类间方差最大的最佳阈值假设灰度直方图已经归一化，即<script type="math/tex; mode=display">p_i = \frac{n_i} {N},    \sum p_i = 1</script></li>
+<li>假设阈值$T$将像素灰度划为两类：$C_0$和$C_1$，则每一类出现的概率：<script type="math/tex; mode=display">\omega_0 = \sum_{i=1}^{T} { \frac {ip_i} {\omega_0} } = \frac{ \mu_{0}^{'} }{ \omega_0 }</script><script type="math/tex; mode=display">\mu_1 = \sum_{ i = T + 1}^{N} {\frac {ip_i} {\omega_1} } = \frac{\mu_{1}^{'} }{ \omega_{1} } = \frac{\mu - \mu_{0}^{'} }{1-\omega_0}</script>其中 $\mu = \sum_{i=1}^{N} ip_i$。显然有$ \omega_0 \mu_0 + \omega_1 \mu_1 = \mu $</li>
+<li>两类的类内方差：<script type="math/tex; mode=display">\sigma _ { 0 } ^ { 2 } = \sum _ { i = 1 } ^ { T } \left( i - \mu _ { 0 } \right) ^ { 2 } p _ { i } / \omega _ { 0 } , \sigma _ { 1 } ^ { 2 } = \sum _ { i = T + 1 } ^ { N } \left( i - \mu _ { 1 } \right) ^ { 2 } p _ { i } / \omega _ { 1 }</script>对应的类间方差：<script type="math/tex; mode=display">\sigma _ { B } ^ { 2 } = \omega _ { 0 } \left( \mu _ { 0 } - \mu \right) ^ { 2 } + \omega _ { 1 } \left( \mu _ { 1 } - \mu \right) ^ { 2 } = \omega _ { 0 } \omega _ { 1 } \left( \mu _ { 1 } - \mu _ { 0 } \right) ^ { 2 }</script></li>
+<li><p>显然，$\omega_B$是关于最佳阈值r的隐函数，应选取$T$：</p>
+<script type="math/tex; mode=display">T = \underset { 1 \leq T < L } { \operatorname { argmax } } \sigma _ { B } ^ { 2 }</script></li>
+<li><p><strong><em>大津算法是常用的一类灰度阈值自动选取方式，目标是令类间方差最大</em></strong></p>
+</li>
+<li><strong><em>大津算法求解采用遍历方式，思想直接，实现速度快。</em></strong></li>
+</ul>
+</blockquote>
+<h5 id="OpenCV边缘轮廓分割"><a href="#OpenCV边缘轮廓分割" class="headerlink" title="OpenCV边缘轮廓分割"></a>OpenCV边缘轮廓分割</h5><blockquote>
+<p><code>image ,  contours , hierarchy = cv.findContours(  image, mode, method [, contours [, hierarchy [,offset ]]])</code><br>|参数|含义|<br>|:—-:|:—-:|<br>|<code>image</code>|单通道图像矩阵，可以是灰度图，但更常用的是经过边缘检测算子处理后的二值图像|<br>|<code>contours</code>|定义为<code>vector&lt;vector&lt;Point&gt;&gt;contours</code>，是一个轮廓列表|<br>|<code>hierarchy</code>|存在嵌套轮廓时，分别为第<code>i</code>个轮廓的后一个轮廓、前一个轮廓、父轮廓、内嵌轮廓的索引编号|<br>|<code>mode</code>|定义轮廓的检索模式, 包括<code>CV_RETR_EXTERNAL</code>只检测最外围轮廓,<code>CV_RETR_LIST</code>检测所有轮廓，但不建立等级关系等|<br>|<code>method</code>|包括<code>CV_CHAIN_APPROX_SIMPLE</code> 仅保存轮廓的拐点信息，把所有轮廓拐点处的点保存入<code>contours</code>等|<br>|<code>offset</code>|所有的轮廓信息相对于原始图像对应点的偏移量, 缺省不设置|</p>
+</blockquote>
+<hr>
+<h5 id="局部阈值分割"><a href="#局部阈值分割" class="headerlink" title="局部阈值分割"></a>局部阈值分割</h5><ul>
+<li>全局阈值法存在的问题<br><img src="https://upload-images.jianshu.io/upload_images/5868203-74c5ce3d2b9435d6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分割效果不佳"><br><img src="https://upload-images.jianshu.io/upload_images/5868203-2adafe5b53d4dc12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="局部阈值分割"><br><img src="https://upload-images.jianshu.io/upload_images/5868203-a2461bf82e314466.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="局部阈值分割效果"></li>
+</ul>
+<hr>
+<h5 id="多阈值分割"><a href="#多阈值分割" class="headerlink" title="多阈值分割"></a>多阈值分割</h5><p><img src="https://upload-images.jianshu.io/upload_images/5868203-c2cd954933f9fd1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="多阈值分割"></p>
+<blockquote>
+<p><strong><em>1. 局部阈值法可有效解决照明不均的问题</em></strong><br><strong><em>2. 多阈值法是二值化分割方法的扩展，可解决多值目标 的分割问题</em></strong></p>
+</blockquote>
+<hr>
+<h5 id="区域生长法分割"><a href="#区域生长法分割" class="headerlink" title="区域生长法分割"></a>区域生长法分割</h5><ul>
+<li>大津算法的局限性<br>对于渐变的图像分割效果不佳</li>
+</ul>
+<p><strong>区域生长法：从种子点开始，按照一定准则(如 相邻像素灰度相似性)向周围扩散 ，将邻域相似像素加入区域中</strong></p>
+<blockquote>
+<p>区域生长实现步骤：</p>
+<ol>
+<li>对图像顺序扫描。找到第1个还没有归属的像素, 设该像素为$(x_0, y_0)$; </li>
+<li>以$(x0, y0)$为中心, 考虑($x_0, y_0)$的8邻域像素$(x, y)$，如果$(x, y)$满足生长 准则, 将$(x, y)$与 $(x_0, y_0)$合并, 同时将$(x, y)$压入堆栈; </li>
+<li>从堆栈中取出一个像素, 把它当作$(x_0, y_0)$返回到步骤2; </li>
+<li>当堆栈为空时，返回到步骤1; </li>
+<li>重复步骤1 - 4直到图像中的每个点都有归属时。生长结束。</li>
+</ol>
+</blockquote>
+<hr>
+<h5 id="图像分裂"><a href="#图像分裂" class="headerlink" title="图像分裂"></a>图像分裂</h5><p><img src="https://upload-images.jianshu.io/upload_images/5868203-f410da5661ae410f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图像分裂"></p>
+<blockquote>
+<ul>
+<li>对区域分裂合并法无需预先指定种子点,它按某种一致性准则分裂 或者合并区域。 </li>
+<li>可以先进行分裂运算,然后再进行合并运算;也可以分裂和合并运算 同时进行,经过连续的分裂和合并,最后得到图像的精确分割效果。 </li>
+<li>分裂合并法对分割复杂的场景图像比较有效。</li>
+</ul>
+<p><strong><em>1. 区域生长法基于相邻像素间的相似性，由种子像素逐 步生长得到</em></strong><br><strong><em>2. 分裂-合并基于图像块内在的相似性，通过不断分裂得 到区域外边界，通过合并将不同块连接</em></strong></p>
+</blockquote>
+<hr>
+<h5 id="分水岭分割"><a href="#分水岭分割" class="headerlink" title="分水岭分割"></a>分水岭分割</h5><p><img src="https://upload-images.jianshu.io/upload_images/5868203-2e6b1c1821c60af2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分水岭分割"></p>
+<ul>
+<li>如果以图像位置$(x,y)$为坐标，则图像$f(x,y)$可以看作是地形俯视图，其中“山峰的高度”与图像中的 灰度值对应。</li>
+<li>假设在每个“盆地”的最低点开始打洞让水漫上来，并且让水以均匀速率上升。那么，当不同“盆地”的水开 始汇聚时，能通过修建一个“水坝”挡住这种聚合的弧线就是图像的分界线</li>
+</ul>
+<p><strong><em>漫水原则</em></strong></p>
+<blockquote>
+<p><strong>局部极小值点</strong>:该点对应一个盆地的最低点，当我们在盆地滴一滴水的时候，由于重力作用，水最终会汇聚到该点。注意：可能存在一个最小值面，该平面内的都是最小值点。<br><strong>盆地的其它位置点</strong>:该位置滴的水滴会汇聚到局部最小点。<br><strong>盆地的边缘点</strong>:是该盆地和其它盆地交接点，在该点滴一滴水，会等概率的流向任何一个盆地。</p>
+</blockquote>
+<h5 id="分水岭算法的过分割问题"><a href="#分水岭算法的过分割问题" class="headerlink" title="分水岭算法的过分割问题"></a>分水岭算法的过分割问题</h5><p>由于噪声点或者其它干扰因素的存在，使用分水岭算法常常存在过度分 割的现象，这是因为很多很小的局部极值点的存在<br><img src="https://upload-images.jianshu.io/upload_images/5868203-fd8fba622ba7a7c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分水岭算法的过分割问题"></p>
+<p><strong>在初始时给marker，改善过分割问题</strong>，为了解决过度分割的问题，可以使用基于标记(mark)图像的分水岭算法，就是指定mark 图像，在这个区域的洪水淹没过程中，水平面都是从定义的marker开始的，这样可以避 免一些很小的噪声极值区域的分割。<br><img src="https://upload-images.jianshu.io/upload_images/5868203-3009738a4a1d7ca5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="加入Marker改善后的分割结果"></p>
+<h5 id="Opencv实现"><a href="#Opencv实现" class="headerlink" title="Opencv实现"></a>Opencv实现</h5><blockquote>
+<p>区域生长法:<code>retval ,  image ,  mask ,  rect  = cv.floodFill(  image ,  mask ,  seedPoint ,  newVal [,  loDiff [,  upDiff [, flags]]] )</code><br>分水岭算法:<code>markers  = cv.watershed( image, markers</code> #marker种子点</p>
+</blockquote>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/02/28/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E4%B8%8E%E5%88%86%E6%9E%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/03/06/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            目标检测学习笔记
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/21/27%E7%A7%8D%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">27种常用神经网络</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '27f22c9606d2801d92eb',
+    clientSecret: '629cbd4c87183101d7d8542013329b0c4fc04534',
+    repo: 'AHU-HUI.github.io',
+    owner: 'AHU-HUI',
+    admin: ['AHU-HUI'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2017-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <a href="http://beian.miit.gov.cn/" target="_black">皖ICP备17013875号</a>
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开！','愿你一生努力，一生被爱！','想要的都拥有，得不到的都释怀！'],
+    startDelay: 0,
+    typeSpeed: 500,
+    loop: true,
+    backSpeed: 200,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+  </div>
+</body>
+
+</html>

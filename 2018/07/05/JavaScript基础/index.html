@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    JavaScript基础 |  Hexo
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-JavaScript基础" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  JavaScript基础
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2018/07/05/JavaScript%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2018-07-05T14:00:08.000Z" itemprop="datePublished">2018-07-05</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.3k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="1-1第一个-JavaScript-程序"><a href="#1-1第一个-JavaScript-程序" class="headerlink" title="1.1第一个 JavaScript 程序"></a>1.1第一个 JavaScript 程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#这段代码的效果是，弹出一个小框，显示“hello world!”</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;&lt;&#x2F;head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">      &lt;script&gt;</span><br><span class="line">        alert(&quot;hello world!&quot;);</span><br><span class="line">      &lt;&#x2F;script&gt;</span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2-变量的声明"><a href="#2-变量的声明" class="headerlink" title="2.变量的声明"></a>2.变量的声明</h3><p>在 JavaScript 中，变量用 Var 命令做声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var test ;    &#x2F;&#x2F; 声明了一个名为 test 的变量。</span><br><span class="line">var test_2 &#x3D; &quot;shiyanlou&quot; ;  &#x2F;&#x2F; 声明一个名为 test_2 的变量，并赋值为“shiyanlou”。</span><br></pre></td></tr></table></figure><br>在 JavaScript 中，变量也可以不作声明，而在使用时再根据数据的类型来确其变量的类型，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; 100 ;     &#x2F;&#x2F; 变量 x 为整数</span><br><span class="line">y &#x3D; &quot;hello&quot; ; &#x2F;&#x2F; 变量 y 为字符串</span><br><span class="line">z &#x3D; True ;    &#x2F;&#x2F; 变量 z 为布尔型</span><br><span class="line">cars&#x3D;[&quot;Audi&quot;,&quot;BMW&quot;,&quot;Volvo&quot;]; &#x2F;&#x2F; cars 是一个数组</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-Javascript语句"><a href="#3-Javascript语句" class="headerlink" title="3.Javascript语句"></a>3.Javascript语句</h3><ul>
+<li>if/else</li>
+<li>switch/case</li>
+<li>for</li>
+<li>while</li>
+<li>break/continue</li>
+</ul>
+<h3 id="4-JavaScript函数"><a href="#4-JavaScript函数" class="headerlink" title="4.JavaScript函数"></a>4.JavaScript函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function 函数名 (参数1，参数2)</span><br><span class="line">&#123;</span><br><span class="line">  函数体;</span><br><span class="line"></span><br><span class="line">  return 返回值;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-事件"><a href="#5-事件" class="headerlink" title="5.事件"></a>5.事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    function click_button() &#123;     &#x2F;&#x2F; 事件处理程序，弹出提示窗</span><br><span class="line">      alert(&#39;welcome to shiyanlou&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body align&#x3D;&quot;center&quot;&gt;</span><br><span class="line">  &lt;br&gt;&lt;&#x2F;br&gt;</span><br><span class="line">  &lt;button onclick&#x3D;&quot;click_button()&quot;&gt;click me&lt;&#x2F;button&gt;  &lt;!--发生事件 onclick 的时候，执行 click_button()--&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="常用事件"><a href="#常用事件" class="headerlink" title="常用事件"></a>常用事件</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">name</th>
+<th style="text-align:center">function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">onclick</td>
+<td style="text-align:center">单击</td>
+</tr>
+<tr>
+<td style="text-align:center">ondblclick</td>
+<td style="text-align:center">双击</td>
+</tr>
+<tr>
+<td style="text-align:center">onfocus</td>
+<td style="text-align:center">元素获得焦点</td>
+</tr>
+<tr>
+<td style="text-align:center">onblur</td>
+<td style="text-align:center">元素失去焦点</td>
+</tr>
+<tr>
+<td style="text-align:center">onmouseover</td>
+<td style="text-align:center">鼠标移到某元素之上</td>
+</tr>
+<tr>
+<td style="text-align:center">onmouseout</td>
+<td style="text-align:center">鼠标从某元素移开</td>
+</tr>
+<tr>
+<td style="text-align:center">onmousedown</td>
+<td style="text-align:center">鼠标按钮被按下</td>
+</tr>
+<tr>
+<td style="text-align:center">onmouseup</td>
+<td style="text-align:center">鼠标按键被松开</td>
+</tr>
+<tr>
+<td style="text-align:center">onkeydown</td>
+<td style="text-align:center">某个键盘按键被按下</td>
+</tr>
+<tr>
+<td style="text-align:center">onkeyup</td>
+<td style="text-align:center">某个键盘按键被松开</td>
+</tr>
+<tr>
+<td style="text-align:center">onkeypress</td>
+<td style="text-align:center">某个键盘按键被按下并松开</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其中，onmouseover 和 onmouseout 事件可用于在鼠标移至 HTML 元素上和移出元素时触发函数。比如这一例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;&lt;&#x2F;head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;div style&#x3D;&quot;background-color:green;width:200px;height:50px;margin:20px;padding-top:10px;color:#ffffff;font-weight:bold;font-size:18px;text-align:center;&quot;</span><br><span class="line">          onmouseover&#x3D;&quot;this.innerHTML&#x3D;&#39;good&#39;&quot;</span><br><span class="line">          onmouseout&#x3D;&quot;this.innerHTML&#x3D;&#39;you have moved out&#39;&quot;</span><br><span class="line">        &gt;move your mouse to here&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure><br>onmousedown, onmouseup 是鼠标 压下 和 松开 的事件。首先当点击鼠标按钮时，会触发 onmousedown 事件，当释放鼠标按钮时，会触发 onmouseup 事件。<br>举例说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    function mDown(obj)    &#x2F;&#x2F; 按下鼠标 的 事件处理程序</span><br><span class="line">    &#123;</span><br><span class="line">    obj.style.backgroundColor&#x3D;&quot;#1ec5e5&quot;;</span><br><span class="line">    obj.innerHTML&#x3D;&quot;release your mouse&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    function mUp(obj)     &#x2F;&#x2F; 松开鼠标 的 事件处理程序</span><br><span class="line">    &#123;</span><br><span class="line">    obj.style.backgroundColor&#x3D;&quot;green&quot;;</span><br><span class="line">    obj.innerHTML&#x3D;&quot;press here&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div style&#x3D;&quot;background-color:green;width:200px;height:35px;margin:20px;padding-top:20px;color:rgb(255,255,255);font-weight:bold;font-size:18px;text-align:center;&quot;</span><br><span class="line"></span><br><span class="line">onmousedown&#x3D;&quot;mDown(this)&quot;</span><br><span class="line">onmouseup&#x3D;&quot;mUp(this)&quot;</span><br><span class="line">&gt;press here&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">##6.对象</span><br><span class="line">###6.1创建对象</span><br></pre></td></tr></table></figure><br>student = new Object();  // 创建对象“student”</p>
+<p>student.name = “Tom”;   // 对象属性 名字<br>student.age  = “19”;    // 对象属性 年龄</p>
+<p>student.study =function() {   // 对象方法 学习<br>    alert(“studying”);<br>};</p>
+<p>student.eat =function() {     // 对象方法 吃<br>    alert(“eating”);<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上方法在创建多个对象时，会产生大量重复代码，所以我们也可以采用函数的方式新建对象：</span><br></pre></td></tr></table></figure><br>function student(name,age) {<br>    this.name = name;<br>    this.age = age;<br>    this.study = function() {<br>        alert(“studying”);<br>    };<br>    this.eat = function() {<br>        alert(“eating”);<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后通过 new 创建 student 对象的实例：</span><br></pre></td></tr></table></figure><br>var student1 = new student(‘Tom’,’19’);<br>var student2 = new student(‘Jack’,’20’);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">####6.2访问对象的属性与方法</span><br><span class="line">新建的 student1 对象，可以这样使用：</span><br></pre></td></tr></table></figure></p>
+<script>
+var x = student1.name;  // 访问对象的属性
+var y = student1.age;
+
+document.write(x);
+document.write(y);
+
+student1.study();     // 调用对象的方法
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当我们需要 反复访问 某对象的时候，可以使用 with 语句简化操作，而不需要反复地用“.”符号，比如：</span><br></pre></td></tr></table></figure>
+with(student1) {
+var x = name;
+var y= age;
+study();
+eat();
+}
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">###7.内置对象</span><br><span class="line">####1.String</span><br><span class="line">&gt;属性：string.length</span><br><span class="line"></span><br><span class="line">|方法|功能|</span><br><span class="line">|:---:|:---:|</span><br><span class="line">|charAt(n) |返回该字符串第 n 位的单个字符。（从 0 开始计数）</span><br><span class="line">|charCodeAt(n) |返回该字符串第 n 位的单个字符的 ASCII 码。</span><br><span class="line">|indexOf() |用法：string_1.indexOf(string_2,n); 从字符串 string_1 的第 n 位开始搜索，查找 string_2，返回查找到的位置，如果未找到，则返回 -1，其中 n 可以不填，默认从第 0 位开始查找。</span><br><span class="line">|lastIndexOf() |跟 indexOf() 相似，不过是从后边开始找。</span><br><span class="line">|split(&#39;分隔符&#39;) |将字符串按照指定的分隔符分离开，返回一个数组，例如：&#39;1&amp;2&amp;345&amp;678&#39;.split(&#39;&amp;&#39;)；返回数组：1,2,345,678。</span><br><span class="line">|substring(n,m) |返回原字符串从 n 位置到 m 位置的子串。</span><br><span class="line">| substr(n,x) |返回原字符串从 n 位置开始，长度为 x 的子串。</span><br><span class="line">|toLowerCase() |返回把原字符串所有大写字母都变成小写的字符串。</span><br><span class="line">|toUpperCase() |返回把原字符串所有小写字母都变成大写的字符串。</span><br><span class="line"></span><br><span class="line">####2.Math</span><br><span class="line"></span><br><span class="line">|属性|作用|</span><br><span class="line">|:---:|:---:|</span><br><span class="line">|E |返回常数 e (2.718281828...)。|</span><br><span class="line">|LN2 |返回 2 的自然对数 (ln 2)。|</span><br><span class="line">|LN10 |返回 10 的自然对数 (ln 10)。|</span><br><span class="line">|LOG2E |返回以 2 为低的 e 的对数 (log2e)。|</span><br><span class="line">|LOG10E |返回以 10 为低的 e 的对数 (log10e)。|</span><br><span class="line">|PI |返回π（3.1415926535...)。|</span><br><span class="line">|SQRT1_2 |返回 1&#x2F;2 的平方根。|</span><br><span class="line">|SQRT2 |返回 2 的平方根。|</span><br><span class="line"></span><br><span class="line">|方法|作用|</span><br><span class="line">|:---:|:---:|</span><br><span class="line">|abs(x) |返回 x 的绝对值。</span><br><span class="line">|round(x) |返回 x 四舍五入后的值。</span><br><span class="line">|sqrt(x) |返回 x 的平方根。</span><br><span class="line">|ceil(x) |返回大于等于 x 的最小整数。</span><br><span class="line">| floor(x) |返回小于等于 x 的最大整数。</span><br><span class="line">|sin(x) |返回 x 的正弦。</span><br><span class="line">|cos(x) |返回 x 的余弦。</span><br><span class="line">|tan(x) |返回 x 的正切。</span><br><span class="line">|acos(x) |返回 x 的反余弦值（余弦值等于 x 的角度），用弧度表示。</span><br><span class="line">|asin(x) |返回 x 的反正弦值。</span><br><span class="line">|atan(x) |返回 x 的反正切值。</span><br><span class="line">|exp(x) |返回 e 的 x 次幂 (e^x)。</span><br><span class="line">|pow(n, m) |返回 n 的 m 次幂 (nm)。</span><br><span class="line">|log(x) |返回 x 的自然对数 (ln x)。</span><br><span class="line">|max(a, b) |返回 a, b 中较大的数。</span><br><span class="line">|min(a, b) |返回 a, b 中较小的数。</span><br><span class="line">|random() |返回大于 0 小于 1 的一个随机数。</span><br><span class="line"></span><br><span class="line">###3.Array数组对象</span><br><span class="line">&gt;注意：JavaScript只有一维数组，要使用多维数组，请用这种虚拟法：</span><br><span class="line">&gt;&#96;var myArray &#x3D; new Array(new Array(), new Array(), new Array(), ...);&#96;</span><br><span class="line">&gt;调用这个“二维数组”的元素时：</span><br><span class="line">&gt;&#96;myArray[2][3] &#x3D; ...;&#96;</span><br><span class="line"></span><br><span class="line">属性：length</span><br><span class="line">返回数组的长度，即数组里有多少个元素。它等于数组里最后一个元素的下标加一。</span><br></pre></td></tr></table></figure>
+想添加一个元素，只需要：
+myArray[myArray.length] = ...;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">####(2)Array 的方法</span><br><span class="line"></span><br><span class="line">- join(&quot;指定分隔符&quot;) ：返回一个字符串，把数组元素串起来，元素间用指定分隔符隔开。</span><br><span class="line"></span><br><span class="line">- toString() ：把数组转为字符串，并返回结果。</span><br><span class="line"></span><br><span class="line">- reverse() ：使数组元素倒序。</span><br><span class="line"></span><br><span class="line">- slice(n,m) ：返回子数组，从数组第 n 个元素到第 m 个元素。</span><br><span class="line"></span><br><span class="line">- sort(SortFunction) ：按照指定的 SortFunction 将数组的元素排序。</span><br><span class="line"></span><br><span class="line">- concat(Array\_1,Array\_2) ：用于连接两个或多个数组。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#8.DOM</span><br><span class="line">&gt;DOM 是 文档对象模型（Document Object Model）的简称，它的基本思想是把结构化文档（比如 HTML 和 XML）解析成一系列的节点，再由这些节点组成一个树状结构（DOM Tree）。所有的节点和最终的树状结构，都有规范的对外接口，以达到使用编程语言操作文档的目的，所以，DOM 可以理解成文档（HTML 文档、XML 文档）的编程接口。</span><br><span class="line"></span><br><span class="line">- 选取文档元素</span><br><span class="line">(1)通过ID选取</span><br><span class="line">我们可以使用方法 getElementById() 通过元素的 ID 而选取元素，并对其做操作，比如：</span><br></pre></td></tr></table></figure>
+<html>
+<body>
+<div id="my_div"></div>
+
+<script>
+    document.getElementById("my_div").style.height="100px";  // 设置 my_div 高度为 100px
+    document.getElementById("my_div").style.background="red"; // 设置 my_div 颜色为 红色
+</script>
+
+<p>&lt;/body&gt;<br>&lt;/html&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(2)通过名字（Name）或标签名（TagName）选取</span><br></pre></td></tr></table></figure></p>
+<p><html></p>
+<p><body></p>
+<p><input type="text" /></p>
+<input type="text" />
+
+<script>
+document.getElementsByTagName("input")[0].value="hello";   // 下标为 [0] 表示选取第 1 个 input 标签
+document.getElementsByTagName("input")[1].value="shiyanlou"; // 下标为 [1] 表示选取第 2 个 input 标签
+</script>
+
+<p>&lt;/body&gt;<br>&lt;/html&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##9.节点、属性操作和文档遍历</span><br><span class="line">- 查询和设置元素属性</span><br><span class="line">可以通过 getAttribute() 和 setAttribute() 查询和设置元素的属性：</span><br></pre></td></tr></table></figure></p>
+<p><html></p>
+<head>
+<style>
+.class_1 {
+    height:100px;
+    width:100px;
+    background:red;
+}
+.class_2 {
+    height:100px;
+    width:100px;
+    background:blue;
+}
+</style>
+</head>
+
+<p><body></p>
+<div id="div_1" class="class_1"></div>
+<br/>
+<a>before:</a>
+
+<script>
+document.write(document.getElementById("div_1").getAttribute("class")); // 查询 div_1 的属性
+</script>
+
+<br/>
+<a>after:</a>
+
+<script>
+document.getElementById("div_1").setAttribute("class","class_2");  // 修改 div_1 的属性为 class_2
+document.write(document.getElementById("div_1").getAttribute("class")); // 再次查询 div_1 的属性
+</script>
+
+</body>
+</html>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 父节点</span><br><span class="line">通过 parentNode() 方法可以查看并操作一个节点的父节点，示例：找到 id 为 demo 的元素的父节点，并输出其 class 的名称：</span><br></pre></td></tr></table></figure>
+<html>
+<body>
+<div class="demo-parent">
+    <div id="demo">        
+    </div>
+</div>
+
+<p><script>
+    document.write(document.getElementById("demo").parentNode.getAttribute("class"));
+</script><br>&lt;/body&gt;<br>&lt;/html&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 创建和插入节点</span><br><span class="line">JavaScript 可以动态地在页面中创建并插入节点，这便需要用到 createElement()、appendChild() 方法，它们的作用分别是创建节点和插入节点。</span><br><span class="line"></span><br><span class="line">比如：创建一个 div 并为其设置高度（100px）和背景色（red），并追加到 body 后面：</span><br></pre></td></tr></table></figure></p>
+<p><html></p>
+<p><body></p>
+<p><div style="background:#00F; height:100px"></div></p>
+<p><script>
+    var mydiv = document.createElement("div");
+    mydiv.style.height = "100px";
+    mydiv.style.background = "red";
+    document.getElementsByTagName("body")[0].appendChild(mydiv);
+</script><br>&lt;/body&gt;<br>&lt;/html&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 删除节点</span><br><span class="line">除了创建，我们还可以删除一个节点，通过 removeChild() 方法：</span><br></pre></td></tr></table></figure></p>
+<p><html></p>
+<p><head>
+</head></p>
+<p><body></p>
+<p><div>
+    <div id="div_red" style="background:#F00; height:100px"></div><br>    <div id="div_blue" style="background:#00F; height:100px"></div>
+</div></p>
+<p><script>
+function remove_red(){
+    var obj = document.getElementById("div_red");
+    obj.parentNode.removeChild(obj);
+    }
+</script></p>
+<p><button onclick="remove_red()">remove red div</button><br>&lt;/body&gt;<br>&lt;/html&gt;<br>```</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2018/07/05/JavaScript%E5%9F%BA%E7%A1%80/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2018/07/07/STL%E5%B8%B8%E7%94%A8%E5%AE%B9%E5%99%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            STL常用容器
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/06/25/4-Vector/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">4-Vector</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '27f22c9606d2801d92eb',
+    clientSecret: '629cbd4c87183101d7d8542013329b0c4fc04534',
+    repo: 'AHU-HUI.github.io',
+    owner: 'AHU-HUI',
+    admin: ['AHU-HUI'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2017-2020
+        John Doe
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <a href="http://beian.miit.gov.cn/" target="_black">皖ICP备17013875号</a>
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开！','愿你一生努力，一生被爱！','想要的都拥有，得不到的都释怀！'],
+    startDelay: 0,
+    typeSpeed: 500,
+    loop: true,
+    backSpeed: 200,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+<script src="/js/ayer.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+  </div>
+</body>
+
+</html>
