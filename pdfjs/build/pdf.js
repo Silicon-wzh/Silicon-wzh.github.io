@@ -20529,7 +20529,7 @@ var PopupElement = /*#__PURE__*/function () {
 
       if (dateObject) {
         var modificationDate = document.createElement("span");
-        modificationDate.textContent = "1600009272619, ";
+        modificationDate.textContent = "1617624131333, ";
         modificationDate.dataset.l10nId = "annotation_date_string";
         modificationDate.dataset.l10nArgs = JSON.stringify({
           date: dateObject.toLocaleDateString(),
