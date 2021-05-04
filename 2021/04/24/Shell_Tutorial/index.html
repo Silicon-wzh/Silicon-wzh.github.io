@@ -370,7 +370,7 @@
 <p>输出结果：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10 != 20 : a 不等于 b</span><br><span class="line">10 小于 100 且 20 大于 15 : 返回 <span class="literal">true</span></span><br><span class="line">10 小于 100 或 20 大于 100 : 返回 <span class="literal">true</span></span><br><span class="line">10 小于 5 或 20 大于 100 : 返回 <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 <h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><blockquote>
-<p><code>&amp;&amp;</code> : 逻辑的 AND<br><em>e.g.</em> <code>[[ $a -lt 100 &amp;&amp; $b -gt 100 ]]</code> 返回 false<br><code>\\</code>   逻辑的 OR<br><em>e.g.</em> <code>[[ $a -lt 100 || $b -gt 100 ]]</code> 返回 true </p>
+<p><code>&amp;&amp;</code> : 逻辑的 AND<br><em>e.g.</em> <code>[[ $a -lt 100 &amp;&amp; $b -gt 100 ]]</code> 返回 false<br><code>\\</code> :  逻辑的 OR<br><em>e.g.</em> <code>[[ $a -lt 100 || $b -gt 100 ]]</code> 返回 true </p>
 </blockquote>
 <p>示例</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">a=10</span><br><span class="line">b=20</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$a</span> -lt 100 &amp;&amp; <span class="variable">$b</span> -gt 100 ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;返回 true&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;返回 false&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$a</span> -lt 100 || <span class="variable">$b</span> -gt 100 ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;返回 true&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">&quot;返回 false&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
@@ -557,6 +557,15 @@
   
   
   <nav class="article-nav">
+    
+      <a href="/2021/05/04/Docker&GitlabCI/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            (no title)
+          
+        </div>
+      </a>
     
     
       <a href="/2020/04/01/TensorFlow%E5%85%A5%E9%97%A8/" class="article-nav-link">
