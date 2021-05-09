@@ -59,7 +59,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">6k字</span>
+            <span class="post-count">6.1k字</span>
         </span>
     </span>
 
@@ -95,7 +95,7 @@
       
 
       
-      <h3 id="Gitlab-CI-预定义变量"><a href="#Gitlab-CI-预定义变量" class="headerlink" title="Gitlab CI 预定义变量"></a>Gitlab CI 预定义变量</h3><p>GitLab CI / CD具有一组<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/variables/predefined_variables.html">默认的预定义变量</a> ，您可以使用它们而无需任何其他说明。您可以呼叫问题编号，用户名，分支名称，管道和提交ID等。</p>
+      <h3 id="Gitlab-CI-变量"><a href="#Gitlab-CI-变量" class="headerlink" title="Gitlab CI 变量"></a>Gitlab CI 变量</h3><h5 id="1-Gitlab-CI-预定义变量"><a href="#1-Gitlab-CI-预定义变量" class="headerlink" title="1.Gitlab CI 预定义变量"></a>1.Gitlab CI 预定义变量</h5><p>GitLab CI / CD具有一组<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/variables/predefined_variables.html">默认的预定义变量</a> ，您可以使用它们而无需任何其他说明。您可以呼叫问题编号，用户名，分支名称，管道和提交ID等。</p>
 <p>GitLab为Runner的本地环境提供了预定义的环境变量。</p>
 <p>GitLab读取<code>.gitlab-ci.yml</code>文件并将信息发送到Runner，在此处公开变量。然后，运行程序运行脚本命令。</p>
  <a id="more"></a>
@@ -149,7 +149,7 @@
 <td><code>CI_COMMIT_BEFORE_SHA</code></td>
 <td>11.2</td>
 <td>所有</td>
-<td>先前的最新提交存在于分支中。始终<code>0000000000000000000000000000000000000000</code>处于合并请求的管道中。</td>
+<td>先前的最新提交存在于分支中。始终处于合并请求的管道中。</td>
 </tr>
 <tr>
 <td><code>CI_COMMIT_DESCRIPTION</code></td>
@@ -1478,6 +1478,12 @@
 </table>
 </div>
 <p><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/variables/predefined_variables.html">https://docs.gitlab.com/ee/ci/variables/predefined_variables.html</a></p>
+<h5 id="2-使用variables来声明变量"><a href="#2-使用variables来声明变量" class="headerlink" title="2. 使用variables来声明变量"></a>2. 使用variables来声明变量</h5><p>在脚本中使用$+变量名来使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">variables:</span><br><span class="line">  TEST: &quot;HELLO WORLD&quot;</span><br><span class="line"> </span><br><span class="line">script:</span><br><span class="line">  - echo &quot;$TEST&quot;</span><br></pre></td></tr></table></figure></p>
+<p>使用UI创建自定义变量</p>
+<p>点击Setting  =&gt; CI/CD  展开Variables 添加一个Key来表示变量名, 添加一个Value 来表示变量的值  一般用于存储密码,账号,地址</p>
+<p><img src="/images/pasted-73.png" alt="upload successful"></p>
+<p>在.gitlab.ci.yml中直接使用  $变量名  使用 </p>
+<p>如 $IMAGE_NAME</p>
 
       
       <!-- reward -->

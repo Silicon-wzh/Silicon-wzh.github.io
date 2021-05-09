@@ -59,7 +59,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">4.6k字</span>
+            <span class="post-count">5.1k字</span>
         </span>
     </span>
 
@@ -68,7 +68,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">18分钟</span>
+            <span class="post-count">21分钟</span>
         </span>
     </span>
 </div>
@@ -102,8 +102,13 @@
 <h5 id="2-Deploy-GitLab-Runner"><a href="#2-Deploy-GitLab-Runner" class="headerlink" title="2. Deploy GitLab Runner"></a>2. Deploy GitLab Runner</h5><ul>
 <li><strong>Install</strong></li>
 </ul>
+<p><strong><em> 使用本地卷安装 </em></strong></p>
 <blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -d --name gitlab-runner --restart always \ </span><br><span class="line">				  -v &#x2F;srv&#x2F;gitlab-runer&#x2F;config:&#x2F;etc&#x2F;gitlab-runer \</span><br><span class="line">			  -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock \</span><br><span class="line">			  gitlab&#x2F;gitlab-runner:latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker run  -d --name gitlab-runner --restart always \ </span><br><span class="line">			   -v &#x2F;srv&#x2F;gitlab-runer&#x2F;config:&#x2F;etc&#x2F;gitlab-runer \</span><br><span class="line">			   -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock \</span><br><span class="line">			   gitlab&#x2F;gitlab-runner:latest</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong><em> 使用Docker卷安装 </em></strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;$ docker volume create gitlab-runner-config</span><br><span class="line"></span><br><span class="line">&gt;$ docker run -d --name gitlab-runner --restart always \</span><br><span class="line">   -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock \</span><br><span class="line">   -v gitlab-runner-config:&#x2F;etc&#x2F;gitlab-runner \</span><br><span class="line">   gitlab&#x2F;gitlab-runner:latest</span><br></pre></td></tr></table></figure>
 </blockquote>
 <ul>
 <li><strong>Regist GitLab Runer</strong></li>
@@ -113,7 +118,102 @@
 <p><strong>Get Token Here</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -v &#x2F;srv&#x2F;gitlab-runner&#x2F;config:&#x2F;etc&#x2F;gitlab-runner gitlab&#x2F;gitlab-runner register \</span><br><span class="line">--non-interactive \</span><br><span class="line">--executor &quot;docker&quot; \</span><br><span class="line">  --docker-image alpine:latest \</span><br><span class="line">--url &quot;$gitlab address&quot; \</span><br><span class="line">--registration-token &quot;$TOKEN&quot; \</span><br><span class="line">--description &quot;first-register-runner&quot; \</span><br><span class="line">--tag-list &quot;test-cicd, dockercicd&quot; \ (runner 标签)</span><br><span class="line">--run-untagged&#x3D;&quot;true&quot; \</span><br><span class="line">--locked&#x3D;&quot;false&quot; \</span><br><span class="line">--access-level&#x3D;&quot;not_protected&quot;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h5 id="3-yml-file"><a href="#3-yml-file" class="headerlink" title="3. yml file"></a>3. yml file</h5><ul>
+<h5 id="3-runner-配置"><a href="#3-runner-配置" class="headerlink" title="3. runner 配置"></a>3. runner 配置</h5><p>配置文件<br/><strong>/srv/gitlab-runner/config/config.toml</strong></p>
+<p><br/> 全局的部分<br/><strong>concurrent  </strong>限制能够同时run多个job  0为不限制<br/><strong>log_level  </strong>可选项 debug, info, warn, error, fatal, panic<br/><strong>check_interval  </strong>检查周期 检查新的job 单位秒 默认三秒<br/>  </p>
+<p>官方文档  <a target="_blank" rel="noopener" href="https://docs.gitlab.com/runner/configuration/advanced-configuration.html">https://docs.gitlab.com/runner/configuration/advanced-configuration.html</a></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Runner 的名字 描述</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>GitLab 地址</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>The Runner’s special token (not to be confused with the registration token)</td>
+</tr>
+<tr>
+<td><code>tls-ca-file</code></td>
+<td>File containing the certificates to verify the peer when using HTTPS</td>
+</tr>
+<tr>
+<td><code>tls-cert-file</code></td>
+<td>File containing the certificate to authenticate with the peer when using HTTPS</td>
+</tr>
+<tr>
+<td><code>tls-key-file</code></td>
+<td>File containing the private key to authenticate with the peer when using HTTPS</td>
+</tr>
+<tr>
+<td><code>limit</code></td>
+<td>Limit how many jobs can be handled concurrently by this token. <code>0</code> (default) simply means don’t limit</td>
+</tr>
+<tr>
+<td><code>executor</code></td>
+<td>Select how a project should be built, see next section</td>
+</tr>
+<tr>
+<td><code>shell</code></td>
+<td>Name of shell to generate the script. Default value is <a target="_blank" rel="noopener" href="https://docs.gitlab.com/runner/shells/index.html#overview">platform dependent</a>.</td>
+</tr>
+<tr>
+<td><code>builds_dir</code></td>
+<td>Absolute path to a directory where builds will be stored in context of selected executor (Locally, Docker, SSH)</td>
+</tr>
+<tr>
+<td><code>cache_dir</code></td>
+<td>Absolute path to a directory where build caches will be stored in context of selected executor (locally, Docker, SSH). If the <code>docker</code> executor is used, this directory needs to be included in its <code>volumes</code> parameter.</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>Append or overwrite environment variables</td>
+</tr>
+<tr>
+<td><code>request_concurrency</code></td>
+<td>Limit number of concurrent requests for new jobs from GitLab (default 1)</td>
+</tr>
+<tr>
+<td><code>output_limit</code></td>
+<td>Set maximum build log size in kilobytes, by default set to 4096 (4MB)</td>
+</tr>
+<tr>
+<td><code>pre_clone_script</code></td>
+<td>Commands to be executed on the Runner before cloning the Git repository. this can be used to adjust the Git client configuration first, for example. To insert multiple commands, use a (triple-quoted) multi-line string or “\n” character.</td>
+</tr>
+<tr>
+<td><code>pre_build_script</code></td>
+<td>Commands to be executed on the Runner after cloning the Git repository, but before executing the build. To insert multiple commands, use a (triple-quoted) multi-line string or “\n” character.</td>
+</tr>
+<tr>
+<td><code>post_build_script</code></td>
+<td>Commands to be executed on the Runner just after executing the build, but before executing <code>after_script</code>. To insert multiple commands, use a (triple-quoted) multi-line string or “\n” character.</td>
+</tr>
+<tr>
+<td><code>clone_url</code></td>
+<td>Overwrite the URL for the GitLab instance. Used if the Runner can’t connect to GitLab on the URL GitLab exposes itself.</td>
+</tr>
+<tr>
+<td><code>debug_trace_disabled</code></td>
+<td>Disables the <code>CI_DEBUG_TRACE</code> feature. When set to true, then debug log (trace) will remain disabled even if <code>CI_DEBUG_TRACE</code> will be set to <code>true</code> by the user.</td>
+</tr>
+<tr>
+<td><code>referees</code></td>
+<td>Extra job monitoring workers that pass their results as job artifacts to GitLab</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="4-yml-file"><a href="#4-yml-file" class="headerlink" title="4. yml file"></a>4. yml file</h5><ul>
 <li>基本关键词<blockquote>
 <p>任务关键词:<br><code>script</code>,<code>after_script</code>,<code>allow_failure</code>,<code>artifacts</code>,<code>before_script</code>,<code>cache</code>,<code>coverage</code>,<code>dependencies</code>,<code>environment</code>,<code>except</code>,<code>extends</code>,<code>image</code>,<code>include</code>,<code>interruptible</code>,<code>only</code>,<code>pages</code>,<code>parallel</code>,<code>release</code>,<code>resource_group</code>,<code>retry</code>,<code>rules</code>,<code>services</code>,<code>stage</code>,<code>tags</code>,<code>timeout</code>,<code>trigger</code>,<code>variables</code>,<code>when</code><br>全局关键词<br><code>image</code>,<code>services</code>,<code>before_script</code>,<code>after_script</code>,<code>tags</code>,<code>cache</code>,<code>artifacts</code>,<code>retry</code>,<code>timeout</code>,<code>interruptible</code></p>
 </blockquote>
