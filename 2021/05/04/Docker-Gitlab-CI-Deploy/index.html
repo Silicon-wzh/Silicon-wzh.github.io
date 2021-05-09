@@ -59,7 +59,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">3.6k字</span>
+            <span class="post-count">4.6k字</span>
         </span>
     </span>
 
@@ -68,7 +68,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">14分钟</span>
+            <span class="post-count">18分钟</span>
         </span>
     </span>
 </div>
@@ -193,9 +193,29 @@
 <p>配置下游流水线式也可以执行分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rspec:</span><br><span class="line">  stage: test</span><br><span class="line">  script: bundle exec rspec</span><br><span class="line"></span><br><span class="line">staging:</span><br><span class="line">  stage: deploy</span><br><span class="line">  trigger:</span><br><span class="line">    project: my&#x2F;deployment</span><br><span class="line">    branch: stablez</span><br></pre></td></tr></table></figure><br><strong>rules</strong><br>rules是用于规定任务的执行规则，使用一个表达式，来规范那些任务执行，那些任务不执行.还可以在任务成功，或者失败后，触发另一个任务。<br>如下面这个例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker build:</span><br><span class="line">  script: docker build -t my-image:$CI_COMMIT_REF_SLUG .</span><br><span class="line">  rules:</span><br><span class="line">    - if: &#39;$CI_COMMIT_BRANCH &#x3D;&#x3D; &quot;master&quot;&#39;</span><br><span class="line">      when: delayed</span><br><span class="line">      start_in: &#39;3 hours&#39;</span><br><span class="line">      allow_failure: true</span><br></pre></td></tr></table></figure>
 <p>如果当前的分支是master分支则任务执行就延迟3个小时，并且允许失败。<br>rules的下面有是哪个可选属性</p>
-<p>if 使用if表达式 添加或移除一个任务， 类似 only:variables.<br>changes 根据某些个文件是否改变来追加或移除一些任务。类似 only:changes.<br>exists 根据是否存在特定文件来追加或移除一些任务<br>if中可以使用CICD的所有预设变量，分支，来源，合并请求，commit，push web，schedule等。可以针对不用的情景配置不用的规则。<br>在看下这个例子</p>
+<p>if 使用if表达式 添加或移除一个任务， 类似 only:variables.<br>changes 根据某些个文件是否改变来追加或移除一些任务。类似 only:changes.<br>exists 根据是否存在特定文件来追加或移除一些任务<br>if中可以使用CICD的所有预设变量，分支，来源，合并请求，commit，push web，schedule等。可以针对不用的情景配置不用的规则。<br>再看下这个例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">job:</span><br><span class="line">  script: echo &quot;Hello, Rules!&quot;</span><br><span class="line">  rules:</span><br><span class="line">    - if: &#39;$CI_MERGE_REQUEST_TARGET_BRANCH_NAME &#x3D;&#x3D; &quot;master&quot;&#39;</span><br><span class="line">      when: manual</span><br><span class="line">      allow_failure: true</span><br></pre></td></tr></table></figure>
 <p>解释起来并不复杂，一个判断语句，二句赋值语句。即如果当前分支是master，在任务的执行方式改为手动，并且运行失败。</p>
+<p><strong>allow_failure</strong><br>allow_failure是一个布尔类型， true或false， 默认为false，表示当前任务是否允许失败。有这样一个应用场景，在使用eslint检查代码的时候，如果团队管理松散，可以将在eslint的任务下设置allow_failure: true,（其实这样还不如去掉这个任务那，手动狗头） 这样即使这个任务报错了，流水线也会继续往下走。如果一个任务设置了allow_failure: true，并且这个任务报错了，那么它将会显示黄色警告。但有种情况任务失败了也会停止的， 那就是任务设置了when: manual，即手动操作的任务。手动启动的任务，报错了就会停止，不会继续执行后续任务，除非在rule设置报错的处理逻辑。</p>
+<p><strong>coverage</strong><br>coverage 是用于获取项目的代码覆盖率，这个配置项的值只能是一个正则表达式，官方有提供一些，在CICD的General pipelines里<br>覆盖率可以添加到项目的readme上，像这样的。</p>
+<p><strong>pages</strong><br>pages是一项特殊的工作，用于将静态内容上传到GitLab，可用于为您的网站提供服务，其实就是可以托管你的网站。它具有特殊的语法，因此必须满足以下两个要求：</p>
+<p>任何静态内容都必须放在public/目录下。<br>制品artifacts必须是目录public/,就是编译后的文件必须存放在public中<br>下面的示例将所有文件从项目的根目录移至public/目录。这里必须先创建一个.public 目录，防止根目录下已经存在public了，导致循环复制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pages:</span><br><span class="line">  stage: deploy</span><br><span class="line">  script:</span><br><span class="line">    - mkdir .public</span><br><span class="line">    - cp -r * .public</span><br><span class="line">    - mv .public public</span><br><span class="line">  artifacts:</span><br><span class="line">    paths:</span><br><span class="line">      - public</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br></pre></td></tr></table></figure><br><strong>release</strong><br>release关键词是用于创建一个release，即创建一个发布，<br>创建一个发布，可以配置这些内容</p>
+<ul>
+<li>tag_name tag 名称</li>
+<li>description 描述</li>
+<li>name 名称</li>
+<li>ref 提交的hash值</li>
+<li>milestones 要关联的里程碑</li>
+<li>released_at 创建时间<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ios-release:</span><br><span class="line">  script:</span><br><span class="line">    - echo &#39;iOS release job&#39;</span><br><span class="line">  release:</span><br><span class="line">    tag_name: v1.0.0-ios</span><br><span class="line">    description: &#39;iOS release v1.0.0&#39;</span><br></pre></td></tr></table></figure>
+<strong>resource_group</strong><br>有时在环境中同时运行多个作业或流水线时可能会导致在部署过程中出错。</li>
+</ul>
+<p>为了避免这些错误，resource_group可以使用该属性来确保运行程序不会同时运行某些任务。资源组的行为类似于其他编程语言中的信号灯。</p>
+<p>当一个任务设置了resource_group ， 同一项目的不同管道之间任务的运行是互斥的。如果属于同一资源组的多个任务同时进入队列，则运行程序仅选择其中一个作业。其他作业将等到 resource_group释放。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy-to-production:</span><br><span class="line">  script: deploy</span><br><span class="line">  resource_group: production</span><br></pre></td></tr></table></figure><br>在这种情况下，两个deploy-to-production单独流水线中的两个作业永远无法同时运行。最后的结果及时你可以确保永远不会在生产环境中发生并发部署。</p>
+<p>您可以为每个环境定义多个资源组。例如，当部署到物理设备时，您可能有多个物理设备。可以将每个设备部署到，但是在任何给定时间每个设备只能部署一个。</p>
+<p>resource<em>group值只能包含字母，数字，-, </em>, /, $, {, }, .,和空格。它不能以开头或结尾/。</p>
+<p>retry<br>retry可以设置一个任务的重试次数，值的类型是数字 最大是2，如果设置2，就表明该任务最多可以执行3次，其中包括2次重试。对于网络不稳定的部署，非常有用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test:</span><br><span class="line">  script: rspec</span><br><span class="line">  retry: 2</span><br></pre></td></tr></table></figure><br><strong>timeout</strong><br>timeout是用于设置一个任务的超时时间，<br>你也可以设置一个项目级别的超时时间。在CICD的设置中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">build:</span><br><span class="line">  script: build.sh</span><br><span class="line">  timeout: 3 hours 30 minutes</span><br><span class="line"></span><br><span class="line">test:</span><br><span class="line">  script: rspec</span><br><span class="line">  timeout: 3h 30m</span><br></pre></td></tr></table></figure>
+<p><strong>variables</strong><br>variables可以让你在yaml文件中定义变量，变量可以设置全局的，也可以是单个任务内定义。然后在script或者执行的命中使用,定义和使用的示例,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">variables:</span><br><span class="line">  DEPLOY_SITE: &quot;https:&#x2F;&#x2F;example.com&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">deploy_job:</span><br><span class="line">  stage: deploy</span><br><span class="line">  script:</span><br><span class="line">    - deploy-script --url $DEPLOY_SITE --path &quot;&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">deploy_review_job:</span><br><span class="line">  stage: deploy</span><br><span class="line">  variables:</span><br><span class="line">    REVIEW_PATH: &quot;&#x2F;review&quot;</span><br><span class="line">  script:</span><br><span class="line">    - deploy-review-script --url $DEPLOY_SITE --path $REVIEW_PATH</span><br></pre></td></tr></table></figure></p>
 
       
       <!-- reward -->
@@ -269,6 +289,15 @@
   
   
   <nav class="article-nav">
+    
+      <a href="/2021/05/09/Gitlab-CI-%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Gitlab CI 预定义变量
+          
+        </div>
+      </a>
     
     
       <a href="/2020/04/01/TensorFlow%E5%85%A5%E9%97%A8/" class="article-nav-link">
